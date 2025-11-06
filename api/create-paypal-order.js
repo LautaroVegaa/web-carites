@@ -1,5 +1,5 @@
 // /api/create-paypal-order.js
-const { generateAccessToken, createOrder } = require('./_lib/paypal');
+const { generateAccessToken, createOrder } = require('./lib/paypal');
 const allowCors = (fn) => async (req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST,OPTIONS');

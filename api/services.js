@@ -1,5 +1,5 @@
 // /api/services.js
-const { dbConnect, Service } = require('./_lib/mongodb');
+const { dbConnect, Service } = require('./lib/mongodb');
 const allowCors = (fn) => async (req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS');
