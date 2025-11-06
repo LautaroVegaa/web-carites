@@ -1368,3 +1368,138 @@ h6 {
     border: 1px solid var(--primary-violet);
     /* Borde violeta */
 }
+
+/* --- ESTILOS PARA EL FORMULARIO DE CLIENTE --- */
+
+.customer-form .form-group {
+    margin-bottom: 1.25rem;
+}
+
+.customer-form .form-group label,
+.customer-form .form-group legend {
+    display: block;
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--dark-gray);
+    margin-bottom: 0.5rem;
+}
+
+.customer-form input[type="text"],
+.customer-form input[type="email"],
+.customer-form input[type="tel"],
+.customer-form textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #D1D5DB; /* gris claro */
+    border-radius: 8px;
+    font-size: 1rem;
+    font-family: 'Poppins', sans-serif;
+    color: var(--dark-gray);
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.customer-form input[type="text"]:focus,
+.customer-form input[type="email"]:focus,
+.customer-form input[type="tel"]:focus,
+.customer-form textarea:focus {
+    outline: none;
+    border-color: var(--primary-violet);
+    box-shadow: 0 0 0 3px rgba(91, 33, 182, 0.1);
+}
+
+.customer-form textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+/* --- Estilos de Validación --- */
+
+.customer-form .form-group .form-error-msg {
+    display: none;
+    font-size: 0.8rem;
+    color: #EF4444; /* Rojo error */
+    margin-top: 0.25rem;
+}
+
+.customer-form .form-group.invalid input,
+.customer-form .form-group.invalid textarea {
+    border-color: #EF4444;
+}
+
+.customer-form .form-group.invalid .form-error-msg {
+    display: block;
+}
+
+/* --- Grupo de Radio Buttons (Modalità) --- */
+.customer-form fieldset {
+    border: none;
+    padding: 0;
+    margin: 0;
+}
+
+.customer-form .radio-group {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.5rem;
+}
+
+.customer-form .radio-group label {
+    font-weight: 400;
+    font-size: 1rem;
+    margin-bottom: 0;
+}
+
+.customer-form input[type="radio"] {
+    width: auto;
+    accent-color: var(--primary-violet);
+}
+
+/* --- Footer de Pago --- */
+.payment-footer {
+    border-top: 1px solid #eee;
+    background-color: var(--light-gray);
+    padding: 1.5rem;
+    text-align: center;
+}
+
+.payment-footer p {
+    font-size: 0.9rem;
+    color: var(--gray);
+    margin-bottom: 1rem;
+}
+
+/* Adaptar botones de pago */
+.payment-footer .checkout-btn,
+.payment-footer .stripe-btn {
+    width: 100%;
+    margin-bottom: 0.75rem;
+}
+
+/* Spinner de carga para botones */
+.btn-loading {
+    position: relative;
+    color: transparent !important;
+    pointer-events: none;
+}
+
+.btn-loading::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-left: -12px;
+    margin-top: -12px;
+    width: 24px;
+    height: 24px;
+    border: 3px solid rgba(255, 255, 255, 0.5);
+    border-top-color: var(--white);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}

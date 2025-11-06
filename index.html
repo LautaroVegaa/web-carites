@@ -70,6 +70,7 @@
             </div>
         </div>
     </div>
+    
     <div class="modal-overlay" id="promo-modal" role="dialog" aria-modal="true" aria-labelledby="promo-modal-title">
         <div class="modal" id="promo-modal-content">
             <div class="modal-header">
@@ -90,6 +91,7 @@
             </div>
         </div>
     </div>
+    
     <div class="modal-overlay" id="cart-modal" role="dialog" aria-modal="true" aria-labelledby="cart-modal-title">
         <div class="modal">
             <div class="modal-header">
@@ -105,11 +107,67 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button class="checkout-btn stripe-btn" id="stripe-btn" onclick="checkoutStripe()" style="display:none;">
-                    Paga con Carta (Stripe)
+                <button class="checkout-btn" id="go-to-checkout-btn" style="display:none;">
+                    Completa i dati per pagare
                 </button>
-                <div id="paypal-button-container" style="display:none; margin-top: 10px;"></div>
             </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="customer-form-modal" role="dialog" aria-modal="true" aria-labelledby="customer-form-title">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 id="customer-form-title">Completa i tuoi dati</h3>
+                <button class="modal-close" id="close-customer-form">&times;</button>
+            </div>
+            
+            <form id="customer-form" class="customer-form" novalidate>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="customer-name">Nome e Cognome</label>
+                        <input type="text" id="customer-name" name="name" required>
+                        <small class="form-error-msg">Campo obbligatorio</small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="customer-email">Email</label>
+                        <input type="email" id="customer-email" name="email" required>
+                        <small class="form-error-msg">Inserisci un'email valida</small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="customer-phone">Numero di Telefono</label>
+                        <input type="tel" id="customer-phone" name="phone" required>
+                        <small class="form-error-msg">Campo obbligatorio</small>
+                    </div>
+
+                    <fieldset class="form-group" id="modality-group" style="display: none;">
+                        <legend>Modalità del massaggio</legend>
+                        <div class="radio-group">
+                            <input type="radio" id="modality-local" name="modality" value="locale" checked>
+                            <label for="modality-local">In locale</label>
+                        </div>
+                        <div class="radio-group">
+                            <input type="radio" id="modality-domicilio" name="modality" value="domicilio">
+                            <label for="modality-domicilio">A domicilio</label>
+                        </div>
+                    </fieldset>
+                    
+                    <div class="form-group">
+                        <label for="customer-availability">Disponibilità (giorno e ora)</label>
+                        <textarea id="customer-availability" name="availability" rows="3" placeholder="Es. Martedì pomeriggio, dopo le 18:00..."></textarea>
+                    </div>
+                </div>
+
+                <div class="modal-footer payment-footer">
+                    <p>Una volta confermato, verrai reindirizzato al pagamento.</p>
+                    <button type="button" class="checkout-btn stripe-btn" id="stripe-btn">
+                        Conferma e Paga con Carta
+                    </button>
+                    <div id="paypal-button-container" style="margin-top: 10px;"></div>
+                </div>
+            </form>
+
         </div>
     </div>
     <main>

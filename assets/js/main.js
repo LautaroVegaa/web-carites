@@ -12,29 +12,28 @@
     let paypalRendered = false;
     let currentServiceId = null;
     let currentPromoId = null;
+    // let pendingPaymentMethod = null; // ¡ELIMINADO! Ya no es necesario
 
     // =====================
     // DOM ELEMENT REFERENCES
     // =====================
     let hamburger, navMenu, cartIcon, floatingCart, cartModal, closeCart,
         servicesGrid, esteticaGrid, cartCount, floatingCartCount, cartItems,
-        cartTotal, totalAmount, stripeBtn, paypalContainer, infoModal,
-        promoModal, navbar;
+        cartTotal, totalAmount, paypalContainer, infoModal,
+        promoModal, navbar,
+        // --- Nuevos elementos del formulario ---
+        goToCheckoutBtn, customerFormModal, closeCustomerForm, customerForm,
+        stripeBtn, modalityGroup,
+        // --- Campos del formulario ---
+        customerName, customerEmail, customerPhone;
+
 
     // =====================
     // INITIALIZATION
     // =====================
 
-    /**
-     * Punto de entrada principal. Espera a que el DOM esté cargado para iniciar la app.
-     */
     document.addEventListener('DOMContentLoaded', initializeApp);
 
-    /**
-     * Función principal de inicialización.
-     * 1. Cacha las referencias del DOM.
-     * 2. Inicia todos los módulos de la aplicación.
-     */
     function initializeApp() {
         // Cachear elementos del DOM
         navbar = document.getElementById('navbar');
@@ -51,18 +50,30 @@
         cartItems = document.getElementById('cart-items');
         cartTotal = document.getElementById('cart-total');
         totalAmount = document.getElementById('total-amount');
-        stripeBtn = document.getElementById("stripe-btn");
         paypalContainer = document.getElementById("paypal-button-container");
         infoModal = document.getElementById("info-modal");
         promoModal = document.getElementById("promo-modal");
+
+        // --- Nuevos elementos cacheados ---
+        goToCheckoutBtn = document.getElementById("go-to-checkout-btn");
+        customerFormModal = document.getElementById("customer-form-modal");
+        closeCustomerForm = document.getElementById("close-customer-form");
+        customerForm = document.getElementById("customer-form");
+        stripeBtn = document.getElementById("stripe-btn");
+        modalityGroup = document.getElementById("modality-group");
+        customerName = document.getElementById("customer-name");
+        customerEmail = document.getElementById("customer-email");
+        customerPhone = document.getElementById("customer-phone");
 
         // Inicializar módulos
         initMobileMenu();
         initSmoothScroll();
         initCartFunctionality();
+        initCustomerForm(); // ¡NUEVO!
         initPromoCarousel();
         initObservers();
         initGlobalListeners();
+        initPayPalButtons(); // ¡NUEVO! Se inicializa aquí
 
         // Cargar datos y UI inicial
         renderServices();
@@ -72,25 +83,20 @@
     // =====================
     // MODULE INITIALIZERS
     // =====================
-
-    /**
-     * Configura el menú de navegación móvil (hamburguesa).
-     */
+    
+    // ... (initMobileMenu, initSmoothScroll, initPromoCarousel, initObservers sin cambios) ...
     function initMobileMenu() {
         if (!hamburger || !navMenu) return;
-
         hamburger.addEventListener('click', () => {
             hamburger.classList.toggle('active');
             navMenu.classList.toggle('active');
         });
-
         document.querySelectorAll('.nav-link').forEach(link => {
             link.addEventListener('click', () => {
                 hamburger.classList.remove('active');
                 navMenu.classList.remove('active');
             });
         });
-
         document.addEventListener('click', (e) => {
             if (!hamburger.contains(e.target) && !navMenu.contains(e.target)) {
                 hamburger.classList.remove('active');
@@ -99,9 +105,6 @@
         });
     }
 
-    /**
-     * Configura el desplazamiento suave para los enlaces de anclaje.
-     */
     function initSmoothScroll() {
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
@@ -117,9 +120,63 @@
             });
         });
     }
+    
+    function initPromoCarousel() {
+        const track = document.getElementById("promo-track");
+        if (!track) return; 
+        const slides = Array.from(track.children);
+        const nextButton = document.getElementById("promo-next");
+        const prevButton = document.getElementById("promo-prev");
+        if (slides.length === 0) return;
+        const slideWidth = slides[0].getBoundingClientRect().width;
+        let currentIndex = 0;
+        const moveToSlide = (targetIndex) => {
+            const newSlideWidth = slides[0].getBoundingClientRect().width; 
+            track.style.transform = 'translateX(-' + newSlideWidth * targetIndex + 'px)';
+            currentIndex = targetIndex;
+        }
+        nextButton.addEventListener('click', () => {
+            let nextIndex = currentIndex + 1;
+            if (nextIndex >= slides.length) {
+                nextIndex = 0;
+            }
+            moveToSlide(nextIndex);
+        });
+        prevButton.addEventListener('click', () => {
+            let prevIndex = currentIndex - 1;
+            if (prevIndex < 0) {
+                prevIndex = slides.length - 1;
+            }
+            moveToSlide(prevIndex);
+        });
+        window.addEventListener('resize', () => moveToSlide(currentIndex));
+    }
+
+    function initObservers() {
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                    observer.unobserve(entry.target); 
+                }
+            });
+        }, observerOptions);
+        const animatedElements = document.querySelectorAll('.service-card, .promo-card, .contact-item');
+        animatedElements.forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+    }
 
     /**
-     * Configura los eventos para abrir/cerrar el modal del carrito.
+     * Lógica del modal del carrito.
      */
     function initCartFunctionality() {
         if (!cartIcon || !floatingCart || !closeCart || !cartModal) return;
@@ -133,100 +190,51 @@
                 closeCartModal();
             }
         });
-
-        // Asignar evento al botón de Stripe (definido en el HTML)
-        // El evento onclick="checkoutStripe()" se mantiene en el HTML,
-        // pero para mayor limpieza, lo asignamos aquí:
-        stripeBtn.addEventListener('click', checkoutStripe);
         
-        // Hacer públicas las funciones de los modales para el HTML
+        // ¡MODIFICADO! Este botón ahora abre el formulario de cliente
+        goToCheckoutBtn.addEventListener('click', openCustomerForm);
+
+        // Hacer públicas las funciones
         window.openInfo = openInfo;
         window.closeInfo = closeInfo;
         window.openPromoModal = openPromoModal;
         window.closePromoModal = closePromoModal;
-        
-        // Hacer públicas las funciones del carrito para el HTML
         window.addToCart = addToCart;
         window.removeFromCart = removeFromCart;
         window.updateQuantity = updateQuantity;
-        window.checkoutStripe = checkoutStripe;
+        window.checkoutStripe = checkoutStripe; // Sigue siendo global por si acaso
     }
 
     /**
-     * Configura el carrusel de promociones.
+     * ¡NUEVO! Configura el formulario de cliente.
      */
-    function initPromoCarousel() {
-        const track = document.getElementById("promo-track");
-        if (!track) return; // Salir si el carrusel no está en la página
+    function initCustomerForm() {
+        if (!customerFormModal || !closeCustomerForm || !stripeBtn) return;
 
-        const slides = Array.from(track.children);
-        const nextButton = document.getElementById("promo-next");
-        const prevButton = document.getElementById("promo-prev");
-        
-        if (slides.length === 0) return;
+        closeCustomerForm.addEventListener('click', closeCustomerFormModal);
 
-        const slideWidth = slides[0].getBoundingClientRect().width;
-        let currentIndex = 0;
-
-        const moveToSlide = (targetIndex) => {
-            const newSlideWidth = slides[0].getBoundingClientRect().width; // Recalcular en caso de resize
-            track.style.transform = 'translateX(-' + newSlideWidth * targetIndex + 'px)';
-            currentIndex = targetIndex;
-        }
-
-        nextButton.addEventListener('click', () => {
-            let nextIndex = currentIndex + 1;
-            if (nextIndex >= slides.length) {
-                nextIndex = 0; // Vuelve al inicio
+        customerFormModal.addEventListener('click', (e) => {
+            if (e.target === customerFormModal) {
+                closeCustomerFormModal();
             }
-            moveToSlide(nextIndex);
         });
 
-        prevButton.addEventListener('click', () => {
-            let prevIndex = currentIndex - 1;
-            if (prevIndex < 0) {
-                prevIndex = slides.length - 1; // Va al final
+        // El botón de Stripe ahora valida y guarda antes de pagar
+        stripeBtn.addEventListener('click', () => {
+            if (validateCustomerForm()) {
+                saveCustomerDataToLocalStorage();
+                setLoadingState(stripeBtn, true); // Activar spinner
+                checkoutStripe(); 
             }
-            moveToSlide(prevIndex);
         });
-
-        window.addEventListener('resize', () => moveToSlide(currentIndex));
     }
 
-    /**
-     * Configura el Intersection Observer para animaciones de scroll.
-     */
-    function initObservers() {
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                    observer.unobserve(entry.target); // Dejar de observar una vez animado
-                }
-            });
-        }, observerOptions);
-
-        const animatedElements = document.querySelectorAll('.service-card, .promo-card, .contact-item');
-        
-        animatedElements.forEach(el => {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(30px)';
-            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-            observer.observe(el);
-        });
-    }
 
     /**
      * Configura listeners globales (scroll, teclado, etc.).
      */
     function initGlobalListeners() {
-        // Efecto de sombra en Navbar al hacer scroll
+        // ... (Efecto de sombra en Navbar sin cambios) ...
         window.addEventListener('scroll', () => {
             if (!navbar) return;
             if (window.scrollY > 100) {
@@ -239,35 +247,33 @@
                 navbar.style.backdropFilter = 'none';
             }
         });
-
+        
         // Cerrar modales con la tecla Escape
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
                 if (cartModal.classList.contains('active')) closeCartModal();
                 if (infoModal.classList.contains('active')) closeInfo();
                 if (promoModal.classList.contains('active')) closePromoModal();
+                if (customerFormModal.classList.contains('active')) closeCustomerFormModal(); // ¡NUEVO!
             }
         });
         
-        // Listeners para botones y overlays de modales
+        // ... (Listeners de botones de modales info y promo sin cambios) ...
         document.getElementById("modal-add-cart").addEventListener("click", () => {
             if (currentServiceId) {
                 addToCart(currentServiceId);
                 closeInfo();
             }
         });
-        
         infoModal.addEventListener("click", (e) => {
             if (e.target === infoModal) closeInfo();
         });
-
         document.getElementById("promo-modal-add-cart").addEventListener("click", () => {
             if (currentPromoId) {
                 addToCart(currentPromoId);
                 closePromoModal();
             }
         });
-        
         promoModal.addEventListener("click", (e) => {
             if (e.target === promoModal) closePromoModal();
         });
@@ -276,29 +282,24 @@
     // =====================
     // CORE LOGIC (SERVICES)
     // =====================
-
-    /**
-     * Obtiene los servicios desde la API y los renderiza en el DOM.
-     */
+    
+    // ... (renderServices y createServiceCard sin cambios) ...
     async function renderServices() {
         if (!servicesGrid || !esteticaGrid) return;
 
         try {
-            // ¡ACTUALIZADO! Esta ruta ahora apunta a /api/services.js
             const response = await fetch("/api/services");
             if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-            services = await response.json(); // Asigna a la variable de estado
+            services = await response.json(); 
         } catch (err) {
             console.error("No se pudieron cargar los servicios", err);
             servicesGrid.innerHTML = "<p>Error al cargar los servicios. Intente más tarde.</p>";
             return;
         }
 
-        // Limpiar grids
         servicesGrid.innerHTML = '';
         esteticaGrid.innerHTML = '';
 
-        // Renderizar cada servicio
         services.forEach(service => {
             const card = createServiceCard(service);
             if (service.category === "estetica") {
@@ -309,11 +310,6 @@
         });
     }
 
-    /**
-     * Crea el elemento HTML para una tarjeta de servicio.
-     * @param {object} service - El objeto del servicio
-     * @returns {HTMLElement} El elemento div de la tarjeta
-     */
     function createServiceCard(service) {
         const card = document.createElement('div');
         card.className = `service-card ${service.isPromo ? 'promo' : ''}`;
@@ -344,14 +340,12 @@
         return card;
     }
 
+
     // =====================
     // CORE LOGIC (CART)
     // =====================
 
-    /**
-     * Añade un servicio al carrito o incrementa su cantidad.
-     * @param {number} serviceId - ID del servicio a añadir.
-     */
+    // ... (addToCart, removeFromCart, updateQuantity, saveCart, updateCartCount, renderCartItems sin cambios) ...
     function addToCart(serviceId) {
         const service = services.find(s => s.id === serviceId);
         if (!service) return;
@@ -368,33 +362,22 @@
                 quantity: 1
             });
         }
-
         saveCart();
         updateCartUI();
         showAddToCartFeedback();
     }
 
-    /**
-     * Elimina un item completamente del carrito.
-     * @param {number} serviceId - ID del servicio a eliminar.
-     */
     function removeFromCart(serviceId) {
         cart = cart.filter(item => item.id !== serviceId);
         saveCart();
         updateCartUI();
     }
 
-    /**
-     * Actualiza la cantidad de un item en el carrito.
-     * @param {number} serviceId - ID del servicio.
-     * @param {number} newQuantity - La nueva cantidad.
-     */
     function updateQuantity(serviceId, newQuantity) {
         if (newQuantity <= 0) {
             removeFromCart(serviceId);
             return;
         }
-
         const item = cart.find(item => item.id === serviceId);
         if (item) {
             item.quantity = newQuantity;
@@ -403,30 +386,14 @@
         }
     }
 
-    /**
-     * Guarda el estado actual del carrito en localStorage.
-     */
     function saveCart() {
         localStorage.setItem('caritesCart', JSON.stringify(cart));
     }
-
-    /**
-     * Actualiza todos los componentes de la UI del carrito.
-     */
-    function updateCartUI() {
-        updateCartCount();
-        renderCartItems();
-        updateCartTotal();
-    }
-
-    /**
-     * Actualiza el contador numérico del ícono del carrito.
-     */
+    
     function updateCartCount() {
         const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
         cartCount.textContent = totalItems;
         floatingCartCount.textContent = totalItems;
-
         const hiddenClass = 'hidden';
         if (totalItems > 0) {
             cartCount.classList.remove(hiddenClass);
@@ -437,15 +404,11 @@
         }
     }
 
-    /**
-     * Renderiza los items dentro del modal del carrito.
-     */
     function renderCartItems() {
         if (cart.length === 0) {
             cartItems.innerHTML = '<p class="empty-cart">Il carrello è vuoto</p>';
             return;
         }
-
         cartItems.innerHTML = cart.map(item => `
             <div class="cart-item">
                 <div class="cart-item-info">
@@ -463,7 +426,7 @@
     }
 
     /**
-     * Calcula y muestra el total del carrito y maneja la visibilidad de los botones de pago.
+     * ¡MODIFICADO! Ahora solo muestra/oculta el botón de checkout.
      */
     function updateCartTotal() {
         const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
@@ -471,24 +434,14 @@
 
         if (cart.length > 0) {
             cartTotal.style.display = 'block';
-            stripeBtn.style.display = 'block';
-            paypalContainer.style.display = 'block';
-
-            // Renderiza PayPal SOLO la primera vez
-            if (!paypalRendered && typeof paypal !== "undefined") {
-                initPayPalButtons();
-                paypalRendered = true;
-            }
+            goToCheckoutBtn.style.display = 'block';
         } else {
             cartTotal.style.display = 'none';
-            stripeBtn.style.display = 'none';
-            paypalContainer.style.display = 'none';
+            goToCheckoutBtn.style.display = 'none';
         }
     }
 
-    /**
-     * Muestra una notificación temporal "Aggiunto al carrello!".
-     */
+    // ... (showAddToCartFeedback sin cambios) ...
     function showAddToCartFeedback() {
         const feedback = document.createElement('div');
         feedback.textContent = 'Aggiunto al carrello!';
@@ -507,8 +460,6 @@
             box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
             animation: fadeInOut 2s ease;
         `;
-        
-        // Asegurar que la animación esté disponible
         const styleId = 'feedback-animation';
         if (!document.getElementById(styleId)) {
             const style = document.createElement('style');
@@ -523,38 +474,27 @@
             `;
             document.head.appendChild(style);
         }
-
         document.body.appendChild(feedback);
-
         setTimeout(() => {
             document.body.removeChild(feedback);
         }, 2000);
     }
 
-
     // =====================
     // CORE LOGIC (MODALS)
     // =====================
 
-    /**
-     * Abre el modal de información del servicio.
-     * @param {number} serviceId - ID del servicio.
-     */
+    // ... (openInfo, closeInfo, openPromoModal, closePromoModal sin cambios) ...
     function openInfo(serviceId) {
         const service = services.find(s => s.id === serviceId);
         if (!service) return;
-
         currentServiceId = service.id;
-
-        // Poblar datos del modal
         document.getElementById("modal-title").textContent = service.title;
         document.getElementById("modal-prezzo").textContent = "€" + service.price;
         document.getElementById("modal-desc").textContent = service.description.replace("Disponibile in locale o a domicilio.", "");
-        
         const durataP = document.getElementById("modal-durata").parentNode;
         const detailsP = document.getElementById("modal-details");
         const modalImg = document.getElementById("modal-img");
-
         if (service.category === 'promo') {
             durataP.style.display = "none";
             detailsP.style.display = "none";
@@ -563,8 +503,6 @@
             durataP.style.display = "block";
             detailsP.style.display = "block";
             document.getElementById("modal-durata").textContent = service.duration;
-            
-            // Mostrar detalles (beneficios)
             detailsP.innerHTML = "";
             if (service.details && service.details.length > 0) {
                 const ul = document.createElement("ul");
@@ -576,89 +514,169 @@
                 detailsP.appendChild(ul);
             }
         }
-
         if (service.image) {
-            modalImg.src = service.image; // La ruta ya viene de la API (ej: "img/promo/mi-promo.jpg")
+            modalImg.src = service.image; 
             modalImg.alt = service.title;
             modalImg.style.display = "block";
         } else {
             modalImg.style.display = "none";
         }
-
         infoModal.classList.add("active");
         document.body.style.overflow = "hidden";
     }
-
-    /**
-     * Cierra el modal de información del servicio.
-     */
     function closeInfo() {
         infoModal.classList.remove("active");
         document.body.style.overflow = "auto";
         currentServiceId = null;
     }
-
-    /**
-     * Abre el modal de promoción horizontal.
-     * @param {number} promoId - ID de la promoción.
-     */
     function openPromoModal(promoId) {
         const promo = services.find(s => s.id === promoId);
         if (!promo) return;
-
         currentPromoId = promo.id;
-
         document.getElementById("promo-modal-title").textContent = promo.title;
         document.getElementById("promo-modal-desc").textContent = promo.description;
         document.getElementById("promo-modal-prezzo").textContent = "€" + promo.price;
-        document.getElementById("promo-modal-img").src = promo.image; // La ruta ya viene de la API
+        document.getElementById("promo-modal-img").src = promo.image; 
         document.getElementById("promo-modal-img").alt = promo.title;
-
         promoModal.classList.add("active");
         document.body.style.overflow = "hidden";
     }
-
-    /**
-     * Cierra el modal de promoción.
-     */
     function closePromoModal() {
         promoModal.classList.remove("active");
         document.body.style.overflow = "auto";
         currentPromoId = null;
     }
     
-    /**
-     * Abre el modal del carrito.
-     */
+    // --- Lógica de apertura/cierre de modales ---
     function openCart() {
         cartModal.classList.add('active');
         document.body.style.overflow = 'hidden';
     }
 
-    /**
-     * Cierra el modal del carrito.
-     */
     function closeCartModal() {
         cartModal.classList.remove('active');
         document.body.style.overflow = 'auto';
     }
 
+    // ¡NUEVO! Abrir formulario de cliente
+    function openCustomerForm() {
+        // 1. Comprobar si hay servicios que requieran elegir modalidad
+        const hasModalityOption = cart.some(item => {
+            const service = services.find(s => s.id === item.id);
+            return service && service.description.includes("Disponibile in locale o a domicilio");
+        });
+
+        // 2. Mostrar u ocultar el campo de modalidad
+        if (hasModalityOption) {
+            modalityGroup.style.display = 'block';
+        } else {
+            modalityGroup.style.display = 'none';
+        }
+
+        // 3. Abrir modal de formulario y cerrar carrito
+        customerFormModal.classList.add('active');
+        closeCartModal();
+        document.body.style.overflow = 'hidden';
+    }
+
+    // ¡NUEVO! Cerrar formulario de cliente
+    function closeCustomerFormModal() {
+        customerFormModal.classList.remove('active');
+        document.body.style.overflow = 'auto';
+        setLoadingState(stripeBtn, false); // Resetea el botón de Stripe si estaba cargando
+    }
+    
+
     // =====================
-    // CORE LOGIC (PAYMENTS)
+    // CORE LOGIC (VALIDACIÓN Y PAGO)
     // =====================
 
     /**
-     * Inicializa los botones de PayPal.
+     * ¡NUEVO! Valida el formulario del cliente.
+     * @returns {boolean} - true si es válido, false si no.
+     */
+    function validateCustomerForm() {
+        let isValid = true;
+        
+        // Validar Nombre
+        if (!customerName.value.trim()) {
+            customerName.parentElement.classList.add('invalid');
+            isValid = false;
+        } else {
+            customerName.parentElement.classList.remove('invalid');
+        }
+
+        // Validar Email
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!customerEmail.value.trim() || !emailRegex.test(customerEmail.value)) {
+            customerEmail.parentElement.classList.add('invalid');
+            isValid = false;
+        } else {
+            customerEmail.parentElement.classList.remove('invalid');
+        }
+        
+        // Validar Teléfono
+        if (!customerPhone.value.trim()) {
+            customerPhone.parentElement.classList.add('invalid');
+            isValid = false;
+        } else {
+            customerPhone.parentElement.classList.remove('invalid');
+        }
+
+        return isValid;
+    }
+    
+    /**
+     * ¡NUEVO! Guarda los datos del formulario en localStorage.
+     */
+    function saveCustomerDataToLocalStorage() {
+        const formData = new FormData(customerForm);
+        const customerData = {
+            name: formData.get('name'),
+            email: formData.get('email'),
+            phone: formData.get('phone'),
+            modality: modalityGroup.style.display === 'block' ? formData.get('modality') : 'N/A',
+            availability: formData.get('availability') || 'Nessuna preferenza'
+        };
+        
+        // Guardamos los datos para usarlos en la página de "gracias"
+        localStorage.setItem('customerDetails', JSON.stringify(customerData));
+    }
+    
+    /**
+     * ¡NUEVO! Muestra un spinner en el botón de pago
+     */
+    function setLoadingState(buttonElement, isLoading) {
+        if (isLoading) {
+            buttonElement.classList.add('btn-loading');
+            buttonElement.disabled = true;
+        } else {
+            buttonElement.classList.remove('btn-loading');
+            buttonElement.disabled = false;
+        }
+    }
+
+
+    /**
+     * ¡MODIFICADO! Inicializa los botones de PayPal DENTRO del formulario.
      */
     function initPayPalButtons() {
         if (typeof paypal === "undefined" || !paypalContainer) return;
 
-        // Limpia el contenedor antes de renderizar
-        paypalContainer.innerHTML = "";
+        paypalContainer.innerHTML = ""; // Limpiar por si acaso
 
         paypal.Buttons({
+            // ¡NUEVO! Validar formulario antes de mostrar el pop-up
+            onClick: (data, actions) => {
+                if (!validateCustomerForm()) {
+                    console.log("Formulario inválido. No se puede continuar con PayPal.");
+                    return actions.reject(); // Cancela la apertura del pop-up de PayPal
+                }
+                saveCustomerDataToLocalStorage(); // Guarda los datos
+                return actions.resolve(); // Permite continuar
+            },
+            
             createOrder: async (data, actions) => {
-                // ¡ACTUALIZADO! Apunta a la nueva función serverless
                 const res = await fetch("/api/create-paypal-order", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
@@ -667,32 +685,42 @@
                 const order = await res.json();
                 return order.id;
             },
+            
             onApprove: async (data, actions) => {
-                // ¡ACTUALIZADO! Apunta a la nueva función serverless
+                // Guarda los datos del pago ANTES de limpiar el carrito
                 const res = await fetch(`/api/capture-paypal-order?orderID=${data.orderID}`, {
                     method: "POST"
                 });
                 const paymentData = await res.json();
-
-                // Guardar datos y limpiar carrito
+                
+                // Guardamos los datos de pago y cliente para la pág. de gracias
                 localStorage.setItem("paymentData", JSON.stringify(paymentData));
+                
+                // Limpiar carrito
                 cart = [];
                 saveCart();
 
-                // Redirigir a la página de agradecimiento
+                // Redirigir
                 window.location.href = "thank-you.html";
+            },
+
+            onError: (err) => {
+                console.error("Error de PayPal SDK:", err);
             }
+
         }).render("#paypal-button-container");
     }
 
     /**
-     * Redirige al checkout de Stripe.
+     * ¡MODIFICADO! Esta función ahora solo es llamada por el botón "Paga con Carta".
      */
     async function checkoutStripe() {
-        if (cart.length === 0) return;
+        if (cart.length === 0) {
+             setLoadingState(stripeBtn, false); // Quitar spinner si falla
+            return;
+        }
 
         try {
-            // ¡ACTUALIZADO! Apunta a la nueva función serverless
             const response = await fetch("/api/create-stripe-session", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -708,7 +736,7 @@
                 orderId: data.id || "STRIPE_SESSION",
                 status: "pending",
                 paymentMethod: "Stripe",
-                email: null,
+                email: customerEmail.value, // ¡Usamos el email del formulario!
                 date: new Date(),
                 total: cart.reduce((sum, item) => sum + (item.price * item.quantity), 0),
                 items: cart
@@ -721,7 +749,7 @@
 
         } catch (error) {
             console.error("Error en checkoutStripe:", error);
-            // Aquí podrías mostrar un error al usuario
+            setLoadingState(stripeBtn, false); // Quitar spinner si falla
         }
     }
 
