@@ -310,10 +310,14 @@
         });
     }
 
-    function createServiceCard(service) {
+function createServiceCard(service) {
         const card = document.createElement('div');
         card.className = `service-card ${service.isPromo ? 'promo' : ''}`;
-        card.setAttribute('onclick', `openInfo(${service.id})`);
+        
+        // Aggiunge il click listener all'intera card per aprire il modal
+        card.addEventListener('click', () => {
+            openInfo(service.id);
+        });
 
         const highlightString = "Disponibile in locale o a domicilio";
         let descriptionHTML = `<p class="service-description">${service.description}</p>`;
@@ -326,6 +330,7 @@
             `;
         }
 
+        // Imposta l'HTML interno della card
         card.innerHTML = `
             <h3 class="service-title">${service.title}</h3>
             ${descriptionHTML}
@@ -334,9 +339,17 @@
                 <span class="service-price">€${service.price}</span>
             </div>
             <div class="service-buttons">
-                <button class="btn btn-primary" onclick="event.stopPropagation(); addToCart(${service.id})">Aggiungi al Carrello</button>
+                <button class="btn btn-primary">Aggiungi al Carrello</button>
             </div>
         `;
+
+        // Trova il pulsante appena creato e aggiunge un listener sicuro
+        const button = card.querySelector('.btn-primary');
+        button.addEventListener('click', (e) => {
+            e.stopPropagation(); // Impedisce al click di "propagarsi" alla card (che aprirebbe il modal)
+            addToCart(service.id);
+        });
+
         return card;
     }
 
@@ -440,6 +453,24 @@
             goToCheckoutBtn.style.display = 'none';
         }
     }
+
+    // ===================================
+    // INICIO SECCIÓN AÑADIDA
+    // ===================================
+    
+    /**
+     * @description Función principal para actualizar toda la interfaz del carrito.
+     * Llama a todas las funciones de soporte (contador, items, total).
+     */
+    function updateCartUI() {
+        renderCartItems();
+        updateCartTotal();
+        updateCartCount();
+    }
+    
+    // ===================================
+    // FIN SECCIÓN AÑADIDA
+    // ===================================
 
     // ... (showAddToCartFeedback sin cambios) ...
     function showAddToCartFeedback() {
