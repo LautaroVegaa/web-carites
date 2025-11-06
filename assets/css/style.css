@@ -1,0 +1,1370 @@
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary-violet: #5B21B6;
+    /* violeta oscuro */
+    --primary-pink: #DB2777;
+    /* rosa fuerte */
+    --primary-pink-hover: #BE185D;
+    --white: #FFFFFF;
+    --light-gray: #F9FAFB;
+    /* gris muy claro */
+    --gray: #6B7280;
+    /* gris claro */
+    --dark-gray: #374151;
+    /* gris oscuro */
+    --shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    --transition: all 0.3s ease;
+    /* extras */
+    --promo-badge-bg: #FCE7F3;
+    --promo-badge-text: #DB2777;
+    --footer-light: #DDD6FE;
+    --whatsapp-green: #22C55E;
+    --whatsapp-green-hover: #16A34A;
+    --blue: #2563EB;
+    --blue-hover: #1D4ED8;
+    --cyan: #0891B2;
+    --cyan-hover: #0E7490;
+}
+
+
+body {
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.6;
+    color: var(--dark-gray);
+    background-color: var(--white);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Typography */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-weight: 600;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+}
+
+.section-title {
+    text-align: center;
+    font-size: 2.5rem;
+    color: var(--primary-violet);
+    margin-bottom: 3rem;
+}
+
+.section-subtitle {
+    text-align: center;
+    font-size: 1.1rem;
+    color: var(--dark-gray);
+    margin-top: -2.5rem;
+    /* Lo acerca al título */
+    margin-bottom: 2rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Navigation */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: var(--white);
+    box-shadow: var(--shadow);
+    z-index: 1000;
+    transition: var(--transition);
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 20px;
+}
+
+.nav-logo {
+    display: flex;
+    align-items: center;
+    /* centra verticalmente */
+    gap: 10px;
+    /* espacio entre logo y texto */
+}
+
+.nav-logo a {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary-violet);
+    text-decoration: none;
+}
+
+.logo-img {
+    height: 35px;
+    /* altura del logo */
+    width: auto;
+    /* mantiene proporción */
+    border-radius: 50%;
+    /* opcional: lo hace circular */
+    object-fit: contain;
+}
+
+.nav-menu {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: var(--dark-gray);
+    font-weight: 500;
+    transition: var(--transition);
+    position: relative;
+}
+
+.nav-link:hover {
+    color: var(--primary-pink);
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--primary-pink);
+    transition: var(--transition);
+}
+
+.nav-link:hover::after {
+    width: 100%;
+}
+
+.cart-icon-wrapper {
+    position: relative;
+}
+
+.cart-icon {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--dark-gray);
+    transition: var(--transition);
+    position: relative;
+}
+
+.cart-icon:hover {
+    color: var(--primary-pink);
+}
+
+.cart-count {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background: var(--primary-pink);
+    color: var(--white);
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.cart-count.hidden {
+    display: none;
+}
+
+.hamburger {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    gap: 4px;
+}
+
+.hamburger span {
+    width: 25px;
+    height: 3px;
+    background: var(--dark-gray);
+    transition: var(--transition);
+}
+
+.hamburger.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+.hamburger.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -6px);
+}
+
+
+/* Hero Section */
+.hero {
+    background: url("../img/masaje-relajante.webp") center center/cover no-repeat;
+    /* fondo agregado */
+    color: var(--white);
+    text-align: center;
+    min-height: 100vh;
+    /* <-- Agregado: altura mínima de la pantalla */
+    display: flex;
+    /* <-- Agregado: para centrar contenido */
+    align-items: center;
+    /* <-- Agregado: centra verticalmente */
+    justify-content: center;
+    /* <-- Agregado: centra horizontalmente */
+    margin-top: 0px;
+    position: relative;
+    /* necesario si querés usar overlay en el futuro */
+}
+
+.hero::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.10);
+    /* sombra oscura semitransparente */
+    z-index: 0;
+}
+
+
+.hero-container {
+    position: relative;
+    z-index: 1;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.hero-title {
+    font-size: 4rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+.hero-subtitle {
+    color: var(rgba(255, 255, 255, 0.808));
+    font-size: 1.6rem;
+    font-weight: 600;
+    margin-bottom: 2rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+.hero-cta {
+    display: inline-block;
+    background: var(--white);
+    color: var(--primary-violet);
+    padding: 15px 30px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.1rem;
+    transition: var(--transition);
+    box-shadow: var(--shadow);
+}
+
+.hero-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+}
+
+
+/* Services Section */
+.services {
+    padding: 100px 0;
+    background: linear-gradient(135deg,
+            rgba(219, 39, 119, 0.1),
+            /* rosa suave */
+            rgba(91, 33, 182, 0.1)
+            /* violeta suave */
+        );
+}
+
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    align-items: stretch;
+    /* todas las cards tendrán la misma altura */
+}
+
+.service-card {
+    background: var(--white);
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    cursor: pointer;
+    /* <-- AÑADIDO AQUÍ */
+}
+
+.service-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+.service-card.promo::before {
+    content: 'PROMO';
+    position: absolute;
+    top: 10px;
+    right: -35px;
+    background: var(--primary-pink);
+    color: var(--white);
+    padding: 5px 40px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    transform: rotate(45deg);
+    z-index: 1;
+}
+
+.service-title {
+    color: var(--primary-violet);
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+}
+
+/* Subtítulos en la sección de servicios */
+.services h3.sub-title {
+    font-size: 1.8rem;
+    color: var(--primary-violet);
+    font-weight: 600;
+    margin: 2rem 0 1.5rem;
+    text-align: left;
+}
+
+
+.service-description {
+    color: var(--dark-gray);
+    margin-bottom: 1rem;
+    font-size: 1rem;
+    font-weight: 400;
+}
+
+.service-details {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+    font-size: 0.9rem;
+}
+
+.service-duration {
+    color: var(--dark-gray);
+    font-size: 1;
+    font-weight: 500;
+}
+
+.service-price {
+    color: var(--primary-pink);
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+.service-buttons {
+    padding: 14px 28px;
+    /* <-- Más relleno (grosor) */
+    font-size: 1rem;
+    /* <-- Fuente más grande */
+    font-weight: 600;
+    border-radius: 30px;
+    /* <-- Radio acorde al nuevo tamaño */
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    align-items: center;
+    /* <-- AÑADIDO PARA CENTRAR */
+}
+
+/* Botones solo en las tarjetas de servicios */
+.service-buttons .btn {
+    padding: 14px 28px;
+    /* <-- Más relleno (grosor) */
+    font-size: 1rem;
+    /* <-- Fuente más grande */
+    font-weight: 600;
+    border-radius: 30px;
+    /* <-- Radio acorde al nuevo tamaño */
+}
+
+
+.btn {
+    padding: 12px 24px;
+    /* <-- MODIFICADO (antes 10px 20px) */
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.9rem;
+    transition: var(--transition);
+    cursor: pointer;
+    border: none;
+    display: inline-block;
+    text-align: center;
+}
+
+.btn-primary {
+    background: var(--primary-violet);
+    color: var(--white);
+}
+
+.btn-primary:hover {
+    background: var(--primary-pink);
+}
+
+.btn-secondary {
+    background: transparent;
+    color: var(--primary-pink);
+    border: 2px solid var(--primary-pink);
+}
+
+.btn-secondary:hover {
+    background: var(--primary-pink-hover);
+    color: var(--white);
+}
+
+.floating-whatsapp {
+    background: var(--whatsapp-green);
+}
+
+.floating-whatsapp:hover {
+    background: var(--whatsapp-green-hover);
+}
+
+
+/* Promotions Section */
+.promotions {
+    padding: 100px 0;
+    /* FONDO CAMBIADO PARA COINCIDIR CON SERVICIOS */
+    background: linear-gradient(135deg,
+            rgba(219, 39, 119, 0.1),
+            /* rosa suave */
+            rgba(91, 33, 182, 0.1)
+            /* violeta suave */
+        );
+}
+
+.promo-card {
+    max-width: 600px;
+    margin: 0 auto;
+    background: linear-gradient(135deg, var(--primary-violet), var(--primary-pink));
+    color: var(--white);
+    padding: 3rem;
+    border-radius: 20px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.promo-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 200%;
+    height: 200%;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="2" fill="rgba(255,255,255,0.1)"/></svg>');
+    animation: float 20s linear infinite;
+}
+
+@keyframes float {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.promo-badge {
+    background: var(--white);
+    color: var(--primary-pink);
+    padding: 8px 20px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    display: inline-block;
+    margin-bottom: 1rem;
+}
+
+.promo-card h3 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.promo-card p {
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+    opacity: 0.9;
+}
+
+.promo-price {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    color: var(--white);
+}
+
+.promo-cta {
+    background: var(--white);
+    color: var(--primary-violet);
+    padding: 15px 30px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.1rem;
+    transition: var(--transition);
+    display: inline-block;
+}
+
+.promo-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+/* Contact Section */
+.contact {
+    padding: 100px 0;
+    background: linear-gradient(to bottom, #ffffff 0%, #f3f4f6 100%);
+}
+
+.contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    margin-top: 2rem;
+}
+
+.contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.contact-item h3 {
+    color: var(--primary-violet);
+    margin-bottom: 0.5rem;
+}
+
+.contact-item p {
+    color: var(--gray);
+    line-height: 1.6;
+}
+
+.instagram-link {
+    color: var(--primary-pink);
+    text-decoration: none;
+    font-weight: 500;
+    transition: var(--transition);
+}
+
+.instagram-link:hover {
+    opacity: 0.8;
+}
+
+.contact-whatsapp {
+    background: var(--white);
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: var(--shadow);
+    text-align: center;
+}
+
+.contact-whatsapp h3 {
+    color: var(--primary-violet);
+    margin-bottom: 1rem;
+}
+
+.contact-whatsapp p {
+    color: var(--gray);
+    margin-bottom: 1.5rem;
+}
+
+.whatsapp-cta {
+    background: #25D366;
+    color: var(--white);
+    padding: 15px 30px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: var(--transition);
+    display: inline-block;
+}
+
+.whatsapp-cta:hover {
+    background: #22C55E;
+    transform: translateY(-2px);
+}
+
+/* Footer */
+.footer {
+    background: var(--white);
+    color: black;
+    text-align: center;
+    padding: 2rem 0;
+}
+
+/* Floating Buttons */
+.floating-buttons {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    z-index: 999;
+}
+
+.floating-whatsapp,
+.floating-cart {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--white);
+    text-decoration: none;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    transition: var(--transition);
+    position: relative;
+    border: none;
+    cursor: pointer;
+}
+
+.floating-whatsapp {
+    background: #25D366;
+}
+
+.floating-whatsapp:hover {
+    background: #22C55E;
+    transform: scale(1.1);
+}
+
+.floating-cart {
+    background: var(--primary-pink);
+}
+
+.floating-cart:hover {
+    background: #C2185B;
+    transform: scale(1.1);
+}
+
+.mobile-only {
+    display: none;
+}
+
+/* Modal */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+    padding: 20px;
+}
+
+.modal-overlay.active {
+    display: flex;
+}
+
+.modal {
+    background: var(--white);
+    border-radius: 15px;
+    max-width: 500px;
+    width: 100%;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    animation: modalSlideIn 0.3s ease;
+}
+
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem;
+    border-bottom: 1px solid #eee;
+}
+
+.modal-header h3 {
+    color: var(--primary-violet);
+    margin: 0;
+}
+
+.modal-close {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--gray);
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-body {
+    padding: 1.5rem;
+}
+
+/* Modal details (lista benefici) */
+#modal-details {
+    margin-top: 1rem;
+}
+
+.modal-img {
+    width: 100%;
+    /* Para que siga siendo responsive */
+    max-width: 400px;
+    /* Límite de ancho (puedes ajustar este valor) */
+    border-radius: 12px;
+    margin-bottom: 1.2rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+    margin-left: auto;
+    /* Añadido para centrar */
+    margin-right: auto;
+    /* Añadido para centrar */
+}
+
+#modal-desc {
+    font-weight: 500;
+    margin-bottom: 0.8rem;
+    color: var(--dark-gray);
+}
+
+/* Durata y Prezzo (el texto fuerte) */
+.modal-body p strong {
+    font-weight: 700;
+    color: var(--dark-gray);
+    /* mismo violeta de la página */
+}
+
+/* Valor del prezzo (el número + €) */
+#modal-prezzo {
+    color: var(--primary-pink);
+    font-weight: 700;
+}
+
+/* Hace que el valor se vea en bold */
+.highlight {
+    font-weight: 700;
+}
+
+.modal-footer {
+    text-align: center;
+    margin-top: 1.5rem;
+}
+
+/* Contenedor de la lista */
+#modal-details ul {
+    list-style: none;
+    /* sacamos los bullets por defecto */
+    padding-left: 0;
+    margin-top: 1rem;
+    font-weight: 500;
+}
+
+/* Cada ítem */
+#modal-details li {
+    position: relative;
+    /* para poder ubicar un ícono */
+    margin-bottom: 0.8rem;
+    padding-left: 1.8rem;
+    /* espacio para el icono */
+    line-height: 1.6;
+    color: var(--dark-gray);
+    /* mismo gris usado en textos */
+    font-size: 0.95rem;
+    /* un poquito más chico */
+}
+
+#modal-details li::before {
+    content: "•";
+    /* cambia a "•" si preferís simple */
+    position: absolute;
+    left: 0;
+    top: 0.1rem;
+    color: var(--primary-violet);
+    /* en violeta para resaltar */
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.empty-cart {
+    text-align: center;
+    color: var(--gray);
+    font-style: italic;
+}
+
+.cart-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+    border-bottom: 1px solid #eee;
+}
+
+.cart-item:last-child {
+    border-bottom: none;
+}
+
+.cart-item-info h4 {
+    color: var(--dark-gray);
+    margin-bottom: 0.25rem;
+    font-size: 1rem;
+}
+
+.cart-item-price {
+    color: var(--primary-pink);
+    font-weight: 600;
+}
+
+.quantity-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.quantity-btn {
+    background: var(--light-gray);
+    border: none;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+}
+
+.quantity-btn:hover {
+    background: var(--primary-violet);
+    color: var(--white);
+}
+
+.quantity {
+    font-weight: 600;
+    min-width: 20px;
+    text-align: center;
+}
+
+.remove-item {
+    background: none;
+    border: none;
+    color: var(--primary-pink);
+    cursor: pointer;
+    font-size: 0.9rem;
+    text-decoration: underline;
+}
+
+.cart-total {
+    text-align: center;
+    padding: 1rem 0;
+    border-top: 1px solid #eee;
+    margin-top: 1rem;
+    font-size: 1.2rem;
+    color: var(--primary-violet);
+}
+
+.modal-footer {
+    padding: 1.5rem;
+    border-top: 1px solid #eee;
+}
+
+.checkout-btn {
+    width: 100%;
+    background: #25D366;
+    color: var(--white);
+    padding: 15px;
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.checkout-btn:hover {
+    background: #22C55E;
+}
+
+/* --- ESTILOS DEL CARRUSEL DE PROMOCIONES --- */
+
+/* Ocultamos la tarjeta de promoción anterior */
+.promo-card {
+    display: none;
+}
+
+.promo-carousel {
+    position: relative;
+    max-width: 450px;
+    /* <-- CAMBIADO DE 700px */
+    margin: 0 auto;
+    overflow: hidden;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+.promo-track-container {
+    overflow: hidden;
+}
+
+.promo-track {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+.promo-slide {
+    flex: 0 0 100%;
+    width: 100%;
+}
+
+.promo-slide img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+    /* Asegura que la imagen cubra el slide */
+    cursor: pointer;
+    /* <-- AÑADE ESTA LÍNEA */
+}
+
+/* Estilos de los botones de navegación */
+.promo-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: transparent;
+    /* <-- CAMBIADO */
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 24px;
+    /* Un poco más grande para compensar */
+    font-weight: bold;
+    color: white;
+    /* <-- CAMBIADO A BLANCO */
+    text-shadow: 0 0 8px rgba(0, 0, 0, 0.6);
+    /* <-- AÑADIDO (sombra) */
+    cursor: pointer;
+    transition: all 0.2s ease;
+    z-index: 10;
+}
+
+.promo-nav:hover {
+    background-color: rgba(0, 0, 0, 0.25);
+    /* <-- CAMBIADO */
+    transform: translateY(-50%) scale(1.1);
+}
+
+.promo-nav.prev {
+    left: 5px;
+}
+
+.promo-nav.next {
+    right: 5px;
+}
+
+/* --- NUEVO ESTILO MODAL VERTICAL MEJORADO --- */
+
+.modal {
+    background: var(--white);
+    border-radius: 15px;
+    max-width: 600px;
+    /* <-- Más ancho */
+    width: 100%;
+    max-height: 90vh;
+    /* <-- Más alto */
+    overflow-y: auto;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    animation: modalSlideIn 0.3s ease;
+}
+
+.modal-body {
+    padding: 1.5rem;
+    /* Restauramos el padding */
+}
+
+.modal-img {
+    width: 100%;
+    max-height: 350px;
+    /* <-- CLAVE: Limitamos la altura */
+    object-fit: cover;
+    /* <-- CLAVE: La imagen cubre sin deformarse */
+    border-radius: 12px;
+    margin-bottom: 1.2rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+    display: block;
+    /* Aseguramos que sea un bloque */
+    margin-left: auto;
+    /* Centramos la imagen si es más angosta */
+    margin-right: auto;
+    /* Centramos la imagen si es más angosta */
+}
+
+/* El precio vuelve a su lugar original */
+#modal-prezzo {
+    color: var(--primary-pink);
+    font-weight: 700;
+}
+
+.modal-footer {
+    display: block;
+    /* Restauramos el footer */
+    text-align: center;
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    /* Separador */
+    border-top: 1px solid #eee;
+}
+
+#modal-add-cart {
+    width: 100%;
+    /* Botón grande */
+    padding: 14px;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+/* Hacemos que el precio (que movimos) se vea bien */
+.modal-price .highlight {
+    color: var(--primary-pink);
+    font-weight: 700;
+    font-size: 1.3rem;
+}
+
+/* --- ESTILOS PARA EL NUEVO MODAL DE PROMOS (HORIZONTAL) --- */
+
+/* Seleccionamos solo el modal de promos por su ID */
+#promo-modal .modal {
+    max-width: 800px;
+    /* Ancho del modal de Ben Shelton */
+    max-height: 90vh;
+}
+
+/* Quitamos el padding del body que viene por defecto */
+#promo-modal .modal-body {
+    padding: 0;
+}
+
+/* Ocultamos el footer que no usamos en este estilo */
+#promo-modal .modal-footer {
+    display: none;
+}
+
+/* Contenedor Flex principal */
+#promo-modal .modal-content-horizontal {
+    display: flex;
+    padding: 1.5rem;
+    gap: 1.5rem;
+}
+
+/* Columna Izquierda (Imagen) */
+#promo-modal .modal-image-column {
+    flex: 0 0 45%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#promo-modal .modal-img {
+    width: 100%;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    /* Estas propiedades ya no son necesarias aquí */
+    max-height: none;
+    object-fit: contain;
+}
+
+/* Columna Derecha (Info) */
+#promo-modal .modal-info-column {
+    flex: 1 1 55%;
+    display: flex;
+    flex-direction: column;
+}
+
+#promo-modal #promo-modal-desc {
+    font-weight: 500;
+    margin-bottom: 0.8rem;
+    color: var(--dark-gray);
+    flex-grow: 1;
+    /* Esto empuja la sección de compra al fondo */
+}
+
+/* Sección de compra al fondo */
+#promo-modal .modal-buy-section {
+    border-top: 1px solid #eee;
+    padding-top: 1rem;
+    margin-top: auto;
+    /* Empuja esto al fondo */
+}
+
+#promo-modal .modal-price {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+}
+
+#promo-modal .modal-price .highlight {
+    color: var(--primary-pink);
+    font-weight: 700;
+    font-size: 1.3rem;
+}
+
+#promo-modal #promo-modal-add-cart {
+    width: 100%;
+    padding: 14px;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+
+/* =====================
+   Bloque de Promociones (Modificado)
+   ===================== */
+.promo-block {
+    max-width: 700px;
+    /* <-- Más ancho (antes 600px) */
+    margin: 0 auto;
+    padding: 2.5rem 2rem;
+    background: var(--white);
+    border-radius: 20px;
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.12);
+    /* <-- Sombra más fuerte (antes 0.08) */
+}
+
+/* Ajustamos los márgenes del título y subtítulo DENTRO del bloque */
+.promo-block .section-title {
+    margin-bottom: 1rem;
+}
+
+.promo-block .section-subtitle {
+    margin-top: -0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+/* Responsive Design */
+
+/* Tablet */
+@media (max-width: 1023px) {
+    .services-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .hero-title {
+        font-size: 3rem;
+    }
+
+    .section-title {
+        font-size: 2rem;
+    }
+}
+
+/* Mobile */
+@media (max-width: 767px) {
+    .hamburger {
+        display: flex;
+    }
+
+    .nav-menu {
+        position: fixed;
+        top: 80px;
+        left: -100%;
+        width: 100%;
+        height: calc(100vh - 80px);
+        background: var(--white);
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        padding-top: 2rem;
+        transition: var(--transition);
+        box-shadow: var(--shadow);
+    }
+
+    .nav-menu.active {
+        left: 0;
+    }
+
+    .nav-link {
+        margin: 1rem 0;
+        font-size: 1.2rem;
+    }
+
+    .cart-icon-wrapper {
+        margin-top: 2rem;
+    }
+
+    .hero {
+        min-height: calc(100vh - 80px);
+        /* <-- Agregado: calcula la altura restando el nav */
+        margin-top: 80px;
+    }
+
+    .hero-title {
+        font-size: 2.5rem;
+    }
+
+    .hero-subtitle {
+        font-size: 1.2rem;
+    }
+
+    .section-title {
+        font-size: 1.8rem;
+    }
+
+    .services-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .service-buttons {
+        flex-direction: column;
+    }
+
+    .btn {
+        text-align: center;
+    }
+
+    .promo-card {
+        margin: 0 20px;
+        padding: 2rem;
+    }
+
+    .promo-price {
+        font-size: 2.5rem;
+    }
+
+    .mobile-only {
+        display: flex;
+    }
+
+    .floating-buttons {
+        bottom: 80px;
+    }
+
+    .modal {
+        margin: 20px;
+        max-height: calc(100vh - 40px);
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 0 15px;
+    }
+
+    .hero-title {
+        font-size: 2rem;
+    }
+
+    .hero-subtitle {
+        font-size: 1rem;
+    }
+
+    .hero-cta {
+        padding: 12px 24px;
+        font-size: 1rem;
+    }
+
+    .service-card {
+        padding: 1.5rem;
+    }
+
+    .promo-card {
+        padding: 1.5rem;
+    }
+
+    .promo-card h3 {
+        font-size: 1.5rem;
+    }
+
+    .promo-price {
+        font-size: 2rem;
+    }
+
+    .floating-whatsapp,
+    .floating-cart {
+        width: 50px;
+        height: 50px;
+    }
+
+    .floating-buttons {
+        bottom: 20px;
+        right: 15px;
+    }
+
+}
+
+/* Ocultar temporalmente la sección de Estética */
+#servizi h3.sub-title:nth-of-type(2),
+#estetica-services {
+    display: none;
+}
+
+/* --- NUEVA CLASE PARA DESTACAR DISPONIBILIDAD --- */
+.service-availability {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--primary-violet);
+    /* Color violeta principal */
+    background-color: #f5f3ff;
+    /* Un fondo violeta muy claro */
+    padding: 8px 12px;
+    border-radius: 8px;
+    text-align: center;
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+    border: 1px solid var(--primary-violet);
+    /* Borde violeta */
+}

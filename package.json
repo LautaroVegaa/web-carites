@@ -1,0 +1,16 @@
+{
+  "name": "carites-ravenna-vercel",
+  "version": "1.0.0",
+  "description": "Landing page y sistema de pagos para Carites Ravenna en Vercel",
+  "private": true,
+  "scripts": {
+    "start": "echo 'Proyecto diseñado para Vercel (no local)'",
+    "seed": "node seed.js"
+  },
+  "dependencies": {
+    "dotenv": "^17.2.2",
+    "mongoose": "^8.19.3",
+    "node-fetch": "^2.7.0",
+    "stripe": "^18.5.0"
+  }
+}

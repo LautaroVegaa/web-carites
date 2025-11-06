@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carites Ravenna - Bellezza e Benessere</title>
+    <meta name="description" content="Centro di bellezza e benessere a Ravenna. Massaggi, trattamenti estetici e promozioni speciali.">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <img src="assets/img/logo-carites.jpg" alt="Carites Ravenna Logo" class="logo-img">
+                <a href="#home">Carites Ravenna</a>
+            </div>
+            
+            <div class="nav-menu" id="nav-menu">
+                <a href="#home" class="nav-link">Home</a>
+                <a href="#servizi" class="nav-link">Servizi</a>
+                <a href="#promozioni" class="nav-link">Promozioni</a>
+                <a href="#contatti" class="nav-link">Contatti</a>
+                <div class="cart-icon-wrapper">
+                    <button class="cart-icon" id="cart-icon" aria-label="Carrello">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="9" cy="21" r="1"></circle>
+                            <circle cx="20" cy="21" r="1"></circle>
+                            <path d="m1 1 4 4 4.68 11a2 2 0 0 0 2 1.59h9.59a2 2 0 0 0 2-1.59L23 8H6"></path>
+                        </svg>
+                        <span class="cart-count" id="cart-count">0</span>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="hamburger" id="hamburger" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <header id="home" class="hero">
+        <div class="hero-container">
+            <h1 class="hero-title">Carites Ravenna</h1>
+            <p class="hero-subtitle">Bellezza e Benessere a Ravenna</p>
+        </div>
+    </header>
+
+    <div class="modal-overlay" id="info-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" style="display: none;">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 id="modal-title"></h3>
+                <button class="modal-close" onclick="closeInfo()" aria-label="Chiudi modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <img id="modal-img" src="" alt="" class="modal-img" style="display: none;">
+                <p id="modal-desc"></p>
+                <p><strong>Durata:</strong> <span class="highlight" id="modal-durata"></span></p>
+                <p><strong>Prezzo:</strong> <span class="highlight price" id="modal-prezzo"></span></p>
+                <div id="modal-details"></div>
+                <div class="modal-footer">
+                    <button id="modal-add-cart" class="btn btn-primary">Aggiungi al Carrello</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="promo-modal" role="dialog" aria-modal="true" aria-labelledby="promo-modal-title" style="display: none;">
+        <div class="modal" id="promo-modal-content">
+            <div class="modal-header">
+                <h3 id="promo-modal-title"></h3>
+                <button class="modal-close" onclick="closePromoModal()" aria-label="Chiudi modal">&times;</button>
+            </div>
+            <div class="modal-content-horizontal">
+                <div class="modal-image-column">
+                    <img id="promo-modal-img" src="" alt="" class="modal-img">
+                </div>
+                <div class="modal-info-column">
+                    <p id="promo-modal-desc"></p>
+                    <div class="modal-buy-section">
+                        <p class="modal-price"><strong>Prezzo:</strong> <span class="highlight price" id="promo-modal-prezzo"></span></p>
+                        <button id="promo-modal-add-cart" class="btn btn-primary">Aggiungi al Carrello</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="cart-modal" role="dialog" aria-modal="true" aria-labelledby="cart-modal-title" style="display: none;">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 id="cart-modal-title">Il Tuo Carrello</h3>
+                <button class="modal-close" id="close-cart" aria-label="Chiudi carrello">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="cart-items">
+                    <p class="empty-cart">Il carrello è vuoto</p>
+                </div>
+                <div class="cart-total" id="cart-total" style="display: none;">
+                    <strong>Totale: €<span id="total-amount">0</span></strong>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="checkout-btn stripe-btn" id="stripe-btn" onclick="checkoutStripe()" style="display:none;">
+                    Paga con Carta (Stripe)
+                </button>
+                <div id="paypal-button-container" style="display:none; margin-top: 10px;"></div>
+            </div>
+        </div>
+    </div>
+
+
+    <main>
+        <section id="servizi" class="services">
+            <div class="container">
+                <h2 class="section-title">I Nostri Servizi</h2>
+                <h3 class="sub-title">Massaggi</h3>
+                <div class="services-grid" id="services-grid">
+                    </div>
+                <h3 class="sub-title">Estetica Mani & Piedi</h3>
+                <div class="services-grid" id="estetica-services">
+                    </div>
+            </div>
+        </section>
+
+        <section id="promozioni" class="promotions">
+            <div class="container">
+                <div class="promo-block"> 
+                    <h2 class="section-title">Promozioni Speciali</h2>
+                    <p class="section-subtitle">Scorri per vedere i nostri pacchetti e le offerte del momento!</p>
+                    <div class="promo-carousel">
+                        <div class="promo-track-container">
+                            <div class="promo-track" id="promo-track">
+                                <div class="promo-slide" onclick="openPromoModal(106)">
+                                    <img src="assets/img/promo/massaggio-viso-cuio2.jpg" alt="Promozione Natale 1 massaggio viso">
+                                </div>
+                                <div class="promo-slide" onclick="openPromoModal(105)">
+                                    <img src="assets/img/promo/massaggi-viso-cuio.jpg" alt="Promozione Natale 2 massaggi viso">
+                                </div>
+                                <div class="promo-slide" onclick="openPromoModal(107)">
+                                    <img src="assets/img/promo/massaggio-60-minuti.jpg" alt="Promozione Natale 60 minuti">
+                                </div>
+                                <div class="promo-slide" onclick="openPromoModal(108)">
+                                    <img src="assets/img/promo/massaggio-90-minuti.jpg" alt="Promozione Natale 90 minuti">
+                                </div>
+                                <div class="promo-slide" onclick="openPromoModal(103)">
+                                    <img src="assets/img/promo/pacchetto-argento.jpg" alt="Pacchetto Argento">
+                                </div>
+                                <div class="promo-slide" onclick="openPromoModal(102)">
+                                    <img src="assets/img/promo/pacchetto-titanio.jpg" alt="Pacchetto Titanio">
+                                </div>
+                                <div class="promo-slide" onclick="openPromoModal(101)">
+                                    <img src="assets/img/promo/pacchetto-rinascita.jpg" alt="Pacchetto Rinascita">
+                                </div>
+                                <div class="promo-slide" onclick="openPromoModal(104)">
+                                    <img src="assets/img/promo/pacchetto-oro.jpg" alt="Pacchetto Oro">
+                                </div>
+                            </div>
+                        </div>
+                        <button class="promo-nav prev" id="promo-prev" aria-label="Precedente">&#10094;</button>
+                        <button class="promo-nav next" id="promo-next" aria-label="Successivo">&#10095;</button>
+                    </div>
+                </div> 
+            </div>
+        </section>
+
+        <section id="contatti" class="contact">
+            <div class="container">
+                <h2 class="section-title">Contatti</h2>
+                <div class="contact-grid">
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <h3>Indirizzo</h3>
+                            <p>Via Roma 123, Ravenna, Italia</p>
+                        </div>
+                        <div class="contact-item">
+                            <h3>Orari</h3>
+                            <p>Lunedì - Sabato: 10:00 - 20:00<br>Domenica chiuso</p>
+                        </div>
+                        <div class="contact-item">
+                            <h3>Social</h3>
+                            <a href="https://www.instagram.com/carites_ravenna/" target="_blank" class="instagram-link">
+                                @carites_ravenna
+                            </a>
+                        </div>
+                    </div>
+                    <div class="contact-whatsapp">
+                        <h3>Contattaci</h3>
+                        <p>Hai domande sui nostri servizi o vuoi prenotare? <br>Clicca il pulsante qui sotto!</p>
+                        <a href="https://wa.me/placeholder" target="_blank" class="whatsapp-cta">
+                            Scrivici su WhatsApp
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Carites Ravenna. Tutti i diritti riservati.</p>
+        </div>
+    </footer>
+
+    <div class="floating-buttons">
+        <a href="https://wa.me/placeholder" class="floating-whatsapp" id="floating-whatsapp" aria-label="WhatsApp">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893A11.821 11.821 0 0020.484 3.687"/>
+            </svg>
+        </a>
+        <button class="floating-cart mobile-only" id="floating-cart" aria-label="Carrello">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="9" cy="21" r="1"></circle>
+                <circle cx="20" cy="21" r="1"></circle>
+                <path d="m1 1 4 4 4.68 11a2 2 0 0 0 2 1.59h9.59a2 2 0 0 0 2-1.59L23 8H6"></path>
+            </svg>
+            <span class="cart-count" id="floating-cart-count">0</span>
+        </button>
+    </div>
+
+    <script src="https://www.paypal.com/sdk/js?client-id=AeaqwB2hWTFiRR_2dNM857yYJOcvUqR4WGg4FolID-0uxuvlZMKcKkN8MfHwXbrgPFIJq2RSbeQq1fi4&currency=EUR&components=buttons,funding-eligibility&enable-funding=card"></script>
+    
+    <script src="assets/js/main.js"></script>
+</body>
+</html>

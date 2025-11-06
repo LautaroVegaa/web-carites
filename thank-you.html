@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pagamento Completato - Grazie!</title>
+    <link rel="stylesheet" href="assets/css/thank-you.css">
+</head>
+<body>
+    <main class="thank-you-container">
+        <header class="header-section">
+            <div class="success-icon">
+                <div class="checkmark">✓</div>
+            </div>
+            <h1 class="title">Pagamento Completato con Successo</h1>
+            <p class="subtitle">Grazie per aver scelto i nostri servizi. La tua prenotazione è stata confermata e riceverai a breve una email di conferma con tutti i dettagli.</p>
+        </header>
+        
+        <section class="content-section">
+            <h2 class="section-title">Riepilogo Ordine</h2>
+            <div id="payment-summary" class="payment-summary">
+                <div class="loading-state">Caricamento dei dettagli dell'ordine...</div>
+            </div>
+            
+            <h2 class="section-title">Dettagli Transazione</h2>
+            <div id="transaction-details" class="transaction-details">
+                <div class="loading-state">Caricamento dettagli...</div>
+            </div>
+            
+            <section id="services-section" style="display: none;">
+                <h2 class="section-title">Servizi Acquistati</h2>
+                <div id="services-list" class="services-list"></div>
+            </section>
+        </section>
+        
+        <footer class="actions-section">
+            <a href="index.html" class="btn btn-primary">
+                ← Torna ai Servizi
+            </a>
+            <a href="https://wa.me/393123456789" target="_blank" class="btn btn-secondary">
+                📞 Contattaci su WhatsApp
+            </a>
+        </footer>
+    </main>
+
+    <script src="assets/js/thank-you.js"></script>
+</body>
+</html>
