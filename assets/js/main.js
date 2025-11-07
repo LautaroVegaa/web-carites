@@ -695,16 +695,24 @@ function createServiceCard(service) {
         return isValid;
     }
     
-    /**
+/**
      * ¡NUEVO! Guarda los datos del formulario en localStorage.
      */
     function saveCustomerDataToLocalStorage() {
         const formData = new FormData(customerForm);
+        
+        // --- INICIO DE LA CORRECCIÓN ---
+        // Obtenemos el valor de la modalidad directamente del radio button
+        // que esté seleccionado (aunque esté oculto).
+        const modalityValue = customerForm.querySelector('input[name="modality"]:checked').value;
+        // --- FIN DE LA CORRECCIÓN ---
+
         const customerData = {
             name: formData.get('name'),
             email: formData.get('email'),
             phone: formData.get('phone'),
-            modality: modalityGroup.style.display === 'block' ? formData.get('modality') : 'N/A',
+            // Usamos el valor que acabamos de obtener
+            modality: modalityValue || 'locale', // Si algo falla, default 'locale'
             availability: formData.get('availability') || 'Nessuna preferenza'
         };
         
