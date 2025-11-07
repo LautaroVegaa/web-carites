@@ -1,11 +1,11 @@
 document.addEventListener("DOMContentLoaded", async function() {
     const urlParams = new URLSearchParams(window.location.search);
     const sessionId = urlParams.get("session_id");
+    const customerDetails = JSON.parse(localStorage.getItem("customerDetails")) || {};
 
     if (sessionId) {
         // 🔹 Caso Stripe
         try {
-            // ¡ACTUALIZADO! Apunta a /api/stripe-session usando query param
             const res = await fetch(`/api/stripe-session?id=${sessionId}`);
             if (!res.ok) throw new Error('Errore nel recupero della sessione Stripe');
             
@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", async function() {
                 orderId: session.orderId,
                 status: session.status || "confermato",
                 paymentMethod: session.paymentMethod || "Stripe",
-                email: session.email || "cliente@email.com",
+                email: session.email || customerDetails.email || "cliente@email.com", // Usar email del formulario
                 date: session.date || new Date(),
                 total: session.total || 0,
                 items: JSON.parse(localStorage.getItem("caritesCart")) || []
@@ -24,27 +24,34 @@ document.addEventListener("DOMContentLoaded", async function() {
             localStorage.setItem("paymentData", JSON.stringify(paymentData));
             localStorage.removeItem("caritesCart");
 
-            displayPaymentData(paymentData);
+            displayPaymentData(paymentData, customerDetails);
+            sendConfirmationEmail(paymentData, customerDetails); // <-- Enviar email
+
         } catch (err) {
             console.error("❌ Errore Stripe:", err);
-            loadPaymentData(); // fallback
+            loadPaymentData(customerDetails); // fallback
         }
     } else {
         // 🔹 Caso PayPal o default
-        loadPaymentData();
+        loadPaymentData(customerDetails);
     }
 
     // Limpieza después de mostrar
     window.addEventListener("beforeunload", cleanupStorage);
-
 });
 
-function loadPaymentData() {
+function loadPaymentData(customerDetails) {
     const paymentDataString = localStorage.getItem("paymentData");
     if (paymentDataString) {
         try {
             const paymentData = JSON.parse(paymentDataString);
-            displayPaymentData(paymentData);
+            // Asegurar que el email del formulario (PayPal) esté en el resumen
+            if (customerDetails.email) {
+                paymentData.email = customerDetails.email;
+            }
+            displayPaymentData(paymentData, customerDetails);
+            sendConfirmationEmail(paymentData, customerDetails); // <-- Enviar email
+
         } catch (error) {
             console.error("Errore nel caricamento:", error);
             displayDefaultData();
@@ -54,16 +61,46 @@ function loadPaymentData() {
     }
 }
 
-function displayPaymentData(data) {
-    displayPaymentSummary(data);
-    displayTransactionDetails(data);
+// ==========================================================
+// NUEVA FUNCIÓN PARA ENVIAR EL EMAIL
+// ==========================================================
+async function sendConfirmationEmail(paymentData, customerDetails) {
+    // Evitar enviar email si no hay datos del cliente (ej. página recargada)
+    if (!customerDetails || !customerDetails.email) {
+        console.log("Dati cliente non trovati, email non inviata.");
+        return;
+    }
+
+    try {
+        const response = await fetch('/api/send-confirmation', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ paymentData, customerDetails })
+        });
+
+        if (response.ok) {
+            console.log("Email di conferma inviata con successo.");
+        } else {
+            console.error("Errore nella risposta del server email.");
+        }
+    } catch (err) {
+        console.error("Errore fatale inviando l'email:", err);
+    }
+}
+// ==========================================================
+
+function displayPaymentData(data, customerDetails) {
+    displayPaymentSummary(data, customerDetails); // Pasamos customerDetails
+    displayTransactionDetails(data, customerDetails); // Pasamos customerDetails
     displayServices(data);
 }
 
-function displayPaymentSummary(data) {
+function displayPaymentSummary(data, customerDetails) {
     const summaryContainer = document.getElementById("payment-summary");
     if (!summaryContainer) return;
     
+    // Usar el email del formulario (más fiable)
+    const displayEmail = customerDetails.email || data.email || "cliente@email.com";
     const total = data.total || calculateTotal(data.items || []);
 
     summaryContainer.innerHTML = `
@@ -72,7 +109,7 @@ function displayPaymentSummary(data) {
                 <span class="detail-icon">📧</span>
                 Email di conferma inviata a:
             </div>
-            <div class="summary-value">${data.email || "cliente@email.com"}</div>
+            <div class="summary-value">${displayEmail}</div>
         </div>
         <div class="summary-row">
             <div class="summary-label">
@@ -93,11 +130,36 @@ function displayPaymentSummary(data) {
     `;
 }
 
-function displayTransactionDetails(data) {
+function displayTransactionDetails(data, customerDetails) {
     const detailsContainer = document.getElementById("transaction-details");
     if (!detailsContainer) return;
 
     const currentDate = new Date();
+
+    // Añadir datos del formulario al resumen
+    let customerHTML = `
+        <div class="detail-group">
+            <div class="detail-label">
+                <span class="detail-icon">👤</span>
+                Cliente
+            </div>
+            <div class="detail-value">${customerDetails.name || 'N/A'}</div>
+        </div>
+        <div class="detail-group">
+            <div class="detail-label">
+                <span class="detail-icon">📞</span>
+                Telefono
+            </div>
+            <div class="detail-value">${customerDetails.phone || 'N/A'}</div>
+        </div>
+        <div class="detail-group">
+            <div class="detail-label">
+                <span class="detail-icon">📍</span>
+                Modalità
+            </div>
+            <div class="detail-value">${customerDetails.modality || 'N/A'}</div>
+        </div>
+    `;
 
     detailsContainer.innerHTML = `
         <div class="detail-group">
@@ -121,6 +183,7 @@ function displayTransactionDetails(data) {
             </div>
             <div class="detail-value">${data.paymentMethod || "Carta di Credito"}</div>
         </div>
+        ${customerDetails.name ? customerHTML : ''} 
     `;
 }
 
@@ -170,12 +233,11 @@ function displayDefaultData() {
         status: "Confermato",
         paymentMethod: "Carta di Credito",
         email: "cliente@email.com",
-        total: 99.99,
-        items: [
-            { title: "Consulenza Professionale", quantity: 1, price: 99.99 }
-        ]
+        total: 0,
+        items: []
     };
-    displayPaymentData(defaultData);
+    const defaultCustomer = { name: "Cliente Esempio", email: "cliente@email.com", phone: "N/A", modality: "N/A" };
+    displayPaymentData(defaultData, defaultCustomer);
 }
 
 function generateOrderId() {
@@ -201,9 +263,10 @@ function calculateTotal(items) {
     }, 0);
 }
 
+// ACTUALIZADO para limpiar todo
 function cleanupStorage() {
     localStorage.removeItem("paymentData");
     localStorage.removeItem("caritesCart");
-    localStorage.removeItem("cartTotal");
+    localStorage.removeItem("customerDetails"); // <-- Añadido
     console.log("Storage pulito automaticamente");
 }
