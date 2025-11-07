@@ -589,19 +589,53 @@ function createServiceCard(service) {
         document.body.style.overflow = 'auto';
     }
 
+    // ===================================
+    // INICIO SECCIÓN MODIFICADA
+    // ===================================
+
     // ¡NUEVO! Abrir formulario de cliente
     function openCustomerForm() {
-        // 1. Comprobar si hay servicios que requieran elegir modalidad
-        const hasModalityOption = cart.some(item => {
+        // 1. Revisar el contenido del carrito
+        const hasDomicilioOption = cart.some(item => {
             const service = services.find(s => s.id === item.id);
-            return service && service.description.includes("Disponibile in locale o a domicilio");
+            // Asegurarse de que 'service' existe y 'description' está presente
+            return service && service.description && service.description.includes("Disponibile in locale o a domicilio");
         });
 
-        // 2. Mostrar u ocultar el campo de modalidad
-        if (hasModalityOption) {
+        const hasLocaleOnlyItem = cart.some(item => {
+            const service = services.find(s => s.id === item.id);
+            // Si el servicio no existe o no tiene descripción, o si no incluye la frase, se asume "solo local"
+            return !service || !service.description || !service.description.includes("Disponibile in locale o a domicilio");
+        });
+
+        // Cachear los elementos del formulario
+        const radioLocale = document.getElementById('modality-local');
+        const radioDomicilio = document.getElementById('modality-domicilio');
+        const warningMessage = document.getElementById('modality-forced-warning'); // Usamos el nuevo mensaje
+
+        // 2. Aplicar la lógica de los 3 escenarios
+        if (hasDomicilioOption && !hasLocaleOnlyItem) {
+            // Caso 1: SÓLO servicios compatibles con domicilio.
             modalityGroup.style.display = 'block';
-        } else {
+            radioDomicilio.disabled = false;
+            radioLocale.checked = true; 
+            warningMessage.style.display = 'none';
+
+        } else if (!hasDomicilioOption && hasLocaleOnlyItem) {
+            // Caso 2: SÓLO servicios "solo local".
             modalityGroup.style.display = 'none';
+            warningMessage.style.display = 'none';
+
+        } else if (hasDomicilioOption && hasLocaleOnlyItem) {
+            // Caso 3: CARRITO MIXTO (Tu escenario).
+            modalityGroup.style.display = 'none';      // Ocultar las opciones
+            warningMessage.style.display = 'block';    // Mostrar el aviso
+            radioLocale.checked = true;                // Asegurar que "local" esté seleccionado internamente
+
+        } else {
+            // Caso 4: Carrito vacío (o algún otro caso).
+            modalityGroup.style.display = 'none';
+            warningMessage.style.display = 'none';
         }
 
         // 3. Abrir modal de formulario y cerrar carrito
@@ -609,6 +643,10 @@ function createServiceCard(service) {
         closeCartModal();
         document.body.style.overflow = 'hidden';
     }
+
+    // ===================================
+    // FIN SECCIÓN MODIFICADA
+    // ===================================
 
     // ¡NUEVO! Cerrar formulario de cliente
     function closeCustomerFormModal() {
