@@ -1427,14 +1427,14 @@ h6 {
 
 .customer-form .form-warning-msg {
     display: none; /* Oculto por defecto */
-    color: var(--primary-violet);
+    color: #B91C1C; /* Rojo oscuro (para texto) */
     font-weight: 500;
     margin: -10px 0 15px 0;
     text-align: center;
-    border: 1px solid #ddd;
+    border: 1px solid #FCA5A5; /* Borde rojo claro */
     padding: 10px;
     border-radius: 8px;
-    background: #f5f3ff;
+    background: #FEF2F2; /* Fondo rojo muy claro */
 }
 
 /* =================================== */
