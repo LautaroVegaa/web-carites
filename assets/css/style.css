@@ -1421,6 +1421,27 @@ h6 {
     margin-top: 0.25rem;
 }
 
+/* =================================== */
+/* INICIO NUEVA SECCIÓN CSS */
+/* =================================== */
+
+.customer-form .form-warning-msg {
+    display: none; /* Oculto por defecto */
+    color: var(--primary-violet);
+    font-weight: 500;
+    margin: -10px 0 15px 0;
+    text-align: center;
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 8px;
+    background: #f5f3ff;
+}
+
+/* =================================== */
+/* FIN NUEVA SECCIÓN CSS */
+/* =================================== */
+
+
 .customer-form .form-group.invalid input,
 .customer-form .form-group.invalid textarea {
     border-color: #EF4444;
