@@ -5,37 +5,42 @@ document.addEventListener("DOMContentLoaded", async function() {
     // 1. Cargar los detalles del cliente PRIMERO.
     const customerDetails = JSON.parse(localStorage.getItem("customerDetails")) || {};
 
+// /assets/js/thank-you.js
+
     if (sessionId) {
         // 🔹 Caso Stripe
         try {
+            // 1. PRIMERO, carga los datos "pendientes" guardados por main.js
+            // Esto nos da los 'items' y el 'total' correctos.
+            let paymentData = JSON.parse(localStorage.getItem("paymentData")) || {};
+
+            // 2. AHORA, contacta a Stripe para confirmar el pago
             const res = await fetch(`/api/stripe-session?id=${sessionId}`);
             if (!res.ok) throw new Error('Errore nel recupero della sessione Stripe');
             
-            const session = await res.json();
+            const session = await res.json(); // Trae los datos de Stripe
 
-            const paymentData = {
-                orderId: session.orderId,
-                status: session.status || "confermato",
-                paymentMethod: session.paymentMethod || "Stripe",
-                // Usar email de Stripe, o del formulario, o de último recurso el default
-                email: session.email || customerDetails.email || "cliente@email.com", 
-                date: session.date || new Date(),
-                total: session.total || 0,
-                items: JSON.parse(localStorage.getItem("caritesCart")) || []
-            };
+            // 3. ACTUALIZA el objeto paymentData con los datos confirmados
+            paymentData.orderId = session.orderId;
+            paymentData.status = session.status || "confermato";
+            paymentData.paymentMethod = session.paymentMethod || "Carta di Credito";
+            paymentData.email = session.email || customerDetails.email; // El email de Stripe es más fiable
 
+            // 4. Guarda el objeto ACTUALIZADO y limpia el carrito
             localStorage.setItem("paymentData", JSON.stringify(paymentData));
             localStorage.removeItem("caritesCart");
 
+            // 5. Muestra los datos (ahora están completos)
             displayPaymentData(paymentData, customerDetails);
             sendConfirmationEmail(paymentData, customerDetails);
 
         } catch (err) {
             console.error("❌ Errore Stripe:", err);
-            // Fallback: Cargar datos de PayPal/Default, pero pasar los customerDetails
+            // Fallback: Si la API de Stripe falla, carga los datos "pendientes"
             loadPaymentData(customerDetails); 
         }
     } else {
+        // ... (el resto de tu código "else" sigue igual)
         // 🔹 Caso PayPal o default (o recarga de página)
         loadPaymentData(customerDetails);
     }
