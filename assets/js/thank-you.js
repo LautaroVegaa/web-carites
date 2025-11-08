@@ -37,7 +37,16 @@ document.addEventListener("DOMContentLoaded", async function() {
         loadPaymentData(customerDetails);
     }
 
-    window.addEventListener("beforeunload", cleanupStorage);
+    // --- INICIO DE LA CORRECCIÓN ---
+    // Se eliminó la línea de abajo que era la que causaba el problema:
+    // window.addEventListener("beforeunload", cleanupStorage);
+    //
+    // Esta línea borraba el 'localStorage' (paymentData y customerDetails)
+    // cada vez que el usuario recargaba la página (F5).
+    // Por eso, al recargar, los datos del pago real desaparecían 
+    // y se mostraba "N/A" o un ID genérico.
+    // Al eliminarla, los datos persisten correctamente.
+    // --- FIN DE LA CORRECCIÓN ---
 });
 
 function loadPaymentData(customerDetails) {
