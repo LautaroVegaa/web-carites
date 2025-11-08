@@ -754,37 +754,59 @@ function createServiceCard(service) {
             },
             
             createOrder: async (data, actions) => {
-                const res = await fetch("/api/create-paypal-order", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ items: cart })
-                });
-                const order = await res.json();
-                return order.id;
+                try {
+                    const res = await fetch("/api/create-paypal-order", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ items: cart })
+                    });
+                    
+                    if (!res.ok) {
+                        throw new Error("Error al crear la orden de PayPal");
+                    }
+                    
+                    const order = await res.json();
+                    return order.id;
+                } catch (err) {
+                    console.error("Error en createOrder:", err);
+                    // Aquí podrías mostrar un error al usuario si lo deseas
+                }
             },
             
             onApprove: async (data, actions) => {
-                // Guarda los datos del pago ANTES de limpiar el carrito
-                const res = await fetch(`/api/capture-paypal-order?orderID=${data.orderID}`, {
-                    method: "POST"
-                });
-                const paymentData = await res.json();
-                
-                // --- INICIO DE LA CORRECCIÓN ---
-                // Añadimos los 'items' del carrito (que todavía existen) 
-                // al objeto paymentData ANTES de guardarlo.
-                paymentData.items = [...cart];
-                // --- FIN DE LA CORRECCIÓN ---
+                try {
+                    // Guarda los datos del pago ANTES de limpiar el carrito
+                    const res = await fetch(`/api/capture-paypal-order?orderID=${data.orderID}`, {
+                        method: "POST"
+                    });
 
-                // Guardamos los datos de pago y cliente para la pág. de gracias
-                localStorage.setItem("paymentData", JSON.stringify(paymentData));
-                
-                // Limpiar carrito
-                cart = [];
-                saveCart();
+                    if (!res.ok) {
+                        throw new Error("Error al capturar la orden de PayPal");
+                    }
+                    
+                    const paymentData = await res.json();
+                    
+                    // --- ESTA ES LA CORRECCIÓN ---
+                    // Añadimos una *copia* de los 'items' del carrito 
+                    // al objeto paymentData ANTES de guardarlo.
+                    paymentData.items = [...cart];
+                    // --- FIN DE LA CORRECCIÓN ---
 
-                // Redirigir
-                window.location.href = "thank-you.html";
+                    // Guardamos los datos de pago y cliente para la pág. de gracias
+                    localStorage.setItem("paymentData", JSON.stringify(paymentData));
+                    
+                    // Limpiar carrito
+                    cart = [];
+                    saveCart();
+
+                    // Redirigir
+                    window.location.href = "thank-you.html";
+
+                } catch (err) {
+                    console.error("Error en onApprove:", err);
+                    // Si el pago falla aquí, el usuario sigue en el formulario
+                    // Podríamos mostrar un mensaje de error
+                }
             },
 
             onError: (err) => {
