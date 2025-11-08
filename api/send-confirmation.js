@@ -1,7 +1,14 @@
 const { Resend } = require('resend');
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+// --- INICIO DE DEBUGGING ---
+console.log("API /api/send-confirmation INVOCADA");
+const apiKey = process.env.RESEND_API_KEY;
+console.log("API Key cargada:", !!apiKey); // Esto dirá 'true' o 'false'
+// --- FIN DE DEBUGGING ---
+
+const resend = new Resend(apiKey);
 const TU_EMAIL = "lautarocarignani@gmail.com"; // O tu email de admin
+// ... (el resto del código sigue igual)
 
 // Función para permitir CORS (cópiala de tus otros archivos API)
 const allowCors = (fn) => async (req, res) => {
