@@ -109,9 +109,11 @@ function displayPaymentSummary(data, customerDetails) {
     const displayEmail = customerDetails.email || data.email || "N/A";
 
     // --- CORRECCIÓN ---
+    const stored = JSON.parse(localStorage.getItem("paymentData") || "{}");
     const total = (data.total && data.total > 0)
         ? data.total
-        : calculateTotal(data.items || JSON.parse(localStorage.getItem("caritesCart") || []));
+        : stored.total || calculateTotal(data.items || []);
+    const method = data.paymentMethod || stored.paymentMethod || "Stripe";
     // --- FIN CORRECCIÓN ---
 
     summaryContainer.innerHTML = `
@@ -136,7 +138,11 @@ function displayPaymentSummary(data, customerDetails) {
         </div>
         <div class="summary-row">
             <div class="summary-label">Importo totale pagato:</div>
-            <div class="summary-value">€${parseFloat(total).toFixed(2)}</div>
+            <div class="summary-value">€${parseFloat(total || 0).toFixed(2)}</div>
+        </div>
+        <div class="summary-row">
+            <div class="summary-label">Metodo di Pagamento:</div>
+            <div class="summary-value">${method}</div>
         </div>
     `;
 }

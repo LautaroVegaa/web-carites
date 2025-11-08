@@ -28,8 +28,10 @@ async function handler(req, res) {
       }));
       
       const origin = req.headers.origin || 'http://localhost:3000';
-      const successUrl = `${origin}/thank-you.html?session_id={CHECKOUT_SESSION_ID}`;
-      const cancelUrl = `${origin}/index.html`;
+      // ✅ CORRECCIÓN: usar PUBLIC_URL si está definida, de lo contrario usar origin
+      const baseUrl = process.env.PUBLIC_URL || origin;
+      const successUrl = `${baseUrl}/thank-you.html?session_id={CHECKOUT_SESSION_ID}`;
+      const cancelUrl = `${baseUrl}/index.html`;
 
       const session = await stripe.checkout.sessions.create({
         payment_method_types: ["card"],
