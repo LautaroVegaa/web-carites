@@ -1,6 +1,8 @@
 document.addEventListener("DOMContentLoaded", async function() {
     const urlParams = new URLSearchParams(window.location.search);
     const sessionId = urlParams.get("session_id");
+    
+    // 1. Cargar los detalles del cliente PRIMERO.
     const customerDetails = JSON.parse(localStorage.getItem("customerDetails")) || {};
 
     if (sessionId) {
@@ -15,7 +17,8 @@ document.addEventListener("DOMContentLoaded", async function() {
                 orderId: session.orderId,
                 status: session.status || "confermato",
                 paymentMethod: session.paymentMethod || "Stripe",
-                email: session.email || customerDetails.email || "cliente@email.com", // Usar email del formulario
+                // Usar email de Stripe, o del formulario, o de último recurso el default
+                email: session.email || customerDetails.email || "cliente@email.com", 
                 date: session.date || new Date(),
                 total: session.total || 0,
                 items: JSON.parse(localStorage.getItem("caritesCart")) || []
@@ -25,39 +28,47 @@ document.addEventListener("DOMContentLoaded", async function() {
             localStorage.removeItem("caritesCart");
 
             displayPaymentData(paymentData, customerDetails);
-            sendConfirmationEmail(paymentData, customerDetails); // <-- Enviar email
+            sendConfirmationEmail(paymentData, customerDetails);
 
         } catch (err) {
             console.error("❌ Errore Stripe:", err);
-            loadPaymentData(customerDetails); // fallback
+            // Fallback: Cargar datos de PayPal/Default, pero pasar los customerDetails
+            loadPaymentData(customerDetails); 
         }
     } else {
-        // 🔹 Caso PayPal o default
+        // 🔹 Caso PayPal o default (o recarga de página)
         loadPaymentData(customerDetails);
     }
 
-    // Limpieza después de mostrar
+    // Limpieza SÓLO al salir de thank-you.html
     window.addEventListener("beforeunload", cleanupStorage);
 });
 
 function loadPaymentData(customerDetails) {
     const paymentDataString = localStorage.getItem("paymentData");
+    
     if (paymentDataString) {
+        // --- CASO IDEAL (PayPal o Stripe ya procesado) ---
         try {
             const paymentData = JSON.parse(paymentDataString);
-            // Asegurar que el email del formulario (PayPal) esté en el resumen
+            
+            // Asegurar que el email del formulario (el más fiable) esté en el resumen
             if (customerDetails.email) {
                 paymentData.email = customerDetails.email;
             }
+            
             displayPaymentData(paymentData, customerDetails);
-            sendConfirmationEmail(paymentData, customerDetails); // <-- Enviar email
+            sendConfirmationEmail(paymentData, customerDetails);
 
         } catch (error) {
             console.error("Errore nel caricamento:", error);
-            displayDefaultData();
+            // Error raro, mostrar datos por defecto PERO con cliente real
+            displayDefaultData(customerDetails);
         }
     } else {
-        displayDefaultData();
+        // --- CASO DE RECARGA DE PÁGINA (paymentData fue borrado) ---
+        // Mostramos datos por defecto, PERO usamos los customerDetails reales
+        displayDefaultData(customerDetails);
     }
 }
 
@@ -90,8 +101,8 @@ async function sendConfirmationEmail(paymentData, customerDetails) {
 // ==========================================================
 
 function displayPaymentData(data, customerDetails) {
-    displayPaymentSummary(data, customerDetails); // Pasamos customerDetails
-    displayTransactionDetails(data, customerDetails); // Pasamos customerDetails
+    displayPaymentSummary(data, customerDetails);
+    displayTransactionDetails(data, customerDetails);
     displayServices(data);
 }
 
@@ -99,8 +110,8 @@ function displayPaymentSummary(data, customerDetails) {
     const summaryContainer = document.getElementById("payment-summary");
     if (!summaryContainer) return;
     
-    // Usar el email del formulario (más fiable)
-    const displayEmail = customerDetails.email || data.email || "cliente@email.com";
+    // Usar el email del formulario (más fiable) o el del pago
+    const displayEmail = customerDetails.email || data.email || "N/A";
     const total = data.total || calculateTotal(data.items || []);
 
     summaryContainer.innerHTML = `
@@ -136,7 +147,8 @@ function displayTransactionDetails(data, customerDetails) {
 
     const currentDate = new Date();
 
-    // Añadir datos del formulario al resumen
+    // *** ESTA ES LA CORRECCIÓN CLAVE ***
+    // Siempre usamos los 'customerDetails' que vienen de localStorage.
     let customerHTML = `
         <div class="detail-group">
             <div class="detail-label">
@@ -181,14 +193,24 @@ function displayTransactionDetails(data, customerDetails) {
                 <span class="detail-icon">💳</span>
                 Metodo di Pagamento
             </div>
-            <div class="detail-value">${data.paymentMethod || "Carta di Credito"}</div>
+            <div class="detail-value">${data.paymentMethod || "N/A"}</div>
         </div>
-        ${customerDetails.name ? customerHTML : ''} 
+        ${customerHTML} 
     `;
 }
 
 function displayServices(data) {
-    if (!data.items || data.items.length === 0) return;
+    if (!data.items || data.items.length === 0) {
+         // Intentar cargar desde el paymentData guardado si los items no vienen
+        const savedData = JSON.parse(localStorage.getItem("paymentData"));
+        if (savedData && savedData.items && savedData.items.length > 0) {
+            data.items = savedData.items;
+            data.total = savedData.total;
+        } else {
+            return; // No hay items
+        }
+    }
+
 
     const servicesSection = document.getElementById("services-section");
     const servicesList = document.getElementById("services-list");
@@ -226,18 +248,22 @@ function displayServices(data) {
     servicesSection.style.display = "block";
 }
 
-function displayDefaultData() {
+/**
+ * MODIFICADO: Esta función ahora acepta 'customerDetails'
+ * para no usar "Cliente Esempio" si tenemos los datos reales.
+ */
+function displayDefaultData(customerDetails) {
     const defaultData = {
         orderId: generateOrderId(),
         date: new Date(),
         status: "Confermato",
-        paymentMethod: "Carta di Credito",
-        email: "cliente@email.com",
+        paymentMethod: "N/A",
+        email: customerDetails.email || "N/A",
         total: 0,
         items: []
     };
-    const defaultCustomer = { name: "Cliente Esempio", email: "cliente@email.com", phone: "N/A", modality: "N/A" };
-    displayPaymentData(defaultData, defaultCustomer);
+    // Usa los customerDetails reales, o un objeto vacío si no existen
+    displayPaymentData(defaultData, customerDetails || { name: "N/A", email: "N/A", phone: "N/A", modality: "N/A" });
 }
 
 function generateOrderId() {
@@ -270,3 +296,4 @@ function cleanupStorage() {
     localStorage.removeItem("customerDetails"); // <-- Añadido
     console.log("Storage pulito automaticamente");
 }
+// NOTA: No hay '}' extra aquí al final.
