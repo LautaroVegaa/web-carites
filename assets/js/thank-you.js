@@ -5,47 +5,40 @@ document.addEventListener("DOMContentLoaded", async function() {
     // 1. Cargar los detalles del cliente PRIMERO.
     const customerDetails = JSON.parse(localStorage.getItem("customerDetails")) || {};
 
-// /assets/js/thank-you.js
-
     if (sessionId) {
         // 🔹 Caso Stripe
         try {
-            // 1. PRIMERO, carga los datos "pendientes" guardados por main.js
-            // Esto nos da los 'items' y el 'total' correctos.
             let paymentData = JSON.parse(localStorage.getItem("paymentData")) || {};
 
-            // 2. AHORA, contacta a Stripe para confirmar el pago
             const res = await fetch(`/api/stripe-session?id=${sessionId}`);
             if (!res.ok) throw new Error('Errore nel recupero della sessione Stripe');
             
-            const session = await res.json(); // Trae los datos de Stripe
+            const session = await res.json();
 
-            // 3. ACTUALIZA el objeto paymentData con los datos confirmados
-            paymentData.orderId = session.orderId;
-            paymentData.status = session.status || "confermato";
-            paymentData.paymentMethod = session.paymentMethod || "Carta di Credito";
-            paymentData.email = session.email || customerDetails.email; // El email de Stripe es más fiable
+            // --- CORRECCIÓN ---
+            // Rellenar campos faltantes si Stripe no los devuelve.
+            paymentData.orderId = session.orderId || paymentData.orderId || generateOrderId();
+            paymentData.status = session.status || paymentData.status || "Confermato";
+            paymentData.paymentMethod = session.paymentMethod || paymentData.paymentMethod || "Carta di Credito";
+            paymentData.email = session.email || paymentData.email || customerDetails.email;
+            paymentData.total = paymentData.total || calculateTotal(paymentData.items || []);
+            // --- FIN CORRECCIÓN ---
 
-            // 4. Guarda el objeto ACTUALIZADO y limpia el carrito
             localStorage.setItem("paymentData", JSON.stringify(paymentData));
             localStorage.removeItem("caritesCart");
 
-            // 5. Muestra los datos (ahora están completos)
             displayPaymentData(paymentData, customerDetails);
             sendConfirmationEmail(paymentData, customerDetails);
 
         } catch (err) {
             console.error("❌ Errore Stripe:", err);
-            // Fallback: Si la API de Stripe falla, carga los datos "pendientes"
             loadPaymentData(customerDetails); 
         }
     } else {
-        // ... (el resto de tu código "else" sigue igual)
-        // 🔹 Caso PayPal o default (o recarga de página)
+        // 🔹 Caso PayPal o recarga de página
         loadPaymentData(customerDetails);
     }
 
-    // Limpieza SÓLO al salir de thank-you.html
     window.addEventListener("beforeunload", cleanupStorage);
 });
 
@@ -53,35 +46,34 @@ function loadPaymentData(customerDetails) {
     const paymentDataString = localStorage.getItem("paymentData");
     
     if (paymentDataString) {
-        // --- CASO IDEAL (PayPal o Stripe ya procesado) ---
         try {
             const paymentData = JSON.parse(paymentDataString);
-            
-            // Asegurar que el email del formulario (el más fiable) esté en el resumen
+
             if (customerDetails.email) {
                 paymentData.email = customerDetails.email;
             }
-            
+
+            // --- CORRECCIÓN ---
+            // Completar datos si faltan (caso Stripe sin session_id)
+            paymentData.total = paymentData.total || calculateTotal(paymentData.items || []);
+            paymentData.orderId = paymentData.orderId || generateOrderId();
+            paymentData.paymentMethod = paymentData.paymentMethod || "Stripe";
+            paymentData.status = paymentData.status || "Confermato";
+            // --- FIN CORRECCIÓN ---
+
             displayPaymentData(paymentData, customerDetails);
             sendConfirmationEmail(paymentData, customerDetails);
 
         } catch (error) {
             console.error("Errore nel caricamento:", error);
-            // Error raro, mostrar datos por defecto PERO con cliente real
             displayDefaultData(customerDetails);
         }
     } else {
-        // --- CASO DE RECARGA DE PÁGINA (paymentData fue borrado) ---
-        // Mostramos datos por defecto, PERO usamos los customerDetails reales
         displayDefaultData(customerDetails);
     }
 }
 
-// ==========================================================
-// NUEVA FUNCIÓN PARA ENVIAR EL EMAIL
-// ==========================================================
 async function sendConfirmationEmail(paymentData, customerDetails) {
-    // Evitar enviar email si no hay datos del cliente (ej. página recargada)
     if (!customerDetails || !customerDetails.email) {
         console.log("Dati cliente non trovati, email non inviata.");
         return;
@@ -103,7 +95,6 @@ async function sendConfirmationEmail(paymentData, customerDetails) {
         console.error("Errore fatale inviando l'email:", err);
     }
 }
-// ==========================================================
 
 function displayPaymentData(data, customerDetails) {
     displayPaymentSummary(data, customerDetails);
@@ -115,9 +106,13 @@ function displayPaymentSummary(data, customerDetails) {
     const summaryContainer = document.getElementById("payment-summary");
     if (!summaryContainer) return;
     
-    // Usar el email del formulario (más fiable) o el del pago
     const displayEmail = customerDetails.email || data.email || "N/A";
-    const total = data.total || calculateTotal(data.items || []);
+
+    // --- CORRECCIÓN ---
+    const total = (data.total && data.total > 0)
+        ? data.total
+        : calculateTotal(data.items || JSON.parse(localStorage.getItem("caritesCart") || []));
+    // --- FIN CORRECCIÓN ---
 
     summaryContainer.innerHTML = `
         <div class="summary-row">
@@ -152,8 +147,6 @@ function displayTransactionDetails(data, customerDetails) {
 
     const currentDate = new Date();
 
-    // *** ESTA ES LA CORRECCIÓN CLAVE ***
-    // Siempre usamos los 'customerDetails' que vienen de localStorage.
     let customerHTML = `
         <div class="detail-group">
             <div class="detail-label">
@@ -206,16 +199,14 @@ function displayTransactionDetails(data, customerDetails) {
 
 function displayServices(data) {
     if (!data.items || data.items.length === 0) {
-         // Intentar cargar desde el paymentData guardado si los items no vienen
         const savedData = JSON.parse(localStorage.getItem("paymentData"));
         if (savedData && savedData.items && savedData.items.length > 0) {
             data.items = savedData.items;
             data.total = savedData.total;
         } else {
-            return; // No hay items
+            return;
         }
     }
-
 
     const servicesSection = document.getElementById("services-section");
     const servicesList = document.getElementById("services-list");
@@ -239,7 +230,6 @@ function displayServices(data) {
         `;
     });
 
-    // Totale finale
     servicesHTML += `
         <div class="service-item total-item">
             <div class="service-info">
@@ -253,10 +243,6 @@ function displayServices(data) {
     servicesSection.style.display = "block";
 }
 
-/**
- * MODIFICADO: Esta función ahora acepta 'customerDetails'
- * para no usar "Cliente Esempio" si tenemos los datos reales.
- */
 function displayDefaultData(customerDetails) {
     const defaultData = {
         orderId: generateOrderId(),
@@ -267,7 +253,6 @@ function displayDefaultData(customerDetails) {
         total: 0,
         items: []
     };
-    // Usa los customerDetails reales, o un objeto vacío si no existen
     displayPaymentData(defaultData, customerDetails || { name: "N/A", email: "N/A", phone: "N/A", modality: "N/A" });
 }
 
@@ -294,11 +279,9 @@ function calculateTotal(items) {
     }, 0);
 }
 
-// ACTUALIZADO para limpiar todo
 function cleanupStorage() {
     localStorage.removeItem("paymentData");
     localStorage.removeItem("caritesCart");
-    localStorage.removeItem("customerDetails"); // <-- Añadido
+    localStorage.removeItem("customerDetails");
     console.log("Storage pulito automaticamente");
 }
-// NOTA: No hay '}' extra aquí al final.

@@ -819,43 +819,45 @@ function createServiceCard(service) {
     /**
      * ¡MODIFICADO! Esta función ahora solo es llamada por el botón "Paga con Carta".
      */
-    async function checkoutStripe() {
-        if (cart.length === 0) {
-             setLoadingState(stripeBtn, false); // Quitar spinner si falla
-            return;
-        }
-
-        try {
-            const response = await fetch("/api/create-stripe-session", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ items: cart }),
-            });
-
-            if (!response.ok) throw new Error('Error al crear la sesión de Stripe');
-
-            const data = await response.json();
-
-            // Guardar datos previos al checkout (para thank-you.html)
-            const paymentData = {
-                orderId: data.id || "STRIPE_SESSION",
-                status: "pending",
-                paymentMethod: "Stripe",
-                email: customerEmail.value, // ¡Usamos el email del formulario!
-                date: new Date(),
-                total: cart.reduce((sum, item) => sum + (item.price * item.quantity), 0),
-                items: cart
-            };
-
-            localStorage.setItem("paymentData", JSON.stringify(paymentData));
-
-            // Redirige al checkout de Stripe
-            window.location.href = data.url;
-
-        } catch (error) {
-            console.error("Error en checkoutStripe:", error);
-            setLoadingState(stripeBtn, false); // Quitar spinner si falla
-        }
+async function checkoutStripe() {
+    if (cart.length === 0) {
+        setLoadingState(stripeBtn, false); // Quitar spinner si falla
+        return;
     }
+
+    try {
+        const response = await fetch("/api/create-stripe-session", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ items: cart }),
+        });
+
+        if (!response.ok) throw new Error('Error al crear la sesión de Stripe');
+
+        const data = await response.json();
+
+        // Guardar datos previos al checkout (para thank-you.html)
+        const paymentData = {
+            orderId: data.id || "STRIPE_SESSION",
+            status: "pending",
+            paymentMethod: "Stripe",
+            email: customerEmail.value, // ¡Usamos el email del formulario!
+            date: new Date(),
+            total: cart.reduce((sum, item) => sum + (item.price * item.quantity), 0),
+            items: cart
+        };
+
+        // ✅ CORRECCIÓN: guardar antes de redirigir
+        localStorage.setItem("paymentData", JSON.stringify(paymentData));
+
+        // Redirige al checkout de Stripe
+        window.location.href = data.url;
+
+    } catch (error) {
+        console.error("Error en checkoutStripe:", error);
+        setLoadingState(stripeBtn, false); // Quitar spinner si falla
+    }
+}
+
 
 })(); // Fin de la IIFE
