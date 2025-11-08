@@ -15,14 +15,12 @@ document.addEventListener("DOMContentLoaded", async function() {
             
             const session = await res.json();
 
-            // --- CORRECCIÓN ---
             // Rellenar campos faltantes si Stripe no los devuelve.
             paymentData.orderId = session.orderId || paymentData.orderId || generateOrderId();
             paymentData.status = session.status || paymentData.status || "Confermato";
             paymentData.paymentMethod = session.paymentMethod || paymentData.paymentMethod || "Carta di Credito";
             paymentData.email = session.email || paymentData.email || customerDetails.email;
             paymentData.total = paymentData.total || calculateTotal(paymentData.items || []);
-            // --- FIN CORRECCIÓN ---
 
             localStorage.setItem("paymentData", JSON.stringify(paymentData));
             localStorage.removeItem("caritesCart");
@@ -53,13 +51,11 @@ function loadPaymentData(customerDetails) {
                 paymentData.email = customerDetails.email;
             }
 
-            // --- CORRECCIÓN ---
             // Completar datos si faltan (caso Stripe sin session_id)
             paymentData.total = paymentData.total || calculateTotal(paymentData.items || []);
             paymentData.orderId = paymentData.orderId || generateOrderId();
             paymentData.paymentMethod = paymentData.paymentMethod || "Stripe";
             paymentData.status = paymentData.status || "Confermato";
-            // --- FIN CORRECCIÓN ---
 
             displayPaymentData(paymentData, customerDetails);
             sendConfirmationEmail(paymentData, customerDetails);
@@ -108,13 +104,11 @@ function displayPaymentSummary(data, customerDetails) {
     
     const displayEmail = customerDetails.email || data.email || "N/A";
 
-    // --- CORRECCIÓN ---
+    // Total con fallback a localStorage/items (pero sin mostrar método aquí)
     const stored = JSON.parse(localStorage.getItem("paymentData") || "{}");
     const total = (data.total && data.total > 0)
         ? data.total
         : stored.total || calculateTotal(data.items || []);
-    const method = data.paymentMethod || stored.paymentMethod || "Stripe";
-    // --- FIN CORRECCIÓN ---
 
     summaryContainer.innerHTML = `
         <div class="summary-row">
@@ -140,10 +134,6 @@ function displayPaymentSummary(data, customerDetails) {
             <div class="summary-label">Importo totale pagato:</div>
             <div class="summary-value">€${parseFloat(total || 0).toFixed(2)}</div>
         </div>
-        <div class="summary-row">
-            <div class="summary-label">Metodo di Pagamento:</div>
-            <div class="summary-value">${method}</div>
-        </div>
     `;
 }
 
@@ -152,6 +142,10 @@ function displayTransactionDetails(data, customerDetails) {
     if (!detailsContainer) return;
 
     const currentDate = new Date();
+
+    // Asegurar método de pago desde localStorage si no viene en data
+    const stored = JSON.parse(localStorage.getItem("paymentData") || "{}");
+    data.paymentMethod = data.paymentMethod || stored.paymentMethod || "N/A";
 
     let customerHTML = `
         <div class="detail-group">
