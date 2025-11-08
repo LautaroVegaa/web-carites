@@ -770,6 +770,12 @@ function createServiceCard(service) {
                 });
                 const paymentData = await res.json();
                 
+                // --- INICIO DE LA CORRECCIÓN ---
+                // Añadimos los 'items' del carrito (que todavía existen) 
+                // al objeto paymentData ANTES de guardarlo.
+                paymentData.items = cart;
+                // --- FIN DE LA CORRECCIÓN ---
+
                 // Guardamos los datos de pago y cliente para la pág. de gracias
                 localStorage.setItem("paymentData", JSON.stringify(paymentData));
                 
