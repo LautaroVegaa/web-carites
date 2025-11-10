@@ -6,47 +6,48 @@ document.addEventListener("DOMContentLoaded", async function() {
     const customerDetails = JSON.parse(localStorage.getItem("customerDetails")) || {};
 
     if (sessionId) {
-        // 🔹 Caso Stripe
+        // 🔹 Caso Stripe: Esta es la lógica corregida.
         try {
-            let paymentData = JSON.parse(localStorage.getItem("paymentData")) || {};
-
+            // 1. Obtener los datos REALES de la API primero.
             const res = await fetch(`/api/stripe-session?id=${sessionId}`);
             if (!res.ok) throw new Error('Errore nel recupero della sessione Stripe');
             
-            const session = await res.json();
+            const sessionData = await res.json(); // Contiene el orderId y paymentMethod correctos
 
-            // Rellenar campos faltantes si Stripe no los devuelve.
-            paymentData.orderId = session.orderId || paymentData.orderId || generateOrderId();
-            paymentData.status = session.status || paymentData.status || "Confermato";
-            paymentData.paymentMethod = session.paymentMethod || paymentData.paymentMethod || "Carta di Credito";
-            paymentData.email = session.email || paymentData.email || customerDetails.email;
-            paymentData.total = paymentData.total || calculateTotal(paymentData.items || []);
+            // 2. Cargar datos 'viejos' SOLO para obtener los 'items' del carrito.
+            const storedData = JSON.parse(localStorage.getItem("paymentData")) || {};
 
+            // 3. Construir el objeto de pago FINAL, priorizando los datos de la API.
+            const paymentData = {
+                orderId: sessionData.orderId,           // <--- Dato real de la API
+                paymentMethod: sessionData.paymentMethod,   // <--- Dato real de la API
+                status: sessionData.status || "Confermato",
+                email: sessionData.email || customerDetails.email,
+                total: sessionData.total,
+                date: sessionData.date || new Date(),
+                items: storedData.items || [] // Los items solo estaban en localStorage
+            };
+
+            // 4. Guardar los datos BUENOS en localStorage y limpiar el carrito.
             localStorage.setItem("paymentData", JSON.stringify(paymentData));
             localStorage.removeItem("caritesCart");
 
+            // 5. Mostrar y enviar email.
             displayPaymentData(paymentData, customerDetails);
             sendConfirmationEmail(paymentData, customerDetails);
 
         } catch (err) {
             console.error("❌ Errore Stripe:", err);
+            // Si la API falla, intentamos cargar desde localStorage (aunque puede ser N/A)
             loadPaymentData(customerDetails); 
         }
     } else {
-        // 🔹 Caso PayPal o recarga de página
+        // 🔹 Caso PayPal o recarga de página (Stripe o PayPal).
+        // Esta función ahora cargará los datos correctos guardados.
         loadPaymentData(customerDetails);
     }
 
-    // --- INICIO DE LA CORRECCIÓN ---
-    // Se eliminó la línea de abajo que era la que causaba el problema:
-    // window.addEventListener("beforeunload", cleanupStorage);
-    //
-    // Esta línea borraba el 'localStorage' (paymentData y customerDetails)
-    // cada vez que el usuario recargaba la página (F5).
-    // Por eso, al recargar, los datos del pago real desaparecían 
-    // y se mostraba "N/A" o un ID genérico.
-    // Al eliminarla, los datos persisten correctamente.
-    // --- FIN DE LA CORRECCIÓN ---
+    // Ya no hay 'cleanupStorage' aquí, lo cual es correcto.
 });
 
 function loadPaymentData(customerDetails) {
@@ -60,20 +61,24 @@ function loadPaymentData(customerDetails) {
                 paymentData.email = customerDetails.email;
             }
 
-            // Completar datos si faltan (caso Stripe sin session_id)
+            // --- LÓGICA CORREGIDA ---
+            // Ya no asignamos valores por defecto FALSOS como "Stripe" o generateOrderId().
+            // Simplemente nos aseguramos de que el total esté calculado.
             paymentData.total = paymentData.total || calculateTotal(paymentData.items || []);
-            paymentData.orderId = paymentData.orderId || generateOrderId();
-            paymentData.paymentMethod = paymentData.paymentMethod || "Stripe";
-            paymentData.status = paymentData.status || "Confermato";
 
             displayPaymentData(paymentData, customerDetails);
-            sendConfirmationEmail(paymentData, customerDetails);
+            
+            // Verificamos si el email ya fue enviado (solo para recargas)
+            if (!localStorage.getItem("emailSent")) {
+                sendConfirmationEmail(paymentData, customerDetails);
+            }
 
         } catch (error) {
             console.error("Errore nel caricamento:", error);
             displayDefaultData(customerDetails);
         }
     } else {
+        // Esto solo debería pasar si un usuario visita thank-you.html directamente.
         displayDefaultData(customerDetails);
     }
 }
@@ -81,6 +86,12 @@ function loadPaymentData(customerDetails) {
 async function sendConfirmationEmail(paymentData, customerDetails) {
     if (!customerDetails || !customerDetails.email) {
         console.log("Dati cliente non trovati, email non inviata.");
+        return;
+    }
+
+    // Evitar envíos duplicados en recargas
+    if (localStorage.getItem("emailSent")) {
+        console.log("Email già inviata per questo ordine.");
         return;
     }
 
@@ -93,6 +104,8 @@ async function sendConfirmationEmail(paymentData, customerDetails) {
 
         if (response.ok) {
             console.log("Email di conferma inviata con successo.");
+            // Marcar como enviado para no repetir en recargas
+            localStorage.setItem("emailSent", "true"); 
         } else {
             console.error("Errore nella risposta del server email.");
         }
@@ -113,11 +126,9 @@ function displayPaymentSummary(data, customerDetails) {
     
     const displayEmail = customerDetails.email || data.email || "N/A";
 
-    // Total con fallback a localStorage/items (pero sin mostrar método aquí)
-    const stored = JSON.parse(localStorage.getItem("paymentData") || "{}");
     const total = (data.total && data.total > 0)
         ? data.total
-        : stored.total || calculateTotal(data.items || []);
+        : calculateTotal(data.items || []);
 
     summaryContainer.innerHTML = `
         <div class="summary-row">
@@ -152,10 +163,10 @@ function displayTransactionDetails(data, customerDetails) {
 
     const currentDate = new Date();
 
-    // Asegurar método de pago desde localStorage si no viene en data
-    const stored = JSON.parse(localStorage.getItem("paymentData") || "{}");
-    data.paymentMethod = data.paymentMethod || stored.paymentMethod || "N/A";
-
+    // --- LÓGICA CORREGIDA ---
+    // Ya no se depende de 'stored' ni se asignan valores por defecto falsos.
+    // Simplemente mostramos lo que 'data' contiene, o "N/A" si está vacío.
+    
     let customerHTML = `
         <div class="detail-group">
             <div class="detail-label">
@@ -186,7 +197,7 @@ function displayTransactionDetails(data, customerDetails) {
                 <span class="detail-icon">🧾</span>
                 ID Ordine
             </div>
-            <div class="detail-value">${data.orderId || generateOrderId()}</div>
+            <div class="detail-value">${data.orderId || "N/A"}</div>
         </div>
         <div class="detail-group">
             <div class="detail-label">
@@ -207,13 +218,16 @@ function displayTransactionDetails(data, customerDetails) {
 }
 
 function displayServices(data) {
+    // Esta función no necesita cargar de localStorage, 
+    // porque 'data' ya debería tener los 'items'.
     if (!data.items || data.items.length === 0) {
+        // Fallback por si acaso (aunque no debería ser necesario)
         const savedData = JSON.parse(localStorage.getItem("paymentData"));
         if (savedData && savedData.items && savedData.items.length > 0) {
             data.items = savedData.items;
             data.total = savedData.total;
         } else {
-            return;
+            return; 
         }
     }
 
@@ -254,10 +268,10 @@ function displayServices(data) {
 
 function displayDefaultData(customerDetails) {
     const defaultData = {
-        orderId: generateOrderId(),
+        orderId: "...",
         date: new Date(),
-        status: "Confermato",
-        paymentMethod: "N/A",
+        status: "In attesa",
+        paymentMethod: "...",
         email: customerDetails.email || "N/A",
         total: 0,
         items: []
@@ -265,6 +279,7 @@ function displayDefaultData(customerDetails) {
     displayPaymentData(defaultData, customerDetails || { name: "N/A", email: "N/A", phone: "N/A", modality: "N/A" });
 }
 
+// Esta función ya no se usa para generar IDs falsos, pero es útil si alguna vez la necesitas.
 function generateOrderId() {
     const timestamp = Date.now().toString(36);
     const randomStr = Math.random().toString(36).substr(2, 4);
@@ -283,14 +298,17 @@ function formatDateTime(date) {
 }
 
 function calculateTotal(items) {
+    if (!items) return 0;
     return items.reduce((total, item) => {
         return total + ((item.price || 0) * (item.quantity || 1));
     }, 0);
 }
 
+// Esta función ya no se llama desde 'beforeunload', pero la dejamos por si la necesitas
 function cleanupStorage() {
     localStorage.removeItem("paymentData");
     localStorage.removeItem("caritesCart");
     localStorage.removeItem("customerDetails");
-    console.log("Storage pulito automaticamente");
+    localStorage.removeItem("emailSent"); // Limpiar el flag del email
+    console.log("Storage pulito manualmente");
 }
