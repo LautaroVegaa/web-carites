@@ -84,6 +84,7 @@
     // MODULE INITIALIZERS
     // =====================
     
+    // ... (initMobileMenu, initSmoothScroll, initPromoCarousel, initObservers sin cambios) ...
     function initMobileMenu() {
         if (!hamburger || !navMenu) return;
         hamburger.addEventListener('click', () => {
@@ -110,7 +111,7 @@
                 e.preventDefault();
                 const target = document.querySelector(this.getAttribute('href'));
                 if (target) {
-                    const offsetTop = target.offsetTop - 80;
+                    const offsetTop = target.offsetTop - 80; // Ajuste para el navbar fijo
                     window.scrollTo({
                         top: offsetTop,
                         behavior: 'smooth'
@@ -174,6 +175,9 @@
         });
     }
 
+    /**
+     * Lógica del modal del carrito.
+     */
     function initCartFunctionality() {
         if (!cartIcon || !floatingCart || !closeCart || !cartModal) return;
 
@@ -187,8 +191,10 @@
             }
         });
         
+        // ¡MODIFICADO! Este botón ahora abre el formulario de cliente
         goToCheckoutBtn.addEventListener('click', openCustomerForm);
 
+        // Hacer públicas las funciones
         window.openInfo = openInfo;
         window.closeInfo = closeInfo;
         window.openPromoModal = openPromoModal;
@@ -196,9 +202,12 @@
         window.addToCart = addToCart;
         window.removeFromCart = removeFromCart;
         window.updateQuantity = updateQuantity;
-        window.checkoutStripe = checkoutStripe;
+        window.checkoutStripe = checkoutStripe; // Sigue siendo global por si acaso
     }
 
+    /**
+     * ¡NUEVO! Configura el formulario de cliente.
+     */
     function initCustomerForm() {
         if (!customerFormModal || !closeCustomerForm || !stripeBtn) return;
 
@@ -210,16 +219,22 @@
             }
         });
 
+        // El botón de Stripe ahora valida y guarda antes de pagar
         stripeBtn.addEventListener('click', () => {
             if (validateCustomerForm()) {
                 saveCustomerDataToLocalStorage();
-                setLoadingState(stripeBtn, true);
+                setLoadingState(stripeBtn, true); // Activar spinner
                 checkoutStripe(); 
             }
         });
     }
 
+
+    /**
+     * Configura listeners globales (scroll, teclado, etc.).
+     */
     function initGlobalListeners() {
+        // ... (Efecto de sombra en Navbar sin cambios) ...
         window.addEventListener('scroll', () => {
             if (!navbar) return;
             if (window.scrollY > 100) {
@@ -233,15 +248,17 @@
             }
         });
         
+        // Cerrar modales con la tecla Escape
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
                 if (cartModal.classList.contains('active')) closeCartModal();
                 if (infoModal.classList.contains('active')) closeInfo();
                 if (promoModal.classList.contains('active')) closePromoModal();
-                if (customerFormModal.classList.contains('active')) closeCustomerFormModal();
+                if (customerFormModal.classList.contains('active')) closeCustomerFormModal(); // ¡NUEVO!
             }
         });
         
+        // ... (Listeners de botones de modales info y promo sin cambios) ...
         document.getElementById("modal-add-cart").addEventListener("click", () => {
             if (currentServiceId) {
                 addToCart(currentServiceId);
@@ -266,6 +283,7 @@
     // CORE LOGIC (SERVICES)
     // =====================
     
+    // ... (renderServices y createServiceCard sin cambios) ...
     async function renderServices() {
         if (!servicesGrid || !esteticaGrid) return;
 
@@ -296,6 +314,7 @@ function createServiceCard(service) {
         const card = document.createElement('div');
         card.className = `service-card ${service.isPromo ? 'promo' : ''}`;
         
+        // Aggiunge il click listener all'intera card per aprire il modal
         card.addEventListener('click', () => {
             openInfo(service.id);
         });
@@ -311,6 +330,7 @@ function createServiceCard(service) {
             `;
         }
 
+        // Imposta l'HTML interno della card
         card.innerHTML = `
             <h3 class="service-title">${service.title}</h3>
             ${descriptionHTML}
@@ -323,19 +343,22 @@ function createServiceCard(service) {
             </div>
         `;
 
+        // Trova il pulsante appena creato e aggiunge un listener sicuro
         const button = card.querySelector('.btn-primary');
         button.addEventListener('click', (e) => {
-            e.stopPropagation();
+            e.stopPropagation(); // Impedisce al click di "propagarsi" alla card (che aprirebbe il modal)
             addToCart(service.id);
         });
 
         return card;
     }
 
+
     // =====================
     // CORE LOGIC (CART)
     // =====================
-    
+
+    // ... (addToCart, removeFromCart, updateQuantity, saveCart, updateCartCount, renderCartItems sin cambios) ...
     function addToCart(serviceId) {
         const service = services.find(s => s.id === serviceId);
         if (!service) return;
@@ -415,6 +438,9 @@ function createServiceCard(service) {
         `).join('');
     }
 
+    /**
+     * ¡MODIFICADO! Ahora solo muestra/oculta el botón de checkout.
+     */
     function updateCartTotal() {
         const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
         totalAmount.textContent = total.toFixed(0);
@@ -428,12 +454,25 @@ function createServiceCard(service) {
         }
     }
 
+    // ===================================
+    // INICIO SECCIÓN AÑADIDA
+    // ===================================
+    
+    /**
+     * @description Función principal para actualizar toda la interfaz del carrito.
+     * Llama a todas las funciones de soporte (contador, items, total).
+     */
     function updateCartUI() {
         renderCartItems();
         updateCartTotal();
         updateCartCount();
     }
+    
+    // ===================================
+    // FIN SECCIÓN AÑADIDA
+    // ===================================
 
+    // ... (showAddToCartFeedback sin cambios) ...
     function showAddToCartFeedback() {
         const feedback = document.createElement('div');
         feedback.textContent = 'Aggiunto al carrello!';
@@ -472,6 +511,74 @@ function createServiceCard(service) {
         }, 2000);
     }
 
+    // =====================
+    // CORE LOGIC (MODALS)
+    // =====================
+
+    // ... (openInfo, closeInfo, openPromoModal, closePromoModal sin cambios) ...
+    function openInfo(serviceId) {
+        const service = services.find(s => s.id === serviceId);
+        if (!service) return;
+        currentServiceId = service.id;
+        document.getElementById("modal-title").textContent = service.title;
+        document.getElementById("modal-prezzo").textContent = "€" + service.price;
+        document.getElementById("modal-desc").textContent = service.description.replace("Disponibile in locale o a domicilio.", "");
+        const durataP = document.getElementById("modal-durata").parentNode;
+        const detailsP = document.getElementById("modal-details");
+        const modalImg = document.getElementById("modal-img");
+        if (service.category === 'promo') {
+            durataP.style.display = "none";
+            detailsP.style.display = "none";
+            document.getElementById("modal-desc").textContent = service.description;
+        } else {
+            durataP.style.display = "block";
+            detailsP.style.display = "block";
+            document.getElementById("modal-durata").textContent = service.duration;
+            detailsP.innerHTML = "";
+            if (service.details && service.details.length > 0) {
+                const ul = document.createElement("ul");
+                service.details.forEach(detail => {
+                    const li = document.createElement("li");
+                    li.textContent = detail;
+                    ul.appendChild(li);
+                });
+                detailsP.appendChild(ul);
+            }
+        }
+        if (service.image) {
+            modalImg.src = service.image; 
+            modalImg.alt = service.title;
+            modalImg.style.display = "block";
+        } else {
+            modalImg.style.display = "none";
+        }
+        infoModal.classList.add("active");
+        document.body.style.overflow = "hidden";
+    }
+    function closeInfo() {
+        infoModal.classList.remove("active");
+        document.body.style.overflow = "auto";
+        currentServiceId = null;
+    }
+    function openPromoModal(promoId) {
+        const promo = services.find(s => s.id === promoId);
+        if (!promo) return;
+        currentPromoId = promo.id;
+        document.getElementById("promo-modal-title").textContent = promo.title;
+        document.getElementById("promo-modal-desc").textContent = promo.description;
+        document.getElementById("promo-modal-prezzo").textContent = "€" + promo.price;
+        document.getElementById("promo-modal-img").src = promo.image; 
+        document.getElementById("promo-modal-img").alt = promo.title;
+        promoModal.classList.add("active");
+        document.body.style.overflow = "hidden";
+    }
+    function closePromoModal() {
+        promoModal.classList.remove("active");
+        document.body.style.overflow = "auto";
+        currentPromoId = null;
+    }
+    
+    // --- Lógica de apertura/cierre de modales ---
     function openCart() {
         cartModal.classList.add('active');
         document.body.style.overflow = 'hidden';
@@ -482,55 +589,85 @@ function createServiceCard(service) {
         document.body.style.overflow = 'auto';
     }
 
+    // ===================================
+    // INICIO SECCIÓN MODIFICADA
+    // ===================================
+
+    // ¡NUEVO! Abrir formulario de cliente
     function openCustomerForm() {
+        // 1. Revisar el contenido del carrito
         const hasDomicilioOption = cart.some(item => {
             const service = services.find(s => s.id === item.id);
+            // Asegurarse de que 'service' existe y 'description' está presente
             return service && service.description && service.description.includes("Disponibile in locale o a domicilio");
         });
 
         const hasLocaleOnlyItem = cart.some(item => {
             const service = services.find(s => s.id === item.id);
+            // Si el servicio no existe o no tiene descripción, o si no incluye la frase, se asume "solo local"
             return !service || !service.description || !service.description.includes("Disponibile in locale o a domicilio");
         });
 
+        // Cachear los elementos del formulario
         const radioLocale = document.getElementById('modality-local');
         const radioDomicilio = document.getElementById('modality-domicilio');
-        const warningMessage = document.getElementById('modality-forced-warning');
+        const warningMessage = document.getElementById('modality-forced-warning'); // Usamos el nuevo mensaje
 
+        // 2. Aplicar la lógica de los 3 escenarios
         if (hasDomicilioOption && !hasLocaleOnlyItem) {
+            // Caso 1: SÓLO servicios compatibles con domicilio.
             modalityGroup.style.display = 'block';
             radioDomicilio.disabled = false;
             radioLocale.checked = true; 
             warningMessage.style.display = 'none';
 
         } else if (!hasDomicilioOption && hasLocaleOnlyItem) {
+            // Caso 2: SÓLO servicios "solo local".
             modalityGroup.style.display = 'none';
             warningMessage.style.display = 'none';
 
         } else if (hasDomicilioOption && hasLocaleOnlyItem) {
-            modalityGroup.style.display = 'none';
-            warningMessage.style.display = 'block';
-            radioLocale.checked = true;
+            // Caso 3: CARRITO MIXTO (Tu escenario).
+            modalityGroup.style.display = 'none';      // Ocultar las opciones
+            warningMessage.style.display = 'block';    // Mostrar el aviso
+            radioLocale.checked = true;                // Asegurar que "local" esté seleccionado internamente
 
         } else {
+            // Caso 4: Carrito vacío (o algún otro caso).
             modalityGroup.style.display = 'none';
             warningMessage.style.display = 'none';
         }
 
+        // 3. Abrir modal de formulario y cerrar carrito
         customerFormModal.classList.add('active');
         closeCartModal();
         document.body.style.overflow = 'hidden';
     }
 
+    // ===================================
+    // FIN SECCIÓN MODIFICADA
+    // ===================================
+
+    // ¡NUEVO! Cerrar formulario de cliente
     function closeCustomerFormModal() {
         customerFormModal.classList.remove('active');
         document.body.style.overflow = 'auto';
-        setLoadingState(stripeBtn, false);
+        setLoadingState(stripeBtn, false); // Resetea el botón de Stripe si estaba cargando
     }
     
+
+    // =====================
+    // CORE LOGIC (VALIDACIÓN Y PAGO)
+    // =====================
+
+    /**
+     * ¡NUEVO! Valida el formulario del cliente.
+     * @returns {boolean} - true si es válido, false si no.
+     */
     function validateCustomerForm() {
         let isValid = true;
         
+        // Validar Nombre
         if (!customerName.value.trim()) {
             customerName.parentElement.classList.add('invalid');
             isValid = false;
@@ -538,6 +675,7 @@ function createServiceCard(service) {
             customerName.parentElement.classList.remove('invalid');
         }
 
+        // Validar Email
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!customerEmail.value.trim() || !emailRegex.test(customerEmail.value)) {
             customerEmail.parentElement.classList.add('invalid');
@@ -546,6 +684,7 @@ function createServiceCard(service) {
             customerEmail.parentElement.classList.remove('invalid');
         }
         
+        // Validar Teléfono
         if (!customerPhone.value.trim()) {
             customerPhone.parentElement.classList.add('invalid');
             isValid = false;
@@ -556,19 +695,34 @@ function createServiceCard(service) {
         return isValid;
     }
     
+/**
+     * ¡NUEVO! Guarda los datos del formulario en localStorage.
+     */
     function saveCustomerDataToLocalStorage() {
         const formData = new FormData(customerForm);
+        
+        // --- INICIO DE LA CORRECCIÓN ---
+        // Obtenemos el valor de la modalidad directamente del radio button
+        // que esté seleccionado (aunque esté oculto).
         const modalityValue = customerForm.querySelector('input[name="modality"]:checked').value;
+        // --- FIN DE LA CORRECCIÓN ---
+
         const customerData = {
             name: formData.get('name'),
             email: formData.get('email'),
             phone: formData.get('phone'),
-            modality: modalityValue || 'locale',
+            // Usamos el valor que acabamos de obtener
+            modality: modalityValue || 'locale', // Si algo falla, default 'locale'
             availability: formData.get('availability') || 'Nessuna preferenza'
         };
+        
+        // Guardamos los datos para usarlos en la página de "gracias"
         localStorage.setItem('customerDetails', JSON.stringify(customerData));
     }
     
+    /**
+     * ¡NUEVO! Muestra un spinner en el botón de pago
+     */
     function setLoadingState(buttonElement, isLoading) {
         if (isLoading) {
             buttonElement.classList.add('btn-loading');
@@ -579,19 +733,24 @@ function createServiceCard(service) {
         }
     }
 
+
+    /**
+     * ¡MODIFICADO! Inicializa los botones de PayPal DENTRO del formulario.
+     */
     function initPayPalButtons() {
         if (typeof paypal === "undefined" || !paypalContainer) return;
 
-        paypalContainer.innerHTML = "";
+        paypalContainer.innerHTML = ""; // Limpiar por si acaso
 
         paypal.Buttons({
+            // ¡NUEVO! Validar formulario antes de mostrar el pop-up
             onClick: (data, actions) => {
                 if (!validateCustomerForm()) {
                     console.log("Formulario inválido. No se puede continuar con PayPal.");
-                    return actions.reject();
+                    return actions.reject(); // Cancela la apertura del pop-up de PayPal
                 }
-                saveCustomerDataToLocalStorage();
-                return actions.resolve();
+                saveCustomerDataToLocalStorage(); // Guarda los datos
+                return actions.resolve(); // Permite continuar
             },
             
             createOrder: async (data, actions) => {
@@ -610,11 +769,16 @@ function createServiceCard(service) {
                     return order.id;
                 } catch (err) {
                     console.error("Error en createOrder:", err);
+                    // Aquí podrías mostrar un error al usuario si lo deseas
                 }
             },
             
+            // ===================================================================
+            // ================== INICIO DE LA FUNCIÓN CORREGIDA ==================
+            // ===================================================================
             onApprove: async (data, actions) => {
                 try {
+                    // Guarda los datos del pago ANTES de limpiar el carrito
                     const res = await fetch(`/api/capture-paypal-order?orderID=${data.orderID}`, {
                         method: "POST"
                     });
@@ -624,24 +788,38 @@ function createServiceCard(service) {
                     }
                     
                     const paymentData = await res.json();
+                    
+                    // Añadimos una *copia* de los 'items' del carrito 
                     paymentData.items = [...cart];
 
+                    // --- INICIO DE LA CORRECCIÓN ROBUSTA ---
                     try {
+                        // Limpiamos el flag del email anterior y guardamos los nuevos datos
                         localStorage.removeItem("emailSent");
                         localStorage.setItem("paymentData", JSON.stringify(paymentData));
                     } catch (storageError) {
                         console.error("ERRORE FATALE: Impossibile salvare paymentData in localStorage.", storageError);
+                        // Si localStorage falla, no podemos continuar
                         return;
                     }
+                    // --- FIN DE LA CORRECCIÓN ROBUSTA ---
                     
+                    // Limpiar carrito
                     cart = [];
                     saveCart();
+
+                    // Redirigir
                     window.location.href = "thank-you.html";
 
                 } catch (err) {
                     console.error("Error en onApprove:", err);
+                    // Si el pago falla aquí, el usuario sigue en el formulario
+                    // Podríamos mostrar un mensaje de error
                 }
             },
+            // ===================================================================
+            // =================== FIN DE LA FUNCIÓN CORREGIDA ===================
+            // ===================================================================
 
             onError: (err) => {
                 console.error("Error de PayPal SDK:", err);
@@ -650,9 +828,15 @@ function createServiceCard(service) {
         }).render("#paypal-button-container");
     }
 
+    /**
+     * ¡MODIFICADO! Esta función ahora solo es llamada por el botón "Paga con Carta".
+     */
+    // ===================================================================
+    // ================== INICIO DE LA FUNCIÓN CORREGIDA ==================
+    // ===================================================================
     async function checkoutStripe() {
         if (cart.length === 0) {
-            setLoadingState(stripeBtn, false);
+            setLoadingState(stripeBtn, false); // Quitar spinner si falla
             return;
         }
 
@@ -667,32 +851,41 @@ function createServiceCard(service) {
 
             const data = await response.json();
 
+            // Guardar datos previos al checkout (para thank-you.html)
             const paymentData = {
                 orderId: data.id || "STRIPE_SESSION",
-                // ✅ Único cambio: usar mismo formato que PayPal
                 status: "In attesa",
                 paymentMethod: "Stripe",
-                email: customerEmail.value,
+                email: customerEmail.value, // ¡Usamos el email del formulario!
                 date: new Date(),
                 total: cart.reduce((sum, item) => sum + (item.price * item.quantity), 0),
                 items: cart
             };
 
+            // --- INICIO DE LA CORRECCIÓN ROBUSTA ---
             try {
+                // Limpiamos el flag del email anterior y guardamos los nuevos datos
                 localStorage.removeItem("emailSent");
                 localStorage.setItem("paymentData", JSON.stringify(paymentData));
             } catch (storageError) {
                 console.error("ERRORE FATALE: Impossibile salvare paymentData in localStorage.", storageError);
+                // Si localStorage falla, no podemos continuar
                 setLoadingState(stripeBtn, false);
                 return; 
             }
+            // --- FIN DE LA CORRECCIÓN ROBUSTA ---
 
+            // Redirige al checkout de Stripe
             window.location.href = data.url;
 
         } catch (error) {
             console.error("Error en checkoutStripe:", error);
-            setLoadingState(stripeBtn, false);
+            setLoadingState(stripeBtn, false); // Quitar spinner si falla
         }
     }
+    // ===================================================================
+    // =================== FIN DE LA FUNCIÓN CORREGIDA ===================
+    // ===================================================================
+
 
 })(); // Fin de la IIFE
