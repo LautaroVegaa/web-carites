@@ -773,6 +773,9 @@ function createServiceCard(service) {
                 }
             },
             
+            // ===================================================================
+            // ================== INICIO DE LA FUNCIÓN CORREGIDA ==================
+            // ===================================================================
             onApprove: async (data, actions) => {
                 try {
                     // Guarda los datos del pago ANTES de limpiar el carrito
@@ -786,14 +789,20 @@ function createServiceCard(service) {
                     
                     const paymentData = await res.json();
                     
-                    // --- ESTA ES LA CORRECCIÓN ---
                     // Añadimos una *copia* de los 'items' del carrito 
-                    // al objeto paymentData ANTES de guardarlo.
                     paymentData.items = [...cart];
-                    // --- FIN DE LA CORRECCIÓN ---
 
-                    // Guardamos los datos de pago y cliente para la pág. de gracias
-                    localStorage.setItem("paymentData", JSON.stringify(paymentData));
+                    // --- INICIO DE LA CORRECCIÓN ROBUSTA ---
+                    try {
+                        // Limpiamos el flag del email anterior y guardamos los nuevos datos
+                        localStorage.removeItem("emailSent");
+                        localStorage.setItem("paymentData", JSON.stringify(paymentData));
+                    } catch (storageError) {
+                        console.error("ERRORE FATALE: Impossibile salvare paymentData in localStorage.", storageError);
+                        // Si localStorage falla, no podemos continuar
+                        return;
+                    }
+                    // --- FIN DE LA CORRECCIÓN ROBUSTA ---
                     
                     // Limpiar carrito
                     cart = [];
@@ -808,6 +817,9 @@ function createServiceCard(service) {
                     // Podríamos mostrar un mensaje de error
                 }
             },
+            // ===================================================================
+            // =================== FIN DE LA FUNCIÓN CORREGIDA ===================
+            // ===================================================================
 
             onError: (err) => {
                 console.error("Error de PayPal SDK:", err);
@@ -819,45 +831,61 @@ function createServiceCard(service) {
     /**
      * ¡MODIFICADO! Esta función ahora solo es llamada por el botón "Paga con Carta".
      */
-async function checkoutStripe() {
-    if (cart.length === 0) {
-        setLoadingState(stripeBtn, false); // Quitar spinner si falla
-        return;
+    // ===================================================================
+    // ================== INICIO DE LA FUNCIÓN CORREGIDA ==================
+    // ===================================================================
+    async function checkoutStripe() {
+        if (cart.length === 0) {
+            setLoadingState(stripeBtn, false); // Quitar spinner si falla
+            return;
+        }
+
+        try {
+            const response = await fetch("/api/create-stripe-session", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ items: cart }),
+            });
+
+            if (!response.ok) throw new Error('Error al crear la sesión de Stripe');
+
+            const data = await response.json();
+
+            // Guardar datos previos al checkout (para thank-you.html)
+            const paymentData = {
+                orderId: data.id || "STRIPE_SESSION",
+                status: "pending",
+                paymentMethod: "Stripe",
+                email: customerEmail.value, // ¡Usamos el email del formulario!
+                date: new Date(),
+                total: cart.reduce((sum, item) => sum + (item.price * item.quantity), 0),
+                items: cart
+            };
+
+            // --- INICIO DE LA CORRECCIÓN ROBUSTA ---
+            try {
+                // Limpiamos el flag del email anterior y guardamos los nuevos datos
+                localStorage.removeItem("emailSent");
+                localStorage.setItem("paymentData", JSON.stringify(paymentData));
+            } catch (storageError) {
+                console.error("ERRORE FATALE: Impossibile salvare paymentData in localStorage.", storageError);
+                // Si localStorage falla, no podemos continuar
+                setLoadingState(stripeBtn, false);
+                return; 
+            }
+            // --- FIN DE LA CORRECCIÓN ROBUSTA ---
+
+            // Redirige al checkout de Stripe
+            window.location.href = data.url;
+
+        } catch (error) {
+            console.error("Error en checkoutStripe:", error);
+            setLoadingState(stripeBtn, false); // Quitar spinner si falla
+        }
     }
-
-    try {
-        const response = await fetch("/api/create-stripe-session", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ items: cart }),
-        });
-
-        if (!response.ok) throw new Error('Error al crear la sesión de Stripe');
-
-        const data = await response.json();
-
-        // Guardar datos previos al checkout (para thank-you.html)
-        const paymentData = {
-            orderId: data.id || "STRIPE_SESSION",
-            status: "pending",
-            paymentMethod: "Stripe",
-            email: customerEmail.value, // ¡Usamos el email del formulario!
-            date: new Date(),
-            total: cart.reduce((sum, item) => sum + (item.price * item.quantity), 0),
-            items: cart
-        };
-
-        // ✅ CORRECCIÓN: guardar antes de redirigir
-        localStorage.setItem("paymentData", JSON.stringify(paymentData));
-
-        // Redirige al checkout de Stripe
-        window.location.href = data.url;
-
-    } catch (error) {
-        console.error("Error en checkoutStripe:", error);
-        setLoadingState(stripeBtn, false); // Quitar spinner si falla
-    }
-}
+    // ===================================================================
+    // =================== FIN DE LA FUNCIÓN CORREGIDA ===================
+    // ===================================================================
 
 
 })(); // Fin de la IIFE
