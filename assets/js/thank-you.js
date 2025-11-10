@@ -2,73 +2,69 @@ document.addEventListener("DOMContentLoaded", async function() {
     const urlParams = new URLSearchParams(window.location.search);
     const sessionId = urlParams.get("session_id");
     
-    // 1. Cargar los detalles del cliente PRIMERO.
-    const customerDetails = JSON.parse(localStorage.getItem("customerDetails")) || {};
+    // ✅ Parseo seguro de customerDetails
+    let customerDetails = {};
+    try {
+        customerDetails = JSON.parse(localStorage.getItem("customerDetails")) || {};
+    } catch (e) {
+        customerDetails = {};
+    }
 
     if (sessionId) {
-        // 🔹 Caso Stripe: Esta es la lógica corregida.
         try {
-            // 1. Obtener los datos REALES de la API primero.
             const res = await fetch(`/api/stripe-session?id=${sessionId}`);
             if (!res.ok) throw new Error('Errore nel recupero della sessione Stripe');
             
-            const sessionData = await res.json(); // Contiene el orderId y paymentMethod correctos
-
-            // 2. Cargar datos 'viejos' SOLO para obtener los 'items' del carrito.
+            const sessionData = await res.json();
             const storedData = JSON.parse(localStorage.getItem("paymentData")) || {};
 
-            // 3. Construir el objeto de pago FINAL, priorizando los datos de la API.
             const paymentData = {
-                orderId: sessionData.orderId,           // <--- Dato real de la API
-                paymentMethod: sessionData.paymentMethod,   // <--- Dato real de la API
+                orderId: sessionData.orderId,
+                paymentMethod: sessionData.paymentMethod,
                 status: sessionData.status || "Confermato",
                 email: sessionData.email || customerDetails.email,
-                total: sessionData.total,
+                // ✅ Forzamos número para evitar .toFixed sobre string
+                total: Number(sessionData.total),
                 date: sessionData.date || new Date(),
-                items: storedData.items || [] // Los items solo estaban en localStorage
+                items: storedData.items || []
             };
 
-            // 4. Guardar los datos BUENOS en localStorage y limpiar el carrito.
             localStorage.setItem("paymentData", JSON.stringify(paymentData));
             localStorage.removeItem("caritesCart");
 
-            // 5. Mostrar y enviar email.
             displayPaymentData(paymentData, customerDetails);
             sendConfirmationEmail(paymentData, customerDetails);
 
         } catch (err) {
             console.error("❌ Errore Stripe:", err);
-            // Si la API falla, intentamos cargar desde localStorage (aunque puede ser N/A)
             loadPaymentData(customerDetails); 
         }
     } else {
-        // 🔹 Caso PayPal o recarga de página (Stripe o PayPal).
-        // Esta función ahora cargará los datos correctos guardados.
         loadPaymentData(customerDetails);
     }
-
-    // Ya no hay 'cleanupStorage' aquí, lo cual es correcto.
 });
 
 function loadPaymentData(customerDetails) {
     const paymentDataString = localStorage.getItem("paymentData");
-    
+
     if (paymentDataString) {
         try {
             const paymentData = JSON.parse(paymentDataString);
 
-            if (customerDetails.email) {
-                paymentData.email = customerDetails.email;
-            }
+            // ✅ Corrección: asegurar campos y forzar "Confermato" si está pendiente
+            paymentData.email = customerDetails.email || paymentData.email || "N/A";
+            paymentData.status = paymentData.status === "pending" ? "Confermato" : (paymentData.status || "Confermato");
+            paymentData.paymentMethod = paymentData.paymentMethod || "Stripe / PayPal";
+            paymentData.orderId = paymentData.orderId || generateOrderId();
 
-            // --- LÓGICA CORREGIDA ---
-            // Ya no asignamos valores por defecto FALSOS como "Stripe" o generateOrderId().
-            // Simplemente nos aseguramos de que el total esté calculado.
-            paymentData.total = paymentData.total || calculateTotal(paymentData.items || []);
+            // ✅ Forzamos número; si no es válido o es <= 0, calculamos por ítems
+            const numericTotal = Number(paymentData.total);
+            paymentData.total = (Number.isFinite(numericTotal) && numericTotal > 0)
+                ? numericTotal
+                : calculateTotal(paymentData.items || []);
 
             displayPaymentData(paymentData, customerDetails);
-            
-            // Verificamos si el email ya fue enviado (solo para recargas)
+
             if (!localStorage.getItem("emailSent")) {
                 sendConfirmationEmail(paymentData, customerDetails);
             }
@@ -78,7 +74,6 @@ function loadPaymentData(customerDetails) {
             displayDefaultData(customerDetails);
         }
     } else {
-        // Esto solo debería pasar si un usuario visita thank-you.html directamente.
         displayDefaultData(customerDetails);
     }
 }
@@ -89,7 +84,6 @@ async function sendConfirmationEmail(paymentData, customerDetails) {
         return;
     }
 
-    // Evitar envíos duplicados en recargas
     if (localStorage.getItem("emailSent")) {
         console.log("Email già inviata per questo ordine.");
         return;
@@ -104,7 +98,6 @@ async function sendConfirmationEmail(paymentData, customerDetails) {
 
         if (response.ok) {
             console.log("Email di conferma inviata con successo.");
-            // Marcar como enviado para no repetir en recargas
             localStorage.setItem("emailSent", "true"); 
         } else {
             console.error("Errore nella risposta del server email.");
@@ -253,6 +246,7 @@ function displayServices(data) {
         `;
     });
 
+    // ✅ 'data.total' ya llega numérico por los endurecimientos de arriba
     servicesHTML += `
         <div class="service-item total-item">
             <div class="service-info">

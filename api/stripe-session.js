@@ -32,12 +32,22 @@ async function handler(req, res) {
         ? `•••• ${paymentIntent.payment_method.card.last4}`
         : "";
 
+      // 🔹 Normalización precisa del estado
+      const rawStatus = session.payment_status;
+      const normalizedStatus =
+        rawStatus === "paid"
+          ? "Confermato"
+          : rawStatus === "unpaid"
+          ? "In attesa"
+          : "Confermato";
+
+      // ✅ Corrección: evitar total null
       res.status(200).json({
         orderId: paymentIntent?.id || session.id, // ID real del pago
-        status: session.payment_status || "confermato",
+        status: normalizedStatus,
         email: session.customer_details?.email,
         date: new Date(),
-        total: session.amount_total ? session.amount_total / 100 : null,
+        total: session.amount_total ? session.amount_total / 100 : 0,
         paymentMethod: `${paymentMethod.toUpperCase()} ${last4}`.trim(),
       });
     } catch (err) {
