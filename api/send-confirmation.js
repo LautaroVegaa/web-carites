@@ -7,7 +7,7 @@ console.log("API Key cargada:", !!apiKey); // Esto dirá 'true' o 'false'
 // --- FIN DE DEBUGGING ---
 
 const resend = new Resend(apiKey);
-const TU_EMAIL = "lautarocarignani@gmail.com"; // O tu email de admin
+const TU_EMAIL = "harmoniaravenna@gmail.com"; //mail cliente
 // ... (el resto del código sigue igual)
 
 // Función para permitir CORS (cópiala de tus otros archivos API)
@@ -90,7 +90,7 @@ async function handler(req, res) {
 
       // 3. Enviar correo al CLIENTE
       await resend.emails.send({
-        from: 'Carites Ravenna <onboarding@resend.dev>', // Cambia esto si verificaste tu dominio
+        from: 'Carites Ravenna <info@caritesravenna.it>', // Cambia esto si verificaste tu dominio
         to: [emailCliente],
         subject: 'Conferma della tua prenotazione - Carites Ravenna',
         html: emailHtmlCliente,
@@ -98,7 +98,7 @@ async function handler(req, res) {
 
       // 4. Enviar correo al ADMIN (a ti)
       await resend.emails.send({
-        from: 'Notifica Nuovo Ordine <onboarding@resend.dev>', // Cambia esto si verificaste tu dominio
+        from: 'Carites Ravenna <info@caritesravenna.it>', // Cambia esto si verificaste tu dominio
         to: [TU_EMAIL],
         subject: `[Nuovo Ordine] Prenotazione da ${nomeCliente}`,
         html: emailHtmlAdmin,
