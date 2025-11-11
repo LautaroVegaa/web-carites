@@ -2,7 +2,8 @@
 const fetch = require("node-fetch"); // Usamos node-fetch v2 compatible con Vercel
 
 const { PAYPAL_CLIENT_ID, PAYPAL_CLIENT_SECRET } = process.env;
-const base = "https://api-m.sandbox.paypal.com"; // Cambiar a producción si es necesario
+// CÓDIGO NUEVO
+const base = "https://api-m.paypal.com"; // Entorno de producción
 
 /**
  * Genera un Access Token de PayPal
