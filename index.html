@@ -140,13 +140,16 @@
 
                     <fieldset class="form-group" id="modality-group" style="display: none;">
                         <legend>Modalità del massaggio</legend>
+                        
+                        <small class="form-info-msg">Per altre località, si prega di informarsi in anticipo</small>
+                        
                         <div class="radio-group">
                             <input type="radio" id="modality-local" name="modality" value="locale" checked>
                             <label for="modality-local">In locale</label>
                         </div>
                         <div class="radio-group">
                             <input type="radio" id="modality-domicilio" name="modality" value="domicilio">
-                            <label for="modality-domicilio">A domicilio</label>
+                            <label for="modality-domicilio">A domicilio <span class="domicilio-surcharge">(+ €15)</span></label>
                         </div>
                     </fieldset>
                     
@@ -160,6 +163,9 @@
                 </div>
 
                 <div class="modal-footer payment-footer">
+                    
+                    <div class="payment-summary-form"><strong>Totale: <span id="form-total-amount">€0</span></strong></div>
+
                     <p>Una volta confermato, verrai reindirizzato al pagamento.</p>
                     <button type="button" class="checkout-btn stripe-btn" id="stripe-btn">
                         Conferma e Paga con Carta

@@ -12,6 +12,8 @@
     let paypalRendered = false;
     let currentServiceId = null;
     let currentPromoId = null;
+    const SURCHARGE_ID = 999;
+    const DOMICILIO_SURCHARGE = 15;
     // let pendingPaymentMethod = null; // ¡ELIMINADO! Ya no es necesario
 
     // =====================
@@ -25,7 +27,9 @@
         goToCheckoutBtn, customerFormModal, closeCustomerForm, customerForm,
         stripeBtn, modalityGroup,
         // --- Campos del formulario ---
-        customerName, customerEmail, customerPhone;
+        customerName, customerEmail, customerPhone,
+        // --- VARIABLES DEL RECARGO ---
+        formTotalAmount, modalityLocal, modalityDomicilio;
 
 
     // =====================
@@ -64,6 +68,9 @@
         customerName = document.getElementById("customer-name");
         customerEmail = document.getElementById("customer-email");
         customerPhone = document.getElementById("customer-phone");
+        formTotalAmount = document.getElementById("form-total-amount");
+        modalityLocal = document.getElementById('modality-local');
+        modalityDomicilio = document.getElementById('modality-domicilio');
 
         // Inicializar módulos
         initMobileMenu();
@@ -212,6 +219,8 @@
         if (!customerFormModal || !closeCustomerForm || !stripeBtn) return;
 
         closeCustomerForm.addEventListener('click', closeCustomerFormModal);
+                modalityLocal.addEventListener('change', handleModalityChange);
+                modalityDomicilio.addEventListener('change', handleModalityChange);
 
         customerFormModal.addEventListener('click', (e) => {
             if (e.target === customerFormModal) {
@@ -596,6 +605,8 @@ function createServiceCard(service) {
     // ¡NUEVO! Abrir formulario de cliente
     function openCustomerForm() {
         // 1. Revisar el contenido del carrito
+        // --- AÑADIR ESTA LÍNEA PRIMERO ---
+        cart = cart.filter(item => item.id !== SURCHARGE_ID);
         const hasDomicilioOption = cart.some(item => {
             const service = services.find(s => s.id === item.id);
             // Asegurarse de que 'service' existe y 'description' está presente
@@ -642,6 +653,8 @@ function createServiceCard(service) {
         customerFormModal.classList.add('active');
         closeCartModal();
         document.body.style.overflow = 'hidden';
+        // --- AÑADIR ESTA LÍNEA AL FINAL ---
+        updateFormTotal();
     }
 
     // ===================================
@@ -653,6 +666,37 @@ function createServiceCard(service) {
         customerFormModal.classList.remove('active');
         document.body.style.overflow = 'auto';
         setLoadingState(stripeBtn, false); // Resetea el botón de Stripe si estaba cargando
+        // --- AÑADIR ESTA LÍNEA ---
+        cart = cart.filter(item => item.id !== SURCHARGE_ID);
+    }
+
+    /**
+     * ¡NUEVO! Actualiza el total en el formulario cada vez que cambia la modalidad.
+     */
+    function updateFormTotal() {
+        const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+        formTotalAmount.textContent = '€' + total.toFixed(0);
+    }
+
+    /**
+     * ¡NUEVO! Añade o quita el recargo del carrito.
+     */
+    function handleModalityChange() {
+        // 1. Siempre limpia el recargo por si acaso
+        cart = cart.filter(item => item.id !== SURCHARGE_ID);
+
+        // 2. Si eligió 'domicilio', lo añade
+        if (modalityDomicilio.checked) {
+            cart.push({
+                id: SURCHARGE_ID,
+                title: "Costo servizio a domicilio",
+                price: DOMICILIO_SURCHARGE,
+                quantity: 1
+            });
+        }
+
+        // 3. Actualiza el total visible en el formulario
+        updateFormTotal();
     }
     
 

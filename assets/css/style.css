@@ -1524,3 +1524,29 @@ h6 {
         transform: rotate(360deg);
     }
 }
+
+/* --- ESTILOS PARA RECARGO A DOMICILIO --- */
+
+.form-info-msg {
+    display: block;
+    font-style: italic;
+    color: var(--gray);
+    text-align: center;
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+}
+
+.domicilio-surcharge {
+    font-weight: 600;
+    color: var(--primary-pink);
+}
+
+.payment-summary-form {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary-violet);
+    text-align: right;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #eee;
+}
