@@ -1550,3 +1550,12 @@ h6 {
     padding-bottom: 1rem;
     border-bottom: 1px solid #eee;
 }
+
+/* --- ESTILOS PARA RECARGO A DOMICILIO (NUEVO) --- */
+
+.domicilio-location {
+    font-weight: 400;
+    font-style: italic;
+    color: var(--gray);
+    margin-left: 5px;
+}
