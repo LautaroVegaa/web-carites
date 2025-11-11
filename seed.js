@@ -6,7 +6,7 @@ dotenv.config(); // Para que lea tu MONGO_URI del .env
 
 
 const services = [
-    { id: 1,  title: "Massaggio Rilassante Corpo Intero", description: "Massaggio total body per ridurre stress e tensioni. Disponibile in locale o a domicilio.", duration: "60 min", price: 25, isPromo: false, category: "massaggi",
+    { id: 1,  title: "Massaggio Rilassante Corpo Intero", description: "Massaggio total body per ridurre stress e tensioni. Disponibile in locale o a domicilio.", duration: "60 min", price: 1, isPromo: false, category: "massaggi",
         image: "assets/img/massaggio-rilassante.webp", // <-- CORREGIDO
     details: [
     "Riduzione dello stress e dell'ansia - Il tocco lento e delicato stimola il sistema nervoso parasimpatico, favorendo calma mentale e rilascio di endorfine.",
