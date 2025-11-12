@@ -1346,12 +1346,6 @@ h6 {
 
 }
 
-/* Ocultar temporalmente la sección de Estética */
-#servizi h3.sub-title:nth-of-type(2),
-#estetica-services {
-    display: none;
-}
-
 /* --- NUEVA CLASE PARA DESTACAR DISPONIBILIDAD --- */
 .service-availability {
     font-size: 0.9rem;
