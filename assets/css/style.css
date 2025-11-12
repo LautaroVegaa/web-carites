@@ -1559,3 +1559,152 @@ h6 {
     color: var(--gray);
     margin-left: 5px;
 }
+
+/* =====================================
+--- STILI PAGINE LEGALI E FOOTER --- 
+=====================================
+*/
+
+/* --- Stili per il Footer (index.html) --- */
+.footer {
+    background-color: var(--light-gray);
+    color: var(--gray);
+    text-align: center;
+    padding: 3rem 1rem;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    border-top: 1px solid #e5e7eb;
+}
+
+.footer-legal-links {
+    margin-bottom: 1.5rem;
+}
+
+.footer-legal-links a {
+    color: var(--primary-violet);
+    text-decoration: none;
+    font-weight: 500;
+    margin: 0 10px;
+    transition: var(--transition);
+}
+
+.footer-legal-links a:hover {
+    text-decoration: underline;
+    color: var(--primary-pink);
+}
+
+.footer-company-details {
+    margin-bottom: 1.5rem;
+    font-size: 0.85rem;
+}
+
+.footer-company-details p {
+    margin: 0.25rem 0;
+}
+
+.footer-copyright {
+    margin-top: 1.5rem;
+    font-size: 0.8rem;
+    border-top: 1px solid #e5e7eb;
+    padding-top: 1.5rem;
+}
+
+.footer p {
+    color: var(--gray);
+}
+
+
+/* --- Stili per le Pagine Legali (privacy.html, termini.html) --- */
+
+/* Applichiamo lo sfondo e i font di base */
+.legal-page-body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #e8d5ff 0%, #f0e6ff 50%, #f5f0ff 100%);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    color: #1e293b;
+    line-height: 1.6;
+}
+
+/* Il contenitore bianco centrale */
+.legal-container {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 20px 40px rgba(139, 69, 199, 0.08);
+    max-width: 800px;
+    width: 100%;
+    overflow: hidden;
+    border: 1px solid rgba(139, 69, 199, 0.1);
+    margin: 2rem auto;
+}
+
+/* L'header viola chiaro */
+.legal-header {
+    text-align: center;
+    padding: 50px 40px 40px;
+    background: linear-gradient(135deg, #fafbff 0%, #f8faff 100%);
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.legal-header h1 {
+    font-size: 32px;
+    font-weight: 700;
+    color: #8b45c7;
+    margin-bottom: 12px;
+}
+
+.legal-header p {
+    font-size: 16px;
+    color: #64748b;
+    max-width: 450px;
+    margin: 0 auto;
+    font-weight: 400;
+}
+
+/* Il contenuto principale (testo legale) */
+.legal-content {
+    padding: 40px 50px;
+    text-align: left;
+}
+
+.legal-content h2 {
+    font-size: 1.5rem;
+    color: var(--primary-violet, #5B21B6);
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    padding-bottom: 5px;
+    border-bottom: 2px solid #eee;
+}
+
+.legal-content p, 
+.legal-content li {
+    margin-bottom: 1rem;
+    line-height: 1.7;
+    color: var(--dark-gray, #374151);
+}
+
+.legal-content ul {
+    list-style-position: inside;
+    padding-left: 10px;
+}
+
+/* Il footer con il bottone "Torna ai Servizi" */
+.legal-footer-action {
+    background: #f8fafc;
+    padding: 32px 40px;
+    border-top: 1px solid #e2e8f0;
+    display: flex;
+    justify-content: center;
+}
+
+/* Assicuriamo che il .btn-primary esista (già presente, ma per sicurezza) */
+.btn-primary {
+    background: linear-gradient(135deg, #8b45c7 0%, #a855f7 100%);
+    color: white;
+}
+.btn-primary:hover {
+    background: var(--primary-pink);
+}
