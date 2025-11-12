@@ -1,0 +1,12 @@
+# Para todos los rastreadores
+User-agent: *
+
+# No rastrear estas páginas
+Disallow: /api/
+Disallow: /thank-you.html
+Disallow: /privacy.html
+Disallow: /termini.html
+Disallow: /cancellazione.html
+
+# Ubicación del Sitemap
+Sitemap: https://www.caritesravenna.it/sitemap.xml
