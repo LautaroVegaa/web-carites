@@ -1593,15 +1593,6 @@ h6 {
     color: var(--primary-pink);
 }
 
-.footer-company-details {
-    margin-bottom: 1.5rem;
-    font-size: 0.85rem;
-}
-
-.footer-company-details p {
-    margin: 0.25rem 0;
-}
-
 .footer-copyright {
     margin-top: 1.5rem;
     font-size: 0.8rem;
