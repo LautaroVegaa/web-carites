@@ -20,7 +20,7 @@
     // DOM ELEMENT REFERENCES
     // =====================
     let hamburger, navMenu, cartIcon, floatingCart, cartModal, closeCart,
-        servicesGrid, esteticaGrid, cartCount, floatingCartCount, cartItems,
+        servicesGrid, cartCount, floatingCartCount, cartItems,
         cartTotal, totalAmount, paypalContainer, infoModal,
         promoModal, navbar,
         // --- Nuevos elementos del formulario ---
@@ -48,7 +48,6 @@
         cartModal = document.getElementById('cart-modal');
         closeCart = document.getElementById('close-cart');
         servicesGrid = document.getElementById('services-grid');
-        esteticaGrid = document.getElementById('estetica-services');
         cartCount = document.getElementById('cart-count');
         floatingCartCount = document.getElementById('floating-cart-count');
         cartItems = document.getElementById('cart-items');
@@ -291,10 +290,9 @@
     // =====================
     // CORE LOGIC (SERVICES)
     // =====================
-    
-    // ... (renderServices y createServiceCard sin cambios) ...
-    async function renderServices() {
-        if (!servicesGrid || !esteticaGrid) return;
+
+async function renderServices() {
+        if (!servicesGrid) return; // Tu corrección está bien
 
         try {
             const response = await fetch("/api/services");
@@ -306,14 +304,12 @@
             return;
         }
 
-        servicesGrid.innerHTML = '';
-        esteticaGrid.innerHTML = '';
+        servicesGrid.innerHTML = ''; // Limpiamos el grid
 
         services.forEach(service => {
-            const card = createServiceCard(service);
-            if (service.category === "estetica") {
-                esteticaGrid.appendChild(card);
-            } else if (service.category === "massaggi") {
+            // Ya no preguntamos por "estetica", solo nos importa "massaggi"
+            if (service.category === "massaggi") {
+                const card = createServiceCard(service);
                 servicesGrid.appendChild(card);
             }
         });
