@@ -126,6 +126,35 @@ const services = [
     "Connessione mamma-bambino - Il momento di cura e rilassamento favorisce un contatto più consapevole e armonioso con il piccolo."
     ]
     },
+    { id: 13,  title: "Massaggio Focalizzato (Schiena o Gambe)",
+        description: "Massaggio express di 30 minuti per rilassare una parte del corpo dove c'è tensione: schiena, spalle e collo, gambe, zona lombare.",
+        duration: "30 min",
+        price: 15,
+        isPromo: false,
+        category: "massaggi",
+        image: "assets/img/massaggio-focalizzato.webp",
+        details: [
+            "Azione rapida su dolori specifici.",
+            "Ideale per chi ha poco tempo ma necessita di un intervento mirato.",
+            "Scioglie tensioni accumulate in aree problematiche come cervicale o zona lombare.",
+            "Migliora la mobilità della zona trattata."
+        ]
+    },
+    { id: 14,  title: "Massaggio RELAX TOTALE - \"4 in 1\"",
+        description: "Un'esperienza 4 in 1 che unisce massaggio rilassante, Reiki, Shiatsu e riflessologia plantare per un riequilibrio completo.",
+        duration: "90 min",
+        price: 40,
+        isPromo: false,
+        category: "massaggi",
+        image: "assets/img/massaggio-relax-totale.jpg",
+        details: [
+            "Esperienza di benessere completa - Unisce tecniche occidentali e orientali per agire su corpo, mente ed energia in un'unica seduta.",
+            "Rilassamento profondo e riequilibrio energetico - Il massaggio rilassante scioglie tensioni muscolari, mentre Reiki e Shiatsu armonizzano il flusso vitale.",
+            "Stimolazione di organi e funzioni interne - La riflessologia plantare attiva punti collegati ai principali sistemi del corpo.",
+            "Riduzione di stress, ansia e blocchi emotivi - Ogni tecnica contribuisce a liberare tensioni, portando calma e leggerezza interiore.",
+            "Effetto rigenerante a lungo termine - Dopo la seduta ci si sente più leggeri, centrati e pieni di energia positiva."
+        ]
+    },
 
 
     { id: 101, title: "Pacchetto Rinascita (3x90')", description: "3 massaggi da 90' a scelta (4 in 1 o Kairós)", duration: "", price: 100, isPromo: true, category: "promo",
