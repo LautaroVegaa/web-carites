@@ -126,7 +126,7 @@ const services = [
     "Connessione mamma-bambino - Il momento di cura e rilassamento favorisce un contatto più consapevole e armonioso con il piccolo."
     ]
     },
-    { id: 13,  title: "Massaggio Focalizzato (Schiena o Gambe)",
+    { id: 13,  title: "Massaggio Focalizzato",
         description: "Massaggio express di 30 minuti per rilassare una parte del corpo dove c'è tensione: schiena, spalle e collo, gambe, zona lombare.",
         duration: "30 min",
         price: 15,
@@ -140,7 +140,7 @@ const services = [
             "Migliora la mobilità della zona trattata."
         ]
     },
-    { id: 14,  title: "Massaggio RELAX TOTALE - \"4 in 1\"",
+    { id: 14,  title: "Massaggio Relax Totale '4 in 1'",
         description: "Un'esperienza 4 in 1 che unisce massaggio rilassante, Reiki, Shiatsu e riflessologia plantare per un riequilibrio completo.",
         duration: "90 min",
         price: 40,
