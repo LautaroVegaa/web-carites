@@ -158,28 +158,33 @@ const services = [
 
 
     { id: 101, title: "Pacchetto Rinascita (3x90')", description: "3 massaggi da 90' a scelta (4 in 1 o Kairós)", duration: "", price: 100, isPromo: true, category: "promo",
-        image: "assets/img/promo/pacchetto-rinascita.jpg", details: [] // <-- CORREGIDO
+        image: "assets/img/promo/pacchetto-rinascita.jpg", details: [] 
     },
     { id: 102, title: "Pacchetto Titanio (5x60')", description: "5 massaggi da 60' a scelta", duration: "", price: 110, isPromo: true, category: "promo",
-        image: "assets/img/promo/pacchetto-titanio.jpg", details: [] // <-- CORREGIDO
+        image: "assets/img/promo/pacchetto-titanio.jpg", details: [] 
     },
     { id: 103, title: "Pacchetto Argento (3x60')", description: "3 massaggi da 60' a scelta", duration: "", price: 70, isPromo: true, category: "promo",
-        image: "assets/img/promo/pacchetto-argento.jpg", details: [] // <-- CORREGIDO
+        image: "assets/img/promo/pacchetto-argento.jpg", details: [] 
     },
     { id: 104, title: "Pacchetto Oro (10x60')", description: "10 massaggi da 60' a scelta", duration: "", price: 200, isPromo: true, category: "promo",
-        image: "assets/img/promo/pacchetto-oro.jpg", details: [] // <-- CORREGIDO
+        image: "assets/img/promo/pacchetto-oro.jpg", details: [] 
     },
-    { id: 105, title: "Promo Natale (2x Viso)", description: "2 massaggi viso + cuoio capelluto", duration: "", price: 30, isPromo: true, category: "promo",
-        image: "assets/img/promo/massaggi-viso-cuio.jpg", details: [] // <-- CORREGIDO
+    { 
+        id: 105, 
+        title: "Pacchetto Bellezza e Relax", description: "1 massaggio da 60' + 1 manicure o pedicure a scelta. (Per nuovi clienti)", duration: "", price: 40, isPromo: true, category: "promo",
+        image: "assets/img/promo/pacchetto-bellezza-relax.jpg", details: []
     },
-    { id: 106, title: "Promo Natale (1x Viso)", description: "1 massaggio viso + cuoio capelluto", duration: "", price: 20, isPromo: true, category: "promo",
-        image: "assets/img/promo/massaggio-viso-cuio2.jpg", details: [] // <-- CORREGIDO
+    { id: 106, title: "Promo Natale (2x Viso)", description: "2 massaggi viso + cuoio capelluto", duration: "", price: 30, isPromo: true, category: "promo",
+        image: "assets/img/promo/massaggi-viso-cuio.jpg", details: [] 
     },
-    { id: 107, title: "Promo Natale (1x 60')", description: "Un massaggio da 60 minuti a scelta", duration: "", price: 25, isPromo: true, category: "promo",
-        image: "assets/img/promo/massaggio-60-minuti.jpg", details: [] // <-- CORREGIDO
+    { id: 107, title: "Promo Natale (1x Viso)", description: "1 massaggio viso + cuoio capelluto", duration: "", price: 20, isPromo: true, category: "promo",
+        image: "assets/img/promo/massaggio-viso-cuio2.jpg", details: [] 
     },
-    { id: 108, title: "Promo Natale (1x 90')", description: "Un massaggio da 90 minuti a scelta (4 in 1 o Kairos)", duration: "", price: 35, isPromo: true, category: "promo",
-        image: "assets/img/promo/massaggio-90-minuti.jpg", details: [] // <-- CORREGIDO
+    { id: 108, title: "Promo Natale (1x 60')", description: "Un massaggio da 60 minuti a scelta", duration: "", price: 25, isPromo: true, category: "promo",
+        image: "assets/img/promo/massaggio-60-minuti.jpg", details: [] 
+    },
+    { id: 109, title: "Promo Natale (1x 90')", description: "Un massaggio da 90 minuti a scelta (4 in 1 o Kairos)", duration: "", price: 35, isPromo: true, category: "promo",
+        image: "assets/img/promo/massaggio-90-minuti.jpg", details: [] 
     },
 ];
 
