@@ -172,7 +172,7 @@ const services = [
     { 
         id: 105, 
         title: "Pacchetto Bellezza e Relax", description: "1 massaggio da 60' + 1 manicure o pedicure a scelta. (Per nuovi clienti)", duration: "", price: 40, isPromo: true, category: "promo",
-        image: "assets/img/promo/pacchetto-bellezza-relax.jpg", details: []
+        image: "assets/img/promo/pacchetto-bellezza-relax.jpeg", details: []
     },
     { id: 106, title: "Promo Natale (2x Viso)", description: "2 massaggi viso + cuoio capelluto", duration: "", price: 30, isPromo: true, category: "promo",
         image: "assets/img/promo/massaggi-viso-cuio.jpg", details: [] 
