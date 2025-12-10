@@ -7,7 +7,7 @@ dotenv.config(); // Para que lea tu MONGO_URI del .env
 
 const services = [
     { id: 1,  title: "Massaggio Rilassante Corpo Intero", description: "Massaggio total body per ridurre stress e tensioni. Disponibile in locale o a domicilio.", duration: "60 min", price: 25, isPromo: false, category: "massaggi",
-        image: "assets/img/massaggio-rilassante.webp", // <-- CORREGIDO
+        image: "assets/img/massaggio-rilassante.webp", 
     details: [
     "Riduzione dello stress e dell'ansia - Il tocco lento e delicato stimola il sistema nervoso parasimpatico, favorendo calma mentale e rilascio di endorfine.",
     "Miglioramento della circolazione sanguigna - I movimenti fluidi aiutano a far fluire meglio il sangue, ossigenando i tessuti e nutrendo le cellule.",
@@ -17,7 +17,7 @@ const services = [
     ]
     },
     { id: 2,  title: "Massaggio Decontratturante", description: "Trattamento mirato per sciogliere contratture muscolari. Disponibile in locale o a domicilio.", duration: "45 min", price: 30, isPromo: false, category: "massaggi",
-        image: "assets/img/massaggio-descontractturante.webp", // <-- CORREGIDO
+        image: "assets/img/massaggio-descontractturante.webp", 
         details: [
     "Scioglimento delle contratture muscolari - Agisce in profondità sui punti tesi, liberando le fibre muscolari bloccate.",
     "Riduzione del dolore e delle infiammazioni - Migliora l'afflusso di sangue nella zona interessata, favorendo la guarigione.",
@@ -27,7 +27,7 @@ const services = [
     ]
     },
     { id: 3,  title: "Massaggio Linfodrenante", description: "Stimola il sistema linfatico e riduce gonfiori e ritenzione. Disponibile in locale o a domicilio.", duration: "60 min", price: 30, isPromo: false, category: "massaggi",
-        image: "assets/img/massaggio-linfodrenante.jpg", // <-- CORREGIDO
+        image: "assets/img/massaggio-linfodrenante.jpg",
         details: [
     "Riduzione di gonfiori e ritenzione idrica - Favorisce il drenaggio dei liquidi in eccesso, specialmente in gambe, caviglie e addome.",
     "Stimolazione del sistema linfatico - Migliora la capacità dell'organismo di eliminare tossine e scorie metaboliche.",
@@ -37,7 +37,7 @@ const services = [
     ]
     },
     { id: 4,  title: "Massaggio Modellante Anticellulite", description: "Trattamento anticellulite con tecniche mirate e drenanti.", duration: "60 min", price: 30, isPromo: false, category: "massaggi",
-        image: "assets/img/massaggio-modellante-anticellulite.webp", // <-- CORREGIDO
+        image: "assets/img/massaggio-modellante-anticellulite.webp", 
     details: [
     "Riduzione della cellulite e pelle più liscia - Le tecniche mirate e gli strumenti in legno stimolano la microcircolazione, migliorando l'aspetto della pelle a 'buccia d'arancia'.",
     "Drenaggio dei liquidi in eccesso - Favorisce l'eliminazione di ristagni e gonfiori, specialmente nelle gambe e nelle zone soggette a ritenzione.",
@@ -47,7 +47,7 @@ const services = [
     ]
     },
     { id: 5,  title: "Massaggio Sportivo", description: "Ideale per preparazione e recupero muscolare. Disponibile in locale o a domicilio.", duration: "45 min", price: 30, isPromo: false, category: "massaggi",
-        image: "assets/img/massaggio-sportivo.webp", // <-- CORREGIDO
+        image: "assets/img/massaggio-sportivo.webp", 
     details: [
     "Preparazione e recupero muscolare ottimali - Migliora l'elasticità e il tono muscolare prima dell'attività e accelera il recupero dopo lo sforzo.",
     "Riduzione di dolori e affaticamento - Aiuta a sciogliere acido lattico e tensioni accumulate, riducendo rigidità e indolenzimento.",
@@ -57,7 +57,7 @@ const services = [
     ]
     },
     { id: 6,  title: "Massaggio con Pietre Calde", description: "Calore e manualità per rilassamento profondo.", duration: "60 min", price: 25, isPromo: false, category: "massaggi",
-        image: "assets/img/massaggio-pietre.webp", // <-- CORREGIDO
+        image: "assets/img/massaggio-pietre.webp",
     details: [
     "Rilassamento profondo e immediato - Il calore penetra nei muscoli, sciogliendo tensioni più rapidamente rispetto a un massaggio tradizionale.",
     "Stimolazione della circolazione - La temperatura delle pietre favorisce la dilatazione dei vasi sanguigni, migliorando il flusso di sangue e ossigeno.",
@@ -67,7 +67,7 @@ const services = [
     ]
     },
     { id: 7,  title: "Massaggio Anti-Stress", description: "Riflessologia plantare + massaggio testa per rilassare corpo e mente. Disponibile in locale o a domicilio.", duration: "60 min", price: 25, isPromo: false, category: "massaggi",
-        image: "assets/img/massaggio-anti-stress.jpg", // <-- CORREGIDO
+        image: "assets/img/massaggio-anti-stress.jpg", 
     details: [
     "Rilassamento globale corpo-mente - La riflessologia agisce in profondità sul corpo attraverso i piedi, mentre il massaggio alla testa scioglie tensioni mentali ed emotive.",
     "Stimolazione energetica completa - Il lavoro sui punti riflessi e sul cranio favorisce un riequilibrio dell'energia vitale in tutto l'organismo.",
@@ -77,7 +77,7 @@ const services = [
     ]
     },
     { id: 8,  title: "Massaggio Kairós '7 in 1'", description: "Trattamento multisensoriale con aromaterapia, pietre calde e shiatsu.", duration: "90 min", price: 50, isPromo: true, category: "massaggi",
-        image: "assets/img/massaggio-kairos.webp", // <-- CORREGIDO
+        image: "assets/img/massaggio-kairos.webp", 
     details: [
     "Immersione sensoriale totale - L'aromaterapia, la musica binaurale e il massaggiatore per occhi creano un'esperienza multisensoriale unica che favorisce rilassamento profondo.",
     "Rilascio di tensioni fisiche e mentali - Le tecniche manuali e con strumenti (gua sha, shiatsu, pietre calde) sciolgono rigidità muscolari e ristagni energetici.",
@@ -87,7 +87,7 @@ const services = [
     ]
     },
     { id: 9, title: "Riflessologia Plantare", description: "Tecnica sui punti riflessi dei piedi per riequilibrare corpo e mente. Disponibile in locale o a domicilio.", duration: "60 min", price: 25, isPromo: false, category: "massaggi",
-        image: "assets/img/riflessologia-plantare.webp", // <-- CORREGIDO
+        image: "assets/img/riflessologia-plantare.webp", 
     details: [
     "Stimolazione della circolazione sanguigna e linfatica - Migliora l'ossigenazione dei tessuti e favorisce l'eliminazione delle tossine.",
     "Riequilibrio degli organi e delle funzioni corporee - Agendo sui punti riflessi dei piedi, sostiene il corretto funzionamento di diversi sistemi del corpo.",
@@ -97,7 +97,7 @@ const services = [
     ]
     },
     { id: 10, title: "Reiki Usui", description: "Tecnica energetica per rilassamento profondo ed equilibrio interiore. Disponibile in locale o a domicilio.", duration: "60 min", price: 25, isPromo: false, category: "massaggi",
-        image: "assets/img/reiki-usui.webp", // <-- CORREGIDO
+        image: "assets/img/reiki-usui.webp", 
     details: [
     "Profondo rilassamento e riduzione dello stress - L'energia armonizza il sistema nervoso, favorendo calma interiore e serenità.",
     "Riequilibrio energetico - Aiuta a sbloccare e ristabilire il flusso naturale dell'energia vitale (Ki) in tutto il corpo.",
@@ -107,7 +107,7 @@ const services = [
     ]
     },
     { id: 11, title: "Massaggio Anti-Age Viso", description: "Trattamento viso per tonificare e ringiovanire la pelle.", duration: "45 min", price: 20, isPromo: false, category: "massaggi",
-        image: "assets/img/massaggio-viso.jpg", // <-- CORREGIDO
+        image: "assets/img/massaggio-viso.jpg", 
     details: [
     "Stimolazione della circolazione sanguigna del viso - Migliora l'apporto di ossigeno e nutrienti alla pelle, rendendola più luminosa.",
     "Tonificazione muscolare - Lavora sui muscoli facciali per mantenere elasticità e prevenire rilassamenti.",
@@ -117,7 +117,7 @@ const services = [
     ]
     },
     { id: 12,  title: "Massaggio Gravidanza", description: "Massaggio dolce e sicuro per alleviare tensioni in gravidanza. Disponibile in locale o a domicilio.", duration: "60 min", price: 30, isPromo: false, category: "massaggi",
-        image: "assets/img/massaggio-gravidanza.webp", // <-- CORREGIDO
+        image: "assets/img/massaggio-gravidanza.webp", 
     details: [
     "Alleviamento di dolori e tensioni muscolari - Riduce fastidi comuni come mal di schiena, dolori lombari e rigidità alle spalle.",
     "Riduzione di gonfiori a gambe e piedi - Favorisce la circolazione sanguigna e linfatica, diminuendo la ritenzione idrica.",
