@@ -1693,3 +1693,61 @@ h6 {
 .btn-primary:hover {
     background: var(--primary-pink);
 }
+
+/* --- Barra de Anuncios Inteligente --- */
+.top-announcement-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 30px; /* Barra fina */
+    background-color: var(--primary-violet); /* Violeta oficial de tu marca */
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 500;
+    z-index: 10001; /* Encima de todo */
+    transition: transform 0.3s ease; /* Magia: animación suave al esconderse */
+}
+
+.top-announcement-bar p {
+    margin: 0;
+    padding: 0;
+}
+
+/* --- Ajuste del Navbar para convivir con la barra --- */
+.navbar {
+    /* Inicialmente el menú baja 30px para dejar sitio a la barra */
+    top: 30px !important; 
+    transition: top 0.3s ease, background-color 0.3s, box-shadow 0.3s;
+}
+
+/* --- ESTADO SCROLLEADO (Cuando bajas la página) --- */
+
+/* 1. Esconde la barra de anuncios moviéndola hacia arriba */
+body.scrolled-down .top-announcement-bar {
+    transform: translateY(-100%);
+}
+
+/* 2. Sube el menú al borde superior (0px) */
+body.scrolled-down .navbar {
+    top: 0 !important;
+}
+
+/* --- Ajuste para el menú móvil --- */
+@media (max-width: 768px) {
+    /* Cuando el menú móvil se abre y estamos arriba del todo */
+    .nav-menu.active {
+        top: 30px;
+        height: calc(100vh - 30px);
+        transition: top 0.3s ease, height 0.3s ease;
+    }
+    
+    /* Cuando bajamos, el menú móvil también se ajusta */
+    body.scrolled-down .nav-menu.active {
+        top: 0;
+        height: 100vh;
+    }
+}

@@ -242,9 +242,16 @@
      * Configura listeners globales (scroll, teclado, etc.).
      */
     function initGlobalListeners() {
-        // ... (Efecto de sombra en Navbar sin cambios) ...
         window.addEventListener('scroll', () => {
+            // 1. Agregamos una clase al body cuando bajas más de 10px
+            if (window.scrollY > 10) {
+                document.body.classList.add('scrolled-down');
+            } else {
+                document.body.classList.remove('scrolled-down');
+            }
+
             if (!navbar) return;
+            
             if (window.scrollY > 100) {
                 navbar.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.15)';
                 navbar.style.backgroundColor = 'rgba(255, 255, 255, 0.95)';
