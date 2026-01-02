@@ -174,18 +174,6 @@ const services = [
         title: "Pacchetto Bellezza e Relax", description: "1 massaggio da 60' + 1 manicure o pedicure a scelta. (Per nuovi clienti)", duration: "", price: 40, isPromo: true, category: "promo",
         image: "assets/img/promo/pacchetto-bellezza-relax.jpeg", details: []
     },
-    { id: 106, title: "Promo Natale (2x Viso)", description: "2 massaggi viso + cuoio capelluto", duration: "", price: 30, isPromo: true, category: "promo",
-        image: "assets/img/promo/massaggi-viso-cuio.jpg", details: [] 
-    },
-    { id: 107, title: "Promo Natale (1x Viso)", description: "1 massaggio viso + cuoio capelluto", duration: "", price: 20, isPromo: true, category: "promo",
-        image: "assets/img/promo/massaggio-viso-cuio2.jpg", details: [] 
-    },
-    { id: 108, title: "Promo Natale (1x 60')", description: "Un massaggio da 60 minuti a scelta", duration: "", price: 25, isPromo: true, category: "promo",
-        image: "assets/img/promo/massaggio-60-minuti.jpg", details: [] 
-    },
-    { id: 109, title: "Promo Natale (1x 90')", description: "Un massaggio da 90 minuti a scelta (4 in 1 o Kairos)", duration: "", price: 35, isPromo: true, category: "promo",
-        image: "assets/img/promo/massaggio-90-minuti.jpg", details: [] 
-    },
 ];
 
 // ==========================================================
