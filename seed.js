@@ -6,17 +6,8 @@ dotenv.config(); // Para que lea tu MONGO_URI del .env
 
 
 const services = [
-    { id: 1,  title: "Massaggio Rilassante Corpo Intero", description: "Massaggio total body per ridurre stress e tensioni. Disponibile in locale o a domicilio.", duration: "60 min", price: 25, isPromo: false, category: "massaggi",
-        image: "assets/img/massaggio-rilassante.webp", 
-    details: [
-    "Riduzione dello stress e dell'ansia - Il tocco lento e delicato stimola il sistema nervoso parasimpatico, favorendo calma mentale e rilascio di endorfine.",
-    "Miglioramento della circolazione sanguigna - I movimenti fluidi aiutano a far fluire meglio il sangue, ossigenando i tessuti e nutrendo le cellule.",
-    "Rilassamento muscolare profondo - Scioglie tensioni e rigidità accumulate, migliorando la mobilità e prevenendo dolori.",
-    "Benefici per il sonno - Il corpo entra in uno stato di profondo rilassamento, facilitando un riposo più lungo e rigenerante.",
-    "Aumento della consapevolezza corporea - Aiuta a riconnettersi con il proprio corpo, percependo meglio sensazioni e bisogni fisici."
-    ]
-    },
-    { id: 2,  title: "Massaggio Decontratturante", description: "Trattamento mirato per sciogliere contratture muscolari. Disponibile in locale o a domicilio.", duration: "45 min", price: 30, isPromo: false, category: "massaggi",
+
+    { id: 1,  title: "Massaggio Decontratturante", description: "Trattamento mirato per sciogliere contratture muscolari. Disponibile in locale o a domicilio.", duration: "45 min", price: 30, isPromo: false, category: "massaggi",
         image: "assets/img/massaggio-descontractturante.webp", 
         details: [
     "Scioglimento delle contratture muscolari - Agisce in profondità sui punti tesi, liberando le fibre muscolari bloccate.",
@@ -26,17 +17,25 @@ const services = [
     "Aumento dell'energia e del benessere - Liberando i muscoli, il corpo spende meno energie per compensare il dolore e si sente più leggero e vitale."
     ]
     },
-    { id: 3,  title: "Massaggio Linfodrenante", description: "Stimola il sistema linfatico e riduce gonfiori e ritenzione. Disponibile in locale o a domicilio.", duration: "60 min", price: 30, isPromo: false, category: "massaggi",
-        image: "assets/img/massaggio-linfodrenante.jpg",
+    { 
+        id: 2, 
+        title: "Massaggio Anti Ansia e Paura", 
+        description: "Metodo strutturato che integra lavoro corporeo ed energetico per intervenire su ansia e paura.", 
+        duration: "60 min", 
+        price: 30, 
+        isPromo: false, 
+        category: "massaggi",
+        image: "assets/img/massaggio-anti-ansia.jpeg",
         details: [
-    "Riduzione di gonfiori e ritenzione idrica - Favorisce il drenaggio dei liquidi in eccesso, specialmente in gambe, caviglie e addome.",
-    "Stimolazione del sistema linfatico - Migliora la capacità dell'organismo di eliminare tossine e scorie metaboliche.",
-    "Supporto al sistema immunitario - Un flusso linfatico più attivo rafforza le difese naturali del corpo.",
-    "Miglioramento della circolazione e della pelle - La pelle appare più tonica, luminosa e compatta grazie all'aumento di ossigenazione.",
-    "Effetto rilassante e rigenerante - I movimenti lenti e ritmati inducono calma profonda e benessere generale."
-    ]
+            "Trattamento neuro-somatico mirato - Metodo strutturato che integra respirazione consapevole, lavoro corporeo ed energetico per intervenire sui meccanismi fisici ed emotivi dell'ansia e della paura.",
+            "Regolazione del sistema nervoso - La respirazione addominale guidata e il lavoro sul diaframma favoriscono la riduzione dell'iperattivazione nervosa e aiutano il corpo a ritrovare uno stato di sicurezza interna.",
+            "Rilascio delle tensioni viscerali ed emotive - Il trattamento dell'area addominale e la riflessologia su mani e piedi agiscono sui centri somatici legati a paura, controllo e stress accumulato.",
+            "Alleggerimento mentale e centratura - Il massaggio su collo e testa riduce la sovraccarica mentale, favorendo maggiore presenza, chiarezza e stabilità emotiva.",
+            "Integrazione energetica profonda - Il Reiki su diaframma e plesso solare sostiene il riequilibrio energetico, rafforzando il senso di centratura, fiducia e radicamento dopo la seduta."
+        ]
     },
-    { id: 4,  title: "Massaggio Modellante Anticellulite", description: "Trattamento anticellulite con tecniche mirate e drenanti.", duration: "60 min", price: 30, isPromo: false, category: "massaggi",
+
+    { id: 3,  title: "Massaggio Modellante Anticellulite", description: "Trattamento anticellulite con tecniche mirate e drenanti.", duration: "60 min", price: 30, isPromo: false, category: "massaggi",
         image: "assets/img/massaggio-modellante-anticellulite.webp", 
     details: [
     "Riduzione della cellulite e pelle più liscia - Le tecniche mirate e gli strumenti in legno stimolano la microcircolazione, migliorando l'aspetto della pelle a 'buccia d'arancia'.",
@@ -46,37 +45,7 @@ const services = [
     "Sensazione di leggerezza e vitalità - Dopo la seduta, il corpo appare più sgonfio, dinamico e pieno di energia."
     ]
     },
-    { id: 5,  title: "Massaggio Sportivo", description: "Ideale per preparazione e recupero muscolare. Disponibile in locale o a domicilio.", duration: "45 min", price: 30, isPromo: false, category: "massaggi",
-        image: "assets/img/massaggio-sportivo.webp", 
-    details: [
-    "Preparazione e recupero muscolare ottimali - Migliora l'elasticità e il tono muscolare prima dell'attività e accelera il recupero dopo lo sforzo.",
-    "Riduzione di dolori e affaticamento - Aiuta a sciogliere acido lattico e tensioni accumulate, riducendo rigidità e indolenzimento.",
-    "Prevenzione degli infortuni - Mantiene i muscoli flessibili e migliora la mobilità articolare, riducendo il rischio di strappi e contratture.",
-    "Miglioramento della circolazione e dell'ossigenazione - Favorisce un apporto costante di ossigeno e nutrienti ai tessuti muscolari.",
-    "Aumento della performance - Un corpo più libero da tensioni risponde meglio agli allenamenti e alle competizioni."
-    ]
-    },
-    { id: 6,  title: "Massaggio con Pietre Calde", description: "Calore e manualità per rilassamento profondo.", duration: "60 min", price: 25, isPromo: false, category: "massaggi",
-        image: "assets/img/massaggio-pietre.webp",
-    details: [
-    "Rilassamento profondo e immediato - Il calore penetra nei muscoli, sciogliendo tensioni più rapidamente rispetto a un massaggio tradizionale.",
-    "Stimolazione della circolazione - La temperatura delle pietre favorisce la dilatazione dei vasi sanguigni, migliorando il flusso di sangue e ossigeno.",
-    "Alleviamento dei dolori muscolari e articolari - Ideale per chi soffre di rigidità, contratture o dolori cronici legati a posture scorrette o stress.",
-    "Effetto detox - Il calore favorisce la sudorazione e il drenaggio delle tossine accumulate nei tessuti.",
-    "Benessere mente-corpo - La combinazione di calore e tocco manuale riduce ansia e tensione emotiva, regalando una sensazione di armonia e leggerezza."
-    ]
-    },
-    { id: 7,  title: "Massaggio Anti-Stress", description: "Riflessologia plantare + massaggio testa per rilassare corpo e mente. Disponibile in locale o a domicilio.", duration: "60 min", price: 25, isPromo: false, category: "massaggi",
-        image: "assets/img/massaggio-anti-stress.jpg", 
-    details: [
-    "Rilassamento globale corpo-mente - La riflessologia agisce in profondità sul corpo attraverso i piedi, mentre il massaggio alla testa scioglie tensioni mentali ed emotive.",
-    "Stimolazione energetica completa - Il lavoro sui punti riflessi e sul cranio favorisce un riequilibrio dell'energia vitale in tutto l'organismo.",
-    "Miglioramento della circolazione e drenaggio - Favorisce un flusso sanguigno e linfatico più fluido, migliorando ossigenazione e detossinazione.",
-    "Riduzione di stress, ansia e mal di testa - L'azione mirata alla testa e ai piedi aiuta a calmare la mente e ad alleviare disturbi legati a tensione nervosa.",
-    "Sensazione di leggerezza e chiarezza mentale - Dopo la seduta, il corpo si sente più leggero e la mente più lucida, con un senso di armonia diffusa."
-    ]
-    },
-    { id: 8,  title: "Massaggio Kairós '7 in 1'", description: "Trattamento multisensoriale con aromaterapia, pietre calde e shiatsu.", duration: "90 min", price: 50, isPromo: true, category: "massaggi",
+    { id: 4,  title: "Massaggio Kairós '7 in 1'", description: "Trattamento multisensoriale con aromaterapia, pietre calde e shiatsu.", duration: "90 min", price: 50, isPromo: true, category: "massaggi",
         image: "assets/img/massaggio-kairos.webp", 
     details: [
     "Immersione sensoriale totale - L'aromaterapia, la musica binaurale e il massaggiatore per occhi creano un'esperienza multisensoriale unica che favorisce rilassamento profondo.",
@@ -86,7 +55,58 @@ const services = [
     "Effetto rigenerante e duraturo - Lascia una sensazione di leggerezza, centratura e rinnovata vitalità che perdura oltre la seduta."
     ]
     },
-    { id: 9, title: "Riflessologia Plantare", description: "Tecnica sui punti riflessi dei piedi per riequilibrare corpo e mente. Disponibile in locale o a domicilio.", duration: "60 min", price: 25, isPromo: false, category: "massaggi",
+
+    { id: 5,  title: "Massaggio Rilassante Corpo Intero", description: "Massaggio total body per ridurre stress e tensioni. Disponibile in locale o a domicilio.", duration: "60 min", price: 25, isPromo: false, category: "massaggi",
+        image: "assets/img/massaggio-rilassante.webp", 
+    details: [
+    "Riduzione dello stress e dell'ansia - Il tocco lento e delicato stimola il sistema nervoso parasimpatico, favorendo calma mentale e rilascio di endorfine.",
+    "Miglioramento della circolazione sanguigna - I movimenti fluidi aiutano a far fluire meglio il sangue, ossigenando i tessuti e nutrendo le cellule.",
+    "Rilassamento muscolare profondo - Scioglie tensioni e rigidità accumulate, migliorando la mobilità e prevenendo dolori.",
+    "Benefici per il sonno - Il corpo entra in uno stato di profondo rilassamento, facilitando un riposo più lungo e rigenerante.",
+    "Aumento della consapevolezza corporea - Aiuta a riconnettersi con il proprio corpo, percependo meglio sensazioni e bisogni fisici."
+    ]
+    },
+    { id: 6,  title: "Massaggio Linfodrenante", description: "Stimola il sistema linfatico e riduce gonfiori e ritenzione. Disponibile in locale o a domicilio.", duration: "60 min", price: 30, isPromo: false, category: "massaggi",
+        image: "assets/img/massaggio-linfodrenante.jpg",
+        details: [
+    "Riduzione di gonfiori e ritenzione idrica - Favorisce il drenaggio dei liquidi in eccesso, specialmente in gambe, caviglie e addome.",
+    "Stimolazione del sistema linfatico - Migliora la capacità dell'organismo di eliminare tossine e scorie metaboliche.",
+    "Supporto al sistema immunitario - Un flusso linfatico più attivo rafforza le difese naturali del corpo.",
+    "Miglioramento della circolazione e della pelle - La pelle appare più tonica, luminosa e compatta grazie all'aumento di ossigenazione.",
+    "Effetto rilassante e rigenerante - I movimenti lenti e ritmati inducono calma profonda e benessere generale."
+    ]
+    },
+    { id: 7,  title: "Massaggio Sportivo", description: "Ideale per preparazione e recupero muscolare. Disponibile in locale o a domicilio.", duration: "45 min", price: 30, isPromo: false, category: "massaggi",
+        image: "assets/img/massaggio-sportivo.webp", 
+    details: [
+    "Preparazione e recupero muscolare ottimali - Migliora l'elasticità e il tono muscolare prima dell'attività e accelera il recupero dopo lo sforzo.",
+    "Riduzione di dolori e affaticamento - Aiuta a sciogliere acido lattico e tensioni accumulate, riducendo rigidità e indolenzimento.",
+    "Prevenzione degli infortuni - Mantiene i muscoli flessibili e migliora la mobilità articolare, riducendo il rischio di strappi e contratture.",
+    "Miglioramento della circolazione e dell'ossigenazione - Favorisce un apporto costante di ossigeno e nutrienti ai tessuti muscolari.",
+    "Aumento della performance - Un corpo più libero da tensioni risponde meglio agli allenamenti e alle competizioni."
+    ]
+    },
+    { id: 8,  title: "Massaggio con Pietre Calde", description: "Calore e manualità per rilassamento profondo.", duration: "60 min", price: 25, isPromo: false, category: "massaggi",
+        image: "assets/img/massaggio-pietre.webp",
+    details: [
+    "Rilassamento profondo e immediato - Il calore penetra nei muscoli, sciogliendo tensioni più rapidamente rispetto a un massaggio tradizionale.",
+    "Stimolazione della circolazione - La temperatura delle pietre favorisce la dilatazione dei vasi sanguigni, migliorando il flusso di sangue e ossigeno.",
+    "Alleviamento dei dolori muscolari e articolari - Ideale per chi soffre di rigidità, contratture o dolori cronici legati a posture scorrette o stress.",
+    "Effetto detox - Il calore favorisce la sudorazione e il drenaggio delle tossine accumulate nei tessuti.",
+    "Benessere mente-corpo - La combinazione di calore e tocco manuale riduce ansia e tensione emotiva, regalando una sensazione di armonia e leggerezza."
+    ]
+    },
+    { id: 9,  title: "Massaggio Anti-Stress", description: "Riflessologia plantare + massaggio testa per rilassare corpo e mente. Disponibile in locale o a domicilio.", duration: "60 min", price: 25, isPromo: false, category: "massaggi",
+        image: "assets/img/massaggio-anti-stress.jpg", 
+    details: [
+    "Rilassamento globale corpo-mente - La riflessologia agisce in profondità sul corpo attraverso i piedi, mentre il massaggio alla testa scioglie tensioni mentali ed emotive.",
+    "Stimolazione energetica completa - Il lavoro sui punti riflessi e sul cranio favorisce un riequilibrio dell'energia vitale in tutto l'organismo.",
+    "Miglioramento della circolazione e drenaggio - Favorisce un flusso sanguigno e linfatico più fluido, migliorando ossigenazione e detossinazione.",
+    "Riduzione di stress, ansia e mal di testa - L'azione mirata alla testa e ai piedi aiuta a calmare la mente e ad alleviare disturbi legati a tensione nervosa.",
+    "Sensazione di leggerezza e chiarezza mentale - Dopo la seduta, il corpo si sente più leggero e la mente più lucida, con un senso di armonia diffusa."
+    ]
+    },
+    { id: 10, title: "Riflessologia Plantare", description: "Tecnica sui punti riflessi dei piedi per riequilibrare corpo e mente. Disponibile in locale o a domicilio.", duration: "60 min", price: 25, isPromo: false, category: "massaggi",
         image: "assets/img/riflessologia-plantare.webp", 
     details: [
     "Stimolazione della circolazione sanguigna e linfatica - Migliora l'ossigenazione dei tessuti e favorisce l'eliminazione delle tossine.",
@@ -96,7 +116,7 @@ const services = [
     "Alleviamento di disturbi specifici - Può contribuire a migliorare problemi come mal di testa, disturbi digestivi o dolori muscolari attraverso il lavoro mirato sui punti riflessi."
     ]
     },
-    { id: 10, title: "Reiki Usui", description: "Tecnica energetica per rilassamento profondo ed equilibrio interiore. Disponibile in locale o a domicilio.", duration: "60 min", price: 25, isPromo: false, category: "massaggi",
+    { id: 11, title: "Reiki Usui", description: "Tecnica energetica per rilassamento profondo ed equilibrio interiore. Disponibile in locale o a domicilio.", duration: "60 min", price: 25, isPromo: false, category: "massaggi",
         image: "assets/img/reiki-usui.webp", 
     details: [
     "Profondo rilassamento e riduzione dello stress - L'energia armonizza il sistema nervoso, favorendo calma interiore e serenità.",
@@ -106,7 +126,7 @@ const services = [
     "Armonia emotiva e spirituale - Favorisce il rilascio di emozioni represse, promuovendo un senso di pace profonda e connessione interiore."
     ]
     },
-    { id: 11, title: "Massaggio Anti-Age Viso", description: "Trattamento viso per tonificare e ringiovanire la pelle.", duration: "45 min", price: 20, isPromo: false, category: "massaggi",
+    { id: 12, title: "Massaggio Anti-Age Viso", description: "Trattamento viso per tonificare e ringiovanire la pelle.", duration: "45 min", price: 20, isPromo: false, category: "massaggi",
         image: "assets/img/massaggio-viso.jpg", 
     details: [
     "Stimolazione della circolazione sanguigna del viso - Migliora l'apporto di ossigeno e nutrienti alla pelle, rendendola più luminosa.",
@@ -116,7 +136,7 @@ const services = [
     "Rilassamento generale - Un momento di cura che dona benessere non solo alla pelle ma anche alla mente."
     ]
     },
-    { id: 12,  title: "Massaggio Gravidanza", description: "Massaggio dolce e sicuro per alleviare tensioni in gravidanza. Disponibile in locale o a domicilio.", duration: "60 min", price: 30, isPromo: false, category: "massaggi",
+    { id: 13,  title: "Massaggio Gravidanza", description: "Massaggio dolce e sicuro per alleviare tensioni in gravidanza. Disponibile in locale o a domicilio.", duration: "60 min", price: 30, isPromo: false, category: "massaggi",
         image: "assets/img/massaggio-gravidanza.webp", 
     details: [
     "Alleviamento di dolori e tensioni muscolari - Riduce fastidi comuni come mal di schiena, dolori lombari e rigidità alle spalle.",
@@ -126,7 +146,7 @@ const services = [
     "Connessione mamma-bambino - Il momento di cura e rilassamento favorisce un contatto più consapevole e armonioso con il piccolo."
     ]
     },
-    { id: 13,  title: "Massaggio Focalizzato",
+    { id: 14,  title: "Massaggio Focalizzato",
         description: "Massaggio express di 30 minuti per rilassare una parte del corpo dove c'è tensione: schiena, spalle e collo, gambe, zona lombare.",
         duration: "30 min",
         price: 15,
@@ -140,7 +160,7 @@ const services = [
             "Migliora la mobilità della zona trattata."
         ]
     },
-    { id: 14,  title: "Massaggio Relax Totale '4 in 1'",
+    { id: 15,  title: "Massaggio Relax Totale '4 in 1'",
         description: "Un'esperienza 4 in 1 che unisce massaggio rilassante, Reiki, Shiatsu e riflessologia plantare per un riequilibrio completo.",
         duration: "90 min",
         price: 40,
