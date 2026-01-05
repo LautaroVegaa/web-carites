@@ -324,7 +324,8 @@ async function renderServices() {
 
 function createServiceCard(service) {
         const card = document.createElement('div');
-        card.className = `service-card ${service.isPromo ? 'promo' : ''}`;
+        // Ahora soporta tanto "promo" como "metodo"
+        card.className = `service-card ${service.isPromo ? 'promo' : ''} ${service.isMethod ? 'metodo' : ''}`;
         
         // Aggiunge il click listener all'intera card per aprire il modal
         card.addEventListener('click', () => {
