@@ -1775,26 +1775,21 @@ body.scrolled-down .navbar {
     }
 }
 
-/* CORRECCIÓN FINAL: Cinta "Metodo Carites" subida al máximo */
+/* CORRECCIÓN: Estilo 'Metodo Carites' subido para no tapar texto */
 .service-card.metodo::before {
     content: 'Metodo Carites';
     position: absolute;
-    /* AJUSTE AGRESIVO DE POSICIÓN */
-    top: -8px;   /* La subimos "por fuera" del borde superior */
-    right: -90px; /* La movemos mucho a la derecha para compensar */
-    width: 260px; /* Cinta mucho más larga para que cruce bien la esquina */
-    text-align: center; /* Texto centrado en la cinta larga */
-    
+    top: 15px; 
+    right: -60px; 
+    width: 200px; /* Ancho fijo para centrar */
+    text-align: center;
     background: var(--primary-pink);
     color: var(--white);
-    /* AJUSTE DE TEXTO PARA LEGIBILIDAD */
-    padding: 5px 0; /* Un poco más de "aire" vertical */
-    font-size: 0.62rem; /* Letra un poco más pequeña para que no sature */
-    font-weight: 700; /* Extra negrita para que se lea bien aunque sea pequeña */
-    letter-spacing: 0.5px; /* Un pelín de espacio entre letras */
-    
+    padding: 4px 0;
+    font-size: 0.65rem;
+    font-weight: 700;
     transform: rotate(45deg);
     z-index: 1;
     text-transform: uppercase;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.3); /* Sombra un poco más marcada */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
