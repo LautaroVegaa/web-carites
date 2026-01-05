@@ -1775,19 +1775,21 @@ body.scrolled-down .navbar {
     }
 }
 
-/* Estilo para la etiqueta Metodo Carites */
+/* Estilo ajustado para la etiqueta larga 'Metodo Carites' */
 .service-card.metodo::before {
-    content: 'Metodo Carites'; 
+    content: 'Metodo Carites';
     position: absolute;
-    top: 15px; /* Un poco más abajo para que entre bien */
-    right: -55px; /* Más a la derecha porque la cinta es más larga */
+    top: 20px;  /* Un poco más abajo */
+    right: -55px; /* Posición horizontal */
     background: var(--primary-pink);
     color: var(--white);
-    padding: 5px 60px; /* Cinta más larga */
-    font-size: 0.7rem; /* Letra un poco más chica para que entre */
-    font-weight: 600;
+    padding: 3px 65px;
+    font-size: 10px; /* Tamaño fijo pequeño para asegurar que entre */
+    font-weight: 700; /* Un poco más grueso para que se lea bien en pequeño */
     transform: rotate(45deg);
     z-index: 1;
-    text-transform: uppercase; /* Opcional: para que se vea en mayúsculas tipo etiqueta */
+    text-transform: uppercase;
     box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    /* Asegura que el texto no se divida en dos líneas */
+    white-space: nowrap;
 }
