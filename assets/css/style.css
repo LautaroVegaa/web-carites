@@ -1780,13 +1780,13 @@ body.scrolled-down .navbar {
     content: 'Metodo Carites';
     position: absolute;
     top: 15px; 
-    right: -65px; 
-    width: 240px; /* Ancho fijo para centrar */
+    right: -70px; 
+    width: 215px; /* Ancho fijo para centrar */
     text-align: center;
     background: var(--primary-pink);
     color: var(--white);
     padding: 4px 0;
-    font-size: 0.55rem;
+    font-size: 0.50rem;
     font-weight: 850;
     transform: rotate(45deg);
     z-index: 1;
