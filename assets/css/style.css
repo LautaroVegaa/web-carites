@@ -1774,22 +1774,22 @@ body.scrolled-down .navbar {
         height: calc(100vh - var(--navbar-altura-movil)) !important;
     }
 }
-
-/* Estilo ajustado para la etiqueta larga 'Metodo Carites' */
+/* --- CINTA "METODO CARITES" EN LAS TARJETAS DE SERVICIO --- */
 .service-card.metodo::before {
     content: 'Metodo Carites';
     position: absolute;
-    top: 20px;  /* Un poco más abajo */
-    right: -55px; /* Posición horizontal */
+    /* Ajustes de posición para la cinta de ancho fijo */
+    top: 25px; 
+    right: -55px; 
+    width: 200px; /* Le damos un ancho largo fijo */
+    text-align: center; /* ¡Esto hace la magia de centrarlo! */
     background: var(--primary-pink);
     color: var(--white);
-    padding: 3px 65px;
-    font-size: 10px; /* Tamaño fijo pequeño para asegurar que entre */
-    font-weight: 700; /* Un poco más grueso para que se lea bien en pequeño */
+    padding: 4px 0; /* Solo relleno vertical */
+    font-size: 0.75rem; /* Tamaño legible */
+    font-weight: 700;
     transform: rotate(45deg);
     z-index: 1;
     text-transform: uppercase;
     box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-    /* Asegura que el texto no se divida en dos líneas */
-    white-space: nowrap;
 }
