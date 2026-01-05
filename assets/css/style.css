@@ -353,6 +353,13 @@ h6 {
     margin-bottom: 0.5rem;
 }
 
+/* --- CORRECCIÓN DE SOLAPAMIENTO CON CINTA --- */
+/* Solo aplica a títulos dentro de tarjetas con clase 'metodo' */
+.service-card.metodo .service-title {
+    padding-right: 70px; /* Empuja el texto para que no choque con la cinta */
+    display: block;      /* Asegura que tome el ancho y respete el padding */
+}
+
 /* Subtítulos en la sección de servicios */
 .services h3.sub-title {
     font-size: 1.8rem;
