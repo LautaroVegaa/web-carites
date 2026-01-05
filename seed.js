@@ -239,7 +239,7 @@ const services = [
         duration: "90 min",
         price: 40,
         isPromo: false,
-        isMethod: false,
+        isMethod: true,
         category: "massaggi",
         image: "assets/img/massaggio-relax-totale.jpg",
         details: [
@@ -281,6 +281,7 @@ const serviceSchema = new mongoose.Schema({
   duration: String,
   price: Number,
   isPromo: Boolean,
+  isMethod: Boolean,
   category: String,
   image: String,
   details: [String]
