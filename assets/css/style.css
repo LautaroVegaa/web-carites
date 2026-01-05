@@ -1781,13 +1781,13 @@ body.scrolled-down .navbar {
     position: absolute;
     top: 15px; 
     right: -65px; 
-    width: 200px; /* Ancho fijo para centrar */
+    width: 240px; /* Ancho fijo para centrar */
     text-align: center;
     background: var(--primary-pink);
     color: var(--white);
     padding: 4px 0;
     font-size: 0.55rem;
-    font-weight: 800;
+    font-weight: 850;
     transform: rotate(45deg);
     z-index: 1;
     text-transform: uppercase;
