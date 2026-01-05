@@ -1775,19 +1775,29 @@ body.scrolled-down .navbar {
     }
 }
 
-/* CORRECCIÓN: Estilo 'Metodo Carites' subido para no tapar texto */
+/* Asegúrate de que el contenedor tenga estas dos propiedades */
+.service-card.metodo {
+    position: relative;
+    overflow: hidden; 
+}
+
 .service-card.metodo::before {
-    content: 'Metodo Carites';
+    content: 'METODO CARITES';
     position: absolute;
-    top: 15px; 
-    right: -70px; 
-    width: 215px; /* Ancho fijo para centrar */
+    /* Coordenadas ajustadas para centrado visual */
+    top: 20px; 
+    right: -65px; 
+    width: 200px; 
+    
+    /* Estilos de texto y color */
     text-align: center;
     background: var(--primary-pink);
     color: var(--white);
-    padding: 4px 0;
-    font-size: 0.50rem;
-    font-weight: 850;
+    padding: 5px 0; /* Un poco más de aire vertical */
+    font-size: 0.65rem; /* Aumentado ligeramente para legibilidad */
+    font-weight: 800;
+    
+    /* Rotación y efectos */
     transform: rotate(45deg);
     z-index: 1;
     text-transform: uppercase;
