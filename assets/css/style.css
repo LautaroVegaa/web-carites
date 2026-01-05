@@ -1786,8 +1786,8 @@ body.scrolled-down .navbar {
     background: var(--primary-pink);
     color: var(--white);
     padding: 4px 0; /* Solo relleno vertical */
-    font-size: 0.75rem; /* Tamaño legible */
-    font-weight: 700;
+    font-size: 0.70rem; /* Tamaño legible */
+    font-weight: 600;
     transform: rotate(45deg);
     z-index: 1;
     text-transform: uppercase;
