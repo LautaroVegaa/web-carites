@@ -252,23 +252,83 @@ const services = [
     },
 
 
-    { id: 101, title: "Pacchetto Rinascita (3x90')", description: "3 massaggi da 90' a scelta (4 in 1 o Kairós)", duration: "", price: 100, isPromo: true, category: "promo",
+    { id: 101, title: "Pacchetto Rinascita (3x90')", 
+        description: "3 massaggi da 90' a scelta (4 in 1 o Kairós)", 
+        duration: "", 
+        price: 100, 
+        isPromo: true, 
+        category: "promo",
         image: "assets/img/promo/pacchetto-rinascita.jpg", details: [] 
     },
-    { id: 102, title: "Pacchetto Titanio (5x60')", description: "5 massaggi da 60' a scelta", duration: "", price: 110, isPromo: true, category: "promo",
+    { id: 102, title: "Pacchetto Titanio (5x60')", 
+        description: "5 massaggi da 60' a scelta", 
+        duration: "", 
+        price: 110, 
+        isPromo: true, 
+        category: "promo",
         image: "assets/img/promo/pacchetto-titanio.jpg", details: [] 
     },
-    { id: 103, title: "Pacchetto Argento (3x60')", description: "3 massaggi da 60' a scelta", duration: "", price: 70, isPromo: true, category: "promo",
+    { id: 103, title: "Pacchetto Argento (3x60')", 
+        description: "3 massaggi da 60' a scelta", 
+        duration: "", 
+        price: 70, 
+        isPromo: true, 
+        category: "promo",
         image: "assets/img/promo/pacchetto-argento.jpg", details: [] 
     },
-    { id: 104, title: "Pacchetto Oro (10x60')", description: "10 massaggi da 60' a scelta", duration: "", price: 200, isPromo: true, category: "promo",
+    { id: 104, title: "Pacchetto Oro (10x60')", 
+        description: "10 massaggi da 60' a scelta",
+        duration: "", 
+        price: 200, 
+        isPromo: true, 
+        category: "promo",
         image: "assets/img/promo/pacchetto-oro.jpg", details: [] 
     },
     { 
         id: 105, 
-        title: "Pacchetto Bellezza e Relax", description: "1 massaggio da 60' + 1 manicure o pedicure a scelta. (Per nuovi clienti)", duration: "", price: 40, isPromo: true, category: "promo",
+        title: "Pacchetto Bellezza e Relax", 
+        description: "1 massaggio da 60' + 1 manicure o pedicure a scelta. (Per nuovi clienti)", 
+        duration: "", 
+        price: 40, 
+        isPromo: true, 
+        category: "promo",
         image: "assets/img/promo/pacchetto-bellezza-relax.jpeg", details: []
     },
+    { 
+        id: 106, 
+        title: "Pacchetto Anti-Ansia (3 Sedute)", 
+        description: "Percorso completo di 3 trattamenti neuro-somatici per ritrovare equilibrio stabile.", 
+        duration: "3 x 60 min", 
+        price: 65, 
+        isPromo: true, 
+        category: "promo",
+        image: "assets/img/promo/promozioni-anti-ansia.jpeg", 
+        details: [
+            "Trattamento neuro-somatico mirato",
+            "Regolazione del sistema nervoso",
+            "Rilascio delle tensioni viscerali ed emotive",
+            "Alleggerimento mentale e centratura",
+            "Integrazione energetica profonda"
+        ] 
+    },
+    { 
+        id: 107, 
+        title: "Trattamento Anti-Ansia (Promo)", 
+        description: "Seduta singola in promozione per provare il metodo neuro-somatico.", 
+        duration: "60 min", 
+        price: 25, 
+        isPromo: true, 
+        category: "promo",
+        image: "assets/img/promo/promozioni-anti-ansia1.jpeg", 
+        details: [
+            "Trattamento neuro-somatico mirato",
+            "Regolazione del sistema nervoso",
+            "Rilascio delle tensioni viscerali ed emotive",
+            "Alleggerimento mentale e centratura",
+            "Integrazione energetica profonda"
+        ] 
+    },
+
 ];
 
 // ==========================================================
