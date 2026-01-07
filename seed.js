@@ -328,6 +328,30 @@ const services = [
             "Integrazione energetica profonda"
         ] 
     },
+    { 
+        id: 108, 
+        title: "Massaggio 4 in 1", 
+        description: "", 
+        duration: "60 min", 
+        price: 35, 
+        isPromo: true, 
+        category: "promo",
+        image: "assets/img/promo/promozioni-massaggio-4-in-1.jpeg",
+        details: [
+        ] 
+    },
+    { 
+        id: 109, 
+        title: "Massaggio Rilassante in Coppia", 
+        description: "", 
+        duration: "60 min", 
+        price: 40, 
+        isPromo: true, 
+        category: "promo",
+        image: "assets/img/promo/promozioni-massaggio-rilassante-coppia.jpeg", 
+        details: [
+        ] 
+    },
 
 ];
 
