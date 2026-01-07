@@ -331,7 +331,7 @@ const services = [
     { 
         id: 108, 
         title: "Massaggio 4 in 1", 
-        description: "", 
+        description: "Massaggio 4 in 1. Riflessologia plantare, Rilassante, Reiki Usui, Shiatsu.", 
         duration: "60 min", 
         price: 35, 
         isPromo: true, 
@@ -343,7 +343,7 @@ const services = [
     { 
         id: 109, 
         title: "Massaggio Rilassante in Coppia", 
-        description: "", 
+        description: "Massaggio Rilassante in Coppia. Amici, Famiglia, Coppia.", 
         duration: "60 min", 
         price: 40, 
         isPromo: true, 
