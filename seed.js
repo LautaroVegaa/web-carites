@@ -328,6 +328,30 @@ const services = [
             "Integrazione energetica profonda"
         ] 
     },
+    { 
+        id: 108, 
+        title: "Massaggio 4 in 1", 
+        description: "Massaggio 4 in 1: rilassante, Reiki Usui, Shiatsu e riflessologia plantare.", 
+        duration: "60 min", 
+        price: 35, 
+        isPromo: true, 
+        category: "promo",
+        image: "assets/img/promo/promozioni-massaggio-4-in-1.jpeg",
+        details: [
+        ] 
+    },
+    { 
+        id: 109, 
+        title: "Massaggio Rilassante in Coppia", 
+        description: "Massaggio rilassante in coppia. Amici, Famiglia o coppia.",
+        duration: "60 min", 
+        price: 40, 
+        isPromo: true, 
+        category: "promo",
+        image: "assets/img/promo/promozioni-massaggio-rilassante-coppia.jpeg", 
+        details: [
+        ] 
+    },
 
 ];
 

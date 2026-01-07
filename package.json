@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "dotenv": "^17.2.2",
+    "mongodb": "^7.0.0",
     "mongoose": "^8.19.3",
     "node-fetch": "^2.7.0",
     "resend": "^6.4.2",
