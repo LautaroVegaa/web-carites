@@ -7,7 +7,7 @@ console.log("API Key cargada:", !!apiKey); // Esto dirá 'true' o 'false'
 // --- FIN DE DEBUGGING ---
 
 const resend = new Resend(apiKey);
-const TU_EMAIL = "harmoniaravenna@gmail.com"; //mail cliente
+const TU_EMAIL = "info@caritesravenna.it"; //mail cliente
 // ... (el resto del código sigue igual)
 
 // Función para permitir CORS (cópiala de tus otros archivos API)
