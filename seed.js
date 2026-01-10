@@ -190,7 +190,7 @@ const services = [
     { id: 12, title: "Massaggio Anti-Age Viso", 
         description: "Trattamento viso per tonificare e ringiovanire la pelle.", 
         duration: "45 min", 
-        price: 0, 
+        price: 20, 
         isPromo: false,
         isMethod: false, 
         category: "massaggi",
