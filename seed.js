@@ -13,7 +13,7 @@ const services = [
         price: 30, 
         isPromo: false,
         isMethod: false, 
-        category: "massaggi",
+        category: "muscolare",
         image: "assets/img/massaggio-descontractturante.webp", 
         details: [
     "Scioglimento delle contratture muscolari - Agisce in profondità sui punti tesi, liberando le fibre muscolari bloccate.",
@@ -31,7 +31,7 @@ const services = [
         price: 30, 
         isPromo: false, 
         isMethod: true,
-        category: "massaggi",
+        category: "energia",
         image: "assets/img/massaggio-anti-ansia.jpeg",
         details: [
             "Trattamento neuro-somatico mirato - Metodo strutturato che integra respirazione consapevole, lavoro corporeo ed energetico per intervenire sui meccanismi fisici ed emotivi dell'ansia e della paura.",
@@ -48,7 +48,7 @@ const services = [
         price: 30, 
         isPromo: false, 
         isMethod: false,
-        category: "massaggi",
+        category: "circolazione",
         image: "assets/img/massaggio-modellante-anticellulite.webp", 
     details: [
     "Riduzione della cellulite e pelle più liscia - Le tecniche mirate e gli strumenti in legno stimolano la microcircolazione, migliorando l'aspetto della pelle a 'buccia d'arancia'.",
@@ -64,7 +64,7 @@ const services = [
     price: 50, 
     isPromo: false, 
     isMethod: true, 
-    category: "massaggi",
+    category: "profondi",
     image: "assets/img/massaggio-kairos.webp", 
     details: [
     "Immersione sensoriale totale - L'aromaterapia, la musica binaurale e il massaggiatore per occhi creano un'esperienza multisensoriale unica che favorisce rilassamento profondo.",
@@ -81,7 +81,7 @@ const services = [
         price: 25, 
         isPromo: false, 
         isMethod: false,
-        category: "massaggi",
+        category: "rilassanti",
         image: "assets/img/massaggio-rilassante.webp", 
     details: [
     "Riduzione dello stress e dell'ansia - Il tocco lento e delicato stimola il sistema nervoso parasimpatico, favorendo calma mentale e rilascio di endorfine.",
@@ -97,7 +97,7 @@ const services = [
         price: 30, 
         isPromo: false, 
         isMethod: false,
-        category: "massaggi",
+        category: "circolazione",
         image: "assets/img/massaggio-linfodrenante.jpg",
         details: [
     "Riduzione di gonfiori e ritenzione idrica - Favorisce il drenaggio dei liquidi in eccesso, specialmente in gambe, caviglie e addome.",
@@ -113,7 +113,7 @@ const services = [
         price: 30, 
         isPromo: false,
         isMethod: false, 
-        category: "massaggi",
+        category: "muscolare",
         image: "assets/img/massaggio-sportivo.webp", 
     details: [
     "Preparazione e recupero muscolare ottimali - Migliora l'elasticità e il tono muscolare prima dell'attività e accelera il recupero dopo lo sforzo.",
@@ -129,7 +129,7 @@ const services = [
         price: 25, 
         isPromo: false,
         isMethod: false, 
-        category: "massaggi",
+        category: "rilassanti",
         image: "assets/img/massaggio-pietre.webp",
     details: [
     "Rilassamento profondo e immediato - Il calore penetra nei muscoli, sciogliendo tensioni più rapidamente rispetto a un massaggio tradizionale.",
@@ -145,7 +145,7 @@ const services = [
         price: 25, 
         isPromo: false, 
         isMethod: true, 
-        category: "massaggi",
+        category: "energia",
         image: "assets/img/massaggio-anti-stress.jpg", 
     details: [
     "Rilassamento globale corpo-mente - La riflessologia agisce in profondità sul corpo attraverso i piedi, mentre il massaggio alla testa scioglie tensioni mentali ed emotive.",
@@ -161,7 +161,7 @@ const services = [
         price: 25, 
         isPromo: false, 
         isMethod: false,
-        category: "massaggi",
+        category: "energia",
         image: "assets/img/riflessologia-plantare.webp", 
     details: [
     "Stimolazione della circolazione sanguigna e linfatica - Migliora l'ossigenazione dei tessuti e favorisce l'eliminazione delle tossine.",
@@ -177,7 +177,7 @@ const services = [
         price: 25, 
         isPromo: false, 
         isMethod: false,
-        category: "massaggi",
+        category: "energia",
         image: "assets/img/reiki-usui.webp", 
     details: [
     "Profondo rilassamento e riduzione dello stress - L'energia armonizza il sistema nervoso, favorendo calma interiore e serenità.",
@@ -193,7 +193,7 @@ const services = [
         price: 20, 
         isPromo: false,
         isMethod: false, 
-        category: "massaggi",
+        category: "viso",
         image: "assets/img/massaggio-viso.jpg", 
     details: [
     "Stimolazione della circolazione sanguigna del viso - Migliora l'apporto di ossigeno e nutrienti alla pelle, rendendola più luminosa.",
@@ -209,7 +209,7 @@ const services = [
         price: 30, 
         isPromo: false, 
         isMethod: false,
-        category: "massaggi",
+        category: "rilassanti",
         image: "assets/img/massaggio-gravidanza.webp", 
     details: [
     "Alleviamento di dolori e tensioni muscolari - Riduce fastidi comuni come mal di schiena, dolori lombari e rigidità alle spalle.",
@@ -225,7 +225,7 @@ const services = [
         price: 15,
         isPromo: false,
         isMethod: false,
-        category: "massaggi",
+        category: "muscolare",
         image: "assets/img/massaggio-focalizzato.webp",
         details: [
             "Azione rapida su dolori specifici.",
@@ -240,7 +240,7 @@ const services = [
         price: 40,
         isPromo: false,
         isMethod: true,
-        category: "massaggi",
+        category: "profondi",
         image: "assets/img/massaggio-relax-totale.jpg",
         details: [
             "Esperienza di benessere completa - Unisce tecniche occidentali e orientali per agire su corpo, mente ed energia in un'unica seduta.",
@@ -249,6 +249,60 @@ const services = [
             "Riduzione di stress, ansia e blocchi emotivi - Ogni tecnica contribuisce a liberare tensioni, portando calma e leggerezza interiore.",
             "Effetto rigenerante a lungo termine - Dopo la seduta ci si sente più leggeri, centrati e pieni di energia positiva."
         ]
+    },
+    {
+    id: 16,
+    title: "Gomming circolatorio gambe totale",
+    description: "Trattamento profondo per stimolare la circolazione sanguigna e linfatica delle gambe, favorendo leggerezza e rigenerazione.",
+    duration: "60 min",
+    price: 30,
+    isPromo: false,
+    isMethod: false,
+    category: "circolazione",
+    image: "assets/img/gomming-gambe.png",
+    details: [
+        "Stimolazione profonda della circolazione sanguigna e linfatica - La tecnica Gomming, eseguita con guanti e gel ad alta aderenza, favorisce il ritorno venoso e il drenaggio linfatico, aiutando a ridurre gonfiore e sensazione di gambe pesanti.",
+        "Rigenerazione dei tessuti e lavoro fasciale mirato - L’azione di trazione e mobilizzazione profonda stimola le fasce e il tessuto connettivo, migliorando elasticità, nutrimento cellulare e capacità di recupero.",
+        "Rilascio delle tensioni muscolari profonde - Ideale per sciogliere rigidità accumulate su polpacci, cosce e zona poplitea, spesso legate a posture prolungate, stress o affaticamento fisico.",
+        "Sensazione di leggerezza e vitalità - Il trattamento riattiva la circolazione energetica delle gambe, donando una percezione immediata di leggerezza, calore e maggiore presenza corporea.",
+        "Benessere integrato corpo–mente - Il ritmo lento e profondo del Gomming aiuta il sistema nervoso a rilassarsi, favorendo un senso di stabilità, radicamento e rigenerazione dopo la seduta."
+    ]
+    },
+    {
+    id: 17,
+    title: "Gomming viso rigenerante",
+    description: "Trattamento rigenerante del viso che stimola la microcircolazione e dona luminosità, tonicità e rilassamento profondo.",
+    duration: "45 min",
+    price: 20,
+    isPromo: false,
+    isMethod: false,
+    category: "viso",
+    image: "assets/img/gomming-viso.png",
+    details: [
+        "Stimolazione profonda della microcircolazione del viso - La tecnica Gomming, eseguita con guanti e gel ad alta aderenza, stimola la microcircolazione sanguigna e linfatica del viso, favorendo ossigenazione dei tessuti, luminosità e vitalità della pelle.",
+        "Rigenerazione dei tessuti e lavoro fasciale mirato - L’azione di trazione e mobilizzazione profonda agisce sulle fasce del viso, migliorando elasticità, tonicità cutanea e capacità di rigenerazione cellulare.",
+        "Rilascio delle tensioni muscolari facciali - Ideale per sciogliere tensioni accumulate su mandibola, zigomi, fronte e contorno occhi, spesso legate a stress, espressioni contratte o affaticamento mentale.",
+        "Effetto distensivo e luminosità naturale - Il trattamento favorisce un aspetto più disteso e armonioso del viso, donando una sensazione di freschezza, leggerezza e naturale luminosità della pelle.",
+        "Benessere integrato viso–mente - Il ritmo lento e profondo del Gomming aiuta il sistema nervoso a rilassarsi, favorendo una sensazione di calma, centratura e benessere profondo dopo la seduta."
+    ]
+    },
+    {
+    id: 18,
+    title: "Massaggio bioattivo decontratturante + luce rossa",
+    description: "Massaggio profondo con integrazione di luce rossa per sciogliere contratture, ridurre infiammazione e accelerare il recupero muscolare.",
+    duration: "60 min",
+    price: 35,
+    isPromo: false,
+    isMethod: true,
+    category: "muscolare",
+    image: "assets/img/massaggio-bioattivo.jpg",
+    details: [
+        "Rilascio profondo delle contratture - La combinazione di manualità e luce rossa favorisce uno scioglimento più rapido ed efficace delle tensioni muscolari profonde.",
+        "Riduzione di dolore e infiammazione - La luce rossa stimola la microcircolazione e supporta i naturali processi antinfiammatori dei tessuti.",
+        "Maggiore elasticità e mobilità - Il trattamento migliora la flessibilità muscolare e articolare, restituendo libertà di movimento.",
+        "Recupero muscolare accelerato - Ideale in caso di stress fisico, posture scorrette o affaticamento prolungato, favorisce la rigenerazione dei tessuti.",
+        "Benessere e rilassamento profondo - Induce una sensazione di calore, leggerezza e rilassamento duraturo."
+    ]
     },
     
 

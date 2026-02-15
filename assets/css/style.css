@@ -1810,3 +1810,51 @@ body.scrolled-down .navbar {
     text-transform: uppercase;
     box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
+
+/* =========================================
+   FILTROS DE CATEGORÍAS (CARITES STYLE)
+   ========================================= */
+.filter-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 20px;
+    margin-bottom: 40px;
+    padding: 0 15px;
+}
+
+.filter-btn {
+    background-color: #ffffff;
+    color: #6a1b9a; /* Violeta Carites */
+    border: 2px solid #6a1b9a;
+    border-radius: 30px;
+    padding: 8px 20px;
+    font-size: 1rem;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+/* Efecto al pasar el mouse */
+.filter-btn:hover {
+    background-color: #f3e5f5; /* Violeta muy clarito */
+}
+
+/* Botón activo (seleccionado) */
+.filter-btn.active {
+    background-color: #6a1b9a;
+    color: #ffffff;
+    box-shadow: 0 4px 10px rgba(106, 27, 154, 0.3);
+}
+
+/* Animación de entrada para las tarjetas al filtrar */
+.service-card {
+    animation: fadeInCard 0.4s ease-in-out;
+}
+
+@keyframes fadeInCard {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
+}

@@ -299,7 +299,7 @@
     // =====================
 
 async function renderServices() {
-        if (!servicesGrid) return; // Tu corrección está bien
+        if (!servicesGrid) return;
 
         try {
             const response = await fetch("/api/services");
@@ -307,18 +307,53 @@ async function renderServices() {
             services = await response.json(); 
         } catch (err) {
             console.error("No se pudieron cargar los servicios", err);
-            servicesGrid.innerHTML = "<p>Error al cargar los servicios. Intente más tarde.</p>";
+            servicesGrid.innerHTML = "<p>Errore nel caricamento dei servizi. Riprova più tardi.</p>";
             return;
         }
 
-        servicesGrid.innerHTML = ''; // Limpiamos el grid
+        initFilters(); // Inicia los botones
+        displayServices('tutti'); // Muestra todos al cargar la página
+    }
 
-        services.forEach(service => {
-            // Ya no preguntamos por "estetica", solo nos importa "massaggi"
-            if (service.category === "massaggi") {
-                const card = createServiceCard(service);
-                servicesGrid.appendChild(card);
-            }
+    // NUEVA FUNCIÓN: Dibuja solo los masajes que coinciden con el botón
+    function displayServices(category) {
+        servicesGrid.innerHTML = ''; // Limpia las tarjetas actuales
+
+        const filteredServices = services.filter(service => {
+            if (service.category === 'promo') return false; // Ignorar las promos acá
+            if (category === 'tutti') return true; // Si es "Tutti", mostrar todo
+            return service.category === category; // Coincidencia exacta (ej: 'viso' == 'viso')
+        });
+
+        if (filteredServices.length === 0) {
+            servicesGrid.innerHTML = '<p style="text-align: center; width: 100%; grid-column: 1/-1;">Nessun massaggio trovato in questa categoria.</p>';
+            return;
+        }
+
+        // Crear e inyectar las tarjetas filtradas
+        filteredServices.forEach(service => {
+            const card = createServiceCard(service);
+            servicesGrid.appendChild(card);
+        });
+    }
+
+    // NUEVA FUNCIÓN: Lógica de clics en los botones
+    function initFilters() {
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        if (filterBtns.length === 0) return;
+        
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                // 1. Quitar el estado activo de todos los botones
+                filterBtns.forEach(b => b.classList.remove('active'));
+                
+                // 2. Pintar de violeta el botón que el cliente tocó
+                e.target.classList.add('active');
+                
+                // 3. Leer qué categoría es (ej: "viso") y dibujar esas tarjetas
+                const selectedCategory = e.target.getAttribute('data-filter');
+                displayServices(selectedCategory);
+            });
         });
     }
 
