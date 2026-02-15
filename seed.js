@@ -259,7 +259,7 @@ const services = [
     isPromo: false,
     isMethod: false,
     category: "circolazione",
-    image: "assets/img/gomming-gambe.png",
+    image: "assets/img/massaggio-gomming-gambe.png",
     details: [
         "Stimolazione profonda della circolazione sanguigna e linfatica - La tecnica Gomming, eseguita con guanti e gel ad alta aderenza, favorisce il ritorno venoso e il drenaggio linfatico, aiutando a ridurre gonfiore e sensazione di gambe pesanti.",
         "Rigenerazione dei tessuti e lavoro fasciale mirato - L’azione di trazione e mobilizzazione profonda stimola le fasce e il tessuto connettivo, migliorando elasticità, nutrimento cellulare e capacità di recupero.",
@@ -277,7 +277,7 @@ const services = [
     isPromo: false,
     isMethod: false,
     category: "viso",
-    image: "assets/img/gomming-viso.png",
+    image: "assets/img/massaggio-gomming-viso.png",
     details: [
         "Stimolazione profonda della microcircolazione del viso - La tecnica Gomming, eseguita con guanti e gel ad alta aderenza, stimola la microcircolazione sanguigna e linfatica del viso, favorendo ossigenazione dei tessuti, luminosità e vitalità della pelle.",
         "Rigenerazione dei tessuti e lavoro fasciale mirato - L’azione di trazione e mobilizzazione profonda agisce sulle fasce del viso, migliorando elasticità, tonicità cutanea e capacità di rigenerazione cellulare.",
@@ -295,7 +295,7 @@ const services = [
     isPromo: false,
     isMethod: true,
     category: "muscolare",
-    image: "assets/img/massaggio-bioattivo.jpg",
+    image: "assets/img/massaggio-bioattivo.jpeg",
     details: [
         "Rilascio profondo delle contratture - La combinazione di manualità e luce rossa favorisce uno scioglimento più rapido ed efficace delle tensioni muscolari profonde.",
         "Riduzione di dolore e infiammazione - La luce rossa stimola la microcircolazione e supporta i naturali processi antinfiammatori dei tessuti.",
