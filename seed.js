@@ -259,7 +259,7 @@ const services = [
     duration: "60 min", 
     price: 25, 
     isPromo: true, 
-    category: "corpo",
+    category: "promo",
     image: "assets/img/promo/gomming-circolatorio-1.jpeg", 
     details: [
         "Stimolazione profonda della circolazione sanguigna e linfatica",
@@ -293,7 +293,7 @@ const services = [
     duration: "45 min", 
     price: 30, 
     isPromo: true, 
-    category: "viso",
+    category: "promo",
     image: "assets/img/promo/massaggio-bioattivo-1.jpeg", 
     details: [
         "Stimolazione profonda della microcircolazione del viso",
@@ -307,7 +307,7 @@ const services = [
     { 
     id: 104, 
     title: "Massaggio bioattivo decontratturante + luce rossa (3 Sedute)", 
-    description: "Percorso completo di 3 trattamenti per un viso più luminoso, disteso e rigenerato.", 
+    description: "rattamento bioattivo con luce rossa per sciogliere contratture e accelerare il recupero muscolare.", 
     duration: "3 x 45 min", 
     price: 85, 
     isPromo: true, 
@@ -328,7 +328,7 @@ const services = [
     duration: "90 min", 
     price: 40, 
     isPromo: true, 
-    category: "corpo",
+    category: "promo",
     image: "assets/img/promo/kairos-7-tecniche-in-1.jpeg", 
     details: [
         "Riflessologia plantare",
@@ -347,7 +347,7 @@ const services = [
     duration: "60 min", 
     price: 20, 
     isPromo: true, 
-    category: "terapeutico",
+    category: "promo",
     image: "assets/img/promo/gomming-viso-1.jpeg", 
     details: [
         "Rilascio profondo delle contratture",
