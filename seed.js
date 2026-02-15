@@ -250,52 +250,132 @@ const services = [
             "Effetto rigenerante a lungo termine - Dopo la seduta ci si sente più leggeri, centrati e pieni di energia positiva."
         ]
     },
+    
 
-
-    { id: 101, title: "Pacchetto Rinascita (3x90')", 
-        description: "3 massaggi da 90' a scelta (4 in 1 o Kairós)", 
-        duration: "", 
-        price: 100, 
-        isPromo: true, 
-        category: "promo",
-        image: "assets/img/promo/pacchetto-rinascita.jpg", details: [] 
-    },
-    { id: 102, title: "Pacchetto Titanio (5x60')", 
-        description: "5 massaggi da 60' a scelta", 
-        duration: "", 
-        price: 110, 
-        isPromo: true, 
-        category: "promo",
-        image: "assets/img/promo/pacchetto-titanio.jpg", details: [] 
-    },
-    { id: 103, title: "Pacchetto Argento (3x60')", 
-        description: "3 massaggi da 60' a scelta", 
-        duration: "", 
-        price: 70, 
-        isPromo: true, 
-        category: "promo",
-        image: "assets/img/promo/pacchetto-argento.jpg", details: [] 
-    },
-    { id: 104, title: "Pacchetto Oro (10x60')", 
-        description: "10 massaggi da 60' a scelta",
-        duration: "", 
-        price: 200, 
-        isPromo: true, 
-        category: "promo",
-        image: "assets/img/promo/pacchetto-oro.jpg", details: [] 
+    { 
+    id: 101, 
+    title: "Gomming circolatorio gambe totale (1 Seduta)", 
+    description: "Trattamento intensivo per la stimolazione profonda della circolazione e il benessere completo delle gambe.", 
+    duration: "60 min", 
+    price: 25, 
+    isPromo: true, 
+    category: "corpo",
+    image: "assets/img/promo/gomming-circolatorio-1.jpeg", 
+    details: [
+        "Stimolazione profonda della circolazione sanguigna e linfatica",
+        "Rigenerazione dei tessuti e lavoro fasciale mirato",
+        "Rilascio delle tensioni muscolari profonde",
+        "Sensazione di leggerezza e vitalità",
+        "Benessere integrato corpo–mente"
+    ] 
     },
     { 
-        id: 105, 
-        title: "Pacchetto Bellezza e Relax", 
-        description: "1 massaggio da 60' + 1 manicure o pedicure a scelta. (Per nuovi clienti)", 
-        duration: "", 
-        price: 40, 
-        isPromo: true, 
-        category: "promo",
-        image: "assets/img/promo/pacchetto-bellezza-relax.jpeg", details: []
+    id: 102, 
+    title: "Gomming circolatorio gambe totale (3 Sedute)", 
+    description: "Percorso di 3 trattamenti per migliorare stabilmente circolazione, tonicità e leggerezza delle gambe.", 
+    duration: "3 x 60 min", 
+    price: 75, 
+    isPromo: true, 
+    category: "promo",
+    image: "assets/img/promo/gomming-circolatorio-2.jpeg", 
+    details: [
+        "Stimolazione profonda della circolazione sanguigna e linfatica",
+        "Rigenerazione dei tessuti e lavoro fasciale mirato",
+        "Rilascio delle tensioni muscolari profonde",
+        "Sensazione di leggerezza e vitalità",
+        "Benessere integrato corpo–mente"
+    ] 
     },
     { 
-        id: 106, 
+    id: 103, 
+    title: "Massaggio bioattivo decontratturante + luce rossa (1 Seduta)", 
+    description: "Trattamento bioattivo con luce rossa per sciogliere contratture e accelerare il recupero muscolare.", 
+    duration: "45 min", 
+    price: 20, 
+    isPromo: true, 
+    category: "viso",
+    image: "assets/img/promo/massaggio-bioattivo-1.jpeg", 
+    details: [
+        "Stimolazione profonda della microcircolazione del viso",
+        "Rigenerazione dei tessuti e lavoro fasciale mirato",
+        "Rilascio delle tensioni muscolari facciali",
+        "Effetto distensivo e luminosità naturale",
+        "Benessere integrato viso–mente"
+    
+    ] 
+    },
+    { 
+    id: 104, 
+    title: "Massaggio bioattivo decontratturante + luce rossa (3 Sedute)", 
+    description: "Percorso completo di 3 trattamenti per un viso più luminoso, disteso e rigenerato.", 
+    duration: "3 x 45 min", 
+    price: 50, 
+    isPromo: true, 
+    category: "promo",
+    image: "assets/img/promo/massaggio-bioattivo-2.jpeg", 
+    details: [
+        "Stimolazione profonda della microcircolazione del viso",
+        "Rigenerazione dei tessuti e lavoro fasciale mirato",
+        "Rilascio delle tensioni muscolari facciali",
+        "Effetto distensivo e luminosità naturale",
+        "Benessere integrato viso–mente"
+    ] 
+    },
+    { 
+    id: 105, 
+    title: "Kairos – 7 tecniche in 1", 
+    description: "Esperienza multisensoriale che integra 7 tecniche per un rilassamento profondo e armonizzazione completa.", 
+    duration: "90 min", 
+    price: 40, 
+    isPromo: true, 
+    category: "corpo",
+    image: "assets/img/promo/kairos-7-tecniche-in-1.jpeg", 
+    details: [
+        "Riflessologia plantare",
+        "Massaggio rilassante con pietre calde",
+        "Shiatsu",
+        "Gua Sha",
+        "Aromaterapia",
+        "Massaggiatore per occhi",
+        "Musica binaurale in cuffia"
+    ] 
+    },
+    { 
+    id: 106, 
+    title: "Gomming viso rigenerante (1 Seduta)", 
+    description: "Trattamento viso rigenerante per stimolare la microcircolazione e donare luminosità naturale.", 
+    duration: "60 min", 
+    price: 30, 
+    isPromo: true, 
+    category: "terapeutico",
+    image: "assets/img/promo/gomming-viso-1.jpeg", 
+    details: [
+        "Rilascio profondo delle contratture",
+        "Riduzione di dolore e infiammazione",
+        "Maggiore elasticità e mobilità",
+        "Recupero muscolare accelerato",
+        "Benessere e rilassamento profondo"
+    ] 
+    },
+    { 
+    id: 107, 
+    title: "Gomming viso rigenerante (3 Sedute)", 
+    description: "Percorso intensivo di 3 trattamenti per risultati più profondi e duraturi contro tensioni e infiammazioni.", 
+    duration: "3 x 60 min", 
+    price: 85, 
+    isPromo: true, 
+    category: "promo",
+    image: "assets/img/promo/gomming-viso-2.jpeg", 
+    details: [
+        "Rilascio profondo delle contratture",
+        "Riduzione di dolore e infiammazione",
+        "Maggiore elasticità e mobilità",
+        "Recupero muscolare accelerato",
+        "Benessere e rilassamento profondo"
+    ] 
+    },
+    { 
+        id: 108, 
         title: "Pacchetto Anti-Ansia (3 Sedute)", 
         description: "Percorso completo di 3 trattamenti neuro-somatici per ritrovare equilibrio stabile.", 
         duration: "3 x 60 min", 
@@ -312,7 +392,7 @@ const services = [
         ] 
     },
     { 
-        id: 107, 
+        id: 109, 
         title: "Trattamento Anti-Ansia (Promo)", 
         description: "Seduta singola in promozione per provare il metodo neuro-somatico.", 
         duration: "60 min", 
@@ -328,30 +408,39 @@ const services = [
             "Integrazione energetica profonda"
         ] 
     },
-    { 
-        id: 108, 
-        title: "Massaggio 4 in 1", 
-        description: "Massaggio Rilassante 4 in 1: rilassante, Reiki Usui, Shiatsu e Riflessologia Plantare.", 
-        duration: "60 min", 
-        price: 35,          
+    { id: 110, title: "Pacchetto Argento (3x60')", 
+        description: "3 massaggi da 60' a scelta", 
+        duration: "", 
+        price: 70, 
         isPromo: true, 
         category: "promo",
-        image: "assets/img/promo/promozioni-massaggio-4-in-1.jpeg", 
-        details: [
-        ]
+        image: "assets/img/promo/pacchetto-argento.jpg", details: [] 
     },
-    { 
-        id: 109, 
-        title: "Massaggio Rilassante di Coppia", 
-        description: "Massaggio Rilassante di Coppia: Amici, Famiglia, Coppia.", 
-        duration: "60 min", 
-        price: 40,          
+    { id: 111, title: "Pacchetto Titanio (5x60')", 
+        description: "5 massaggi da 60' a scelta", 
+        duration: "", 
+        price: 110, 
         isPromo: true, 
         category: "promo",
-        image: "assets/img/promo/promozioni-massaggio-rilassante-coppia.jpeg", 
-        details: [
-        ]
-    }
+        image: "assets/img/promo/pacchetto-titanio.jpg", details: [] 
+    },
+        { id: 112, title: "Pacchetto Rinascita (3x90')", 
+        description: "3 massaggi da 90' a scelta (4 in 1 o Kairós)", 
+        duration: "", 
+        price: 100, 
+        isPromo: true, 
+        category: "promo",
+        image: "assets/img/promo/pacchetto-rinascita.jpg", details: [] 
+    },
+    
+    { id: 113, title: "Pacchetto Oro (10x60')", 
+        description: "10 massaggi da 60' a scelta",
+        duration: "", 
+        price: 200, 
+        isPromo: true, 
+        category: "promo",
+        image: "assets/img/promo/pacchetto-oro.jpg", details: [] 
+    },
 
 ];
 
