@@ -7,7 +7,25 @@ dotenv.config(); // Para que lea mongo URI
 
 const services = [
 
-     {
+    {
+  id: 19,
+  title: "Massaggio anticellulite glutei",
+  description: "Trattamento mirato alla zona glutea per stimolare la microcircolazione, favorire il drenaggio e migliorare compattezza e tonicità della pelle.",
+  duration: "30 min",
+  price: 20,
+  isPromo: false,
+  isMethod: false,
+  category: "drenanti",
+  image: "assets/img/massaggio-glutei.jpeg",
+  details: [
+    "Riduzione dell’effetto “buccia d’arancia” - Le tecniche mirate stimolano la microcircolazione, migliorando visibilmente la texture della pelle.",
+    "Drenaggio e riduzione dei ristagni - Favorisce l’eliminazione dei liquidi in eccesso e delle tossine localizzate nella zona glutea.",
+    "Tonificazione e rimodellamento - L’azione manuale profonda aiuta a rassodare e ridefinire i contorni.",
+    "Stimolazione del metabolismo locale - Riattiva il tessuto connettivo, migliorando ossigenazione e nutrimento cellulare.",
+    "Sensazione di compattezza e vitalità - Dopo la seduta la pelle appare più tonica, elastica e levigata."
+    ]
+    },
+    {
     id: 18,
     title: "Massaggio bioattivo decontratturante + luce rossa",
     description: "Massaggio profondo con integrazione di luce rossa per sciogliere contratture, ridurre infiammazione e accelerare il recupero muscolare.",
