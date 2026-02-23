@@ -51,7 +51,7 @@ const services = [
     price: 30,
     isPromo: false,
     isMethod: false,
-    category: "circolazione",
+    category: "drenanti",
     image: "assets/img/massaggio-gomming-gambe.png",
     details: [
         "Stimolazione profonda della circolazione sanguigna e linfatica - La tecnica Gomming, eseguita con guanti e gel ad alta aderenza, favorisce il ritorno venoso e il drenaggio linfatico, aiutando a ridurre gonfiore e sensazione di gambe pesanti.",
@@ -130,7 +130,7 @@ const services = [
         price: 25, 
         isPromo: false, 
         isMethod: false,
-        category: "energia",
+        category: "sistema nervoso",
         image: "assets/img/reiki-usui.webp", 
     details: [
     "Profondo rilassamento e riduzione dello stress - L'energia armonizza il sistema nervoso, favorendo calma interiore e serenità.",
@@ -146,7 +146,7 @@ const services = [
         price: 25, 
         isPromo: false, 
         isMethod: false,
-        category: "energia",
+        category: "sistema nervoso",
         image: "assets/img/riflessologia-plantare.webp", 
     details: [
     "Stimolazione della circolazione sanguigna e linfatica - Migliora l'ossigenazione dei tessuti e favorisce l'eliminazione delle tossine.",
@@ -162,7 +162,7 @@ const services = [
         price: 25, 
         isPromo: false, 
         isMethod: true, 
-        category: "energia",
+        category: "sistema nervoso",
         image: "assets/img/massaggio-anti-stress.jpg", 
     details: [
     "Rilassamento globale corpo-mente - La riflessologia agisce in profondità sul corpo attraverso i piedi, mentre il massaggio alla testa scioglie tensioni mentali ed emotive.",
@@ -210,7 +210,7 @@ const services = [
         price: 30, 
         isPromo: false, 
         isMethod: false,
-        category: "circolazione",
+        category: "drenanti",
         image: "assets/img/massaggio-linfodrenante.jpg",
         details: [
     "Riduzione di gonfiori e ritenzione idrica - Favorisce il drenaggio dei liquidi in eccesso, specialmente in gambe, caviglie e addome.",
@@ -258,7 +258,7 @@ const services = [
         price: 30, 
         isPromo: false, 
         isMethod: false,
-        category: "circolazione",
+        category: "drenanti",
         image: "assets/img/massaggio-modellante-anticellulite.webp", 
     details: [
     "Riduzione della cellulite e pelle più liscia - Le tecniche mirate e gli strumenti in legno stimolano la microcircolazione, migliorando l'aspetto della pelle a 'buccia d'arancia'.",
@@ -276,7 +276,7 @@ const services = [
         price: 30, 
         isPromo: false, 
         isMethod: true,
-        category: "energia",
+        category: "sistema nervoso",
         image: "assets/img/massaggio-anti-ansia.jpeg",
         details: [
             "Trattamento neuro-somatico mirato - Metodo strutturato che integra respirazione consapevole, lavoro corporeo ed energetico per intervenire sui meccanismi fisici ed emotivi dell'ansia e della paura.",
@@ -305,25 +305,8 @@ const services = [
     "Aumento dell'energia e del benessere - Liberando i muscoli, il corpo spende meno energie per compensare il dolore e si sente più leggero e vitale."
     ]
     },
-    
 
     
-    
-
-    
-    
-   
-    
-    
-    
-    
-    
-    
-    
-    
-   
-    
-
     { 
     id: 101, 
     title: "Gomming circolatorio gambe totale (1 Seduta)", 

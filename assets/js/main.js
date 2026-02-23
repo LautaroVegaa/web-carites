@@ -359,42 +359,32 @@ async function renderServices() {
 
 function createServiceCard(service) {
         const card = document.createElement('div');
-        // Ahora soporta tanto "promo" como "metodo"
         card.className = `service-card ${service.isPromo ? 'promo' : ''} ${service.isMethod ? 'metodo' : ''}`;
         
-        // Aggiunge il click listener all'intera card per aprire il modal
+        // Abre el modal (el "adentro" de la card con los detalles)
         card.addEventListener('click', () => {
             openInfo(service.id);
         });
 
-        const highlightString = "Disponibile in locale o a domicilio";
-        let descriptionHTML = `<p class="service-description">${service.description}</p>`;
+        // Usamos la imagen del servicio, o el logo por defecto si no tiene
+        const imageSrc = service.image ? service.image : 'assets/img/logo-carites.jpg';
 
-        if (service.description.includes(highlightString)) {
-            const mainDesc = service.description.replace(highlightString, "").trim().replace("..", ".");
-            descriptionHTML = `
-                <p class="service-description">${mainDesc}</p>
-                <p class="service-availability">📍 ${highlightString}</p>
-            `;
-        }
-
-        // Imposta l'HTML interno della card
+        // Estructura limpia: Imagen, Título, Precio y Botón
         card.innerHTML = `
-            <h3 class="service-title">${service.title}</h3>
-            ${descriptionHTML}
-            <div class="service-details">
-                <span class="service-duration">${service.duration}</span>
+            <img src="${imageSrc}" alt="${service.title}" class="service-card-img">
+            <div class="service-card-content">
+                <h3 class="service-title">${service.title}</h3>
                 <span class="service-price">€${service.price}</span>
-            </div>
-            <div class="service-buttons">
-                <button class="btn btn-primary">Aggiungi al Carrello</button>
+                <div class="service-buttons">
+                    <button class="btn btn-primary">Aggiungi al Carrello</button>
+                </div>
             </div>
         `;
 
-        // Trova il pulsante appena creato e aggiunge un listener sicuro
+        // Evitamos que al hacer clic en el botón se abra el modal
         const button = card.querySelector('.btn-primary');
         button.addEventListener('click', (e) => {
-            e.stopPropagation(); // Impedisce al click di "propagarsi" alla card (che aprirebbe il modal)
+            e.stopPropagation(); 
             addToCart(service.id);
         });
 
@@ -592,13 +582,7 @@ function createServiceCard(service) {
                 });
                 detailsP.appendChild(ul);
             }
-        }
-        if (service.image) {
-            modalImg.src = service.image; 
-            modalImg.alt = service.title;
-            modalImg.style.display = "block";
-        } else {
-            modalImg.style.display = "none";
+        modalImg.style.display = "none";
         }
         infoModal.classList.add("active");
         document.body.style.overflow = "hidden";
