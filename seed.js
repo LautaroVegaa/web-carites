@@ -95,21 +95,24 @@ const services = [
             "Effetto rigenerante a lungo termine - Dopo la seduta ci si sente più leggeri, centrati e pieni di energia positiva."
         ]
     },
-    { id: 14,  title: "Massaggio Focalizzato",
-        description: "Massaggio express di 30 minuti per rilassare una parte del corpo dove c'è tensione: schiena, spalle e collo, gambe, zona lombare.",
-        duration: "30 min",
-        price: 15,
-        isPromo: false,
-        isMethod: false,
-        category: "muscolare",
-        image: "assets/img/massaggio-focalizzato.webp",
-        details: [
-            "Azione rapida su dolori specifici.",
-            "Ideale per chi ha poco tempo ma necessita di un intervento mirato.",
-            "Scioglie tensioni accumulate in aree problematiche come cervicale o zona lombare.",
-            "Migliora la mobilità della zona trattata."
-        ]
-    },
+    { 
+    id: 14,
+    title: "Trattamento cervicale profondo",
+    description: "Trattamento mirato su collo e spalle alte per ridurre rigidità, tensioni muscolari e migliorare la mobilità della zona cervicale.",
+    duration: "30 min",
+    price: 20,
+    isPromo: false,
+    isMethod: false,
+    category: "muscolare",
+    image: "assets/img/trattamento-cervicale-profondo.jpeg",
+    details: [
+        "Scioglimento delle contratture cervicali con intervento mirato su collo e spalle alte.",
+        "Sollievo da postura e stress, ideale per chi lavora al computer o guida molte ore.",
+        "Miglioramento della mobilità e dell'elasticità nel tratto cervicale.",
+        "Riduzione della pressione muscolare e prevenzione di fastidi ricorrenti.",
+        "Sensazione di leggerezza immediata con un trattamento breve ma efficace."
+    ]
+},
     { id: 13,  title: "Massaggio Gravidanza", 
         description: "Massaggio dolce e sicuro per alleviare tensioni in gravidanza. Disponibile in locale o a domicilio.", 
         duration: "60 min", 
@@ -327,193 +330,100 @@ const services = [
     
     { 
     id: 101, 
-    title: "Gomming circolatorio gambe totale (1 Seduta)", 
-    description: "Trattamento intensivo per la stimolazione profonda della circolazione e il benessere completo delle gambe.", 
-    duration: "60 min", 
-    price: 25, 
-    isPromo: true, 
-    category: "promo",
-    image: "assets/img/promo/gomming-circolatorio-1.jpeg", 
-    details: [
-        "Stimolazione profonda della circolazione sanguigna e linfatica",
-        "Rigenerazione dei tessuti e lavoro fasciale mirato",
-        "Rilascio delle tensioni muscolari profonde",
-        "Sensazione di leggerezza e vitalità",
-        "Benessere integrato corpo–mente"
-    ] 
-    },
-    { 
-    id: 102, 
-    title: "Gomming circolatorio gambe totale (3 Sedute)", 
-    description: "Percorso di 3 trattamenti per migliorare stabilmente circolazione, tonicità e leggerezza delle gambe.", 
+    title: "Pacchetto Argento I", 
+    description: "3 massaggi da 60 minuti a scelta tra trattamenti rilassanti e riequilibranti.", 
     duration: "3 x 60 min", 
-    price: 75, 
+    price: 65, 
     isPromo: true, 
     category: "promo",
-    image: "assets/img/promo/gomming-circolatorio-2.jpeg", 
+    image: "assets/img/promo/argento-1.jpeg", 
     details: [
-        "Stimolazione profonda della circolazione sanguigna e linfatica",
-        "Rigenerazione dei tessuti e lavoro fasciale mirato",
-        "Rilascio delle tensioni muscolari profonde",
-        "Sensazione di leggerezza e vitalità",
-        "Benessere integrato corpo–mente"
-    ] 
-    },
-    { 
-    id: 103, 
-    title: "Massaggio bioattivo decontratturante + luce rossa (1 Seduta)", 
-    description: "Trattamento bioattivo con luce rossa per sciogliere contratture e accelerare il recupero muscolare.", 
-    duration: "45 min", 
-    price: 30, 
-    isPromo: true, 
-    category: "promo",
-    image: "assets/img/promo/massaggio-bioattivo-1.jpeg", 
-    details: [
-        "Stimolazione profonda della microcircolazione del viso",
-        "Rigenerazione dei tessuti e lavoro fasciale mirato",
-        "Rilascio delle tensioni muscolari facciali",
-        "Effetto distensivo e luminosità naturale",
-        "Benessere integrato viso–mente"
-    
-    ] 
-    },
-    { 
-    id: 104, 
-    title: "Massaggio bioattivo decontratturante + luce rossa (3 Sedute)", 
-    description: "rattamento bioattivo con luce rossa per sciogliere contratture e accelerare il recupero muscolare.", 
-    duration: "3 x 45 min", 
-    price: 85, 
-    isPromo: true, 
-    category: "promo",
-    image: "assets/img/promo/massaggio-bioattivo-2.jpeg", 
-    details: [
-        "Stimolazione profonda della microcircolazione del viso",
-        "Rigenerazione dei tessuti e lavoro fasciale mirato",
-        "Rilascio delle tensioni muscolari facciali",
-        "Effetto distensivo e luminosità naturale",
-        "Benessere integrato viso–mente"
-    ] 
-    },
-    { 
-    id: 105, 
-    title: "Kairos – 7 tecniche in 1", 
-    description: "Esperienza multisensoriale che integra 7 tecniche per un rilassamento profondo e armonizzazione completa.", 
-    duration: "90 min", 
-    price: 40, 
-    isPromo: true, 
-    category: "promo",
-    image: "assets/img/promo/kairos-7-tecniche-in-1.jpeg", 
-    details: [
+        "Massaggi rilassanti",
         "Riflessologia plantare",
-        "Massaggio rilassante con pietre calde",
-        "Shiatsu",
-        "Gua Sha",
-        "Aromaterapia",
-        "Massaggiatore per occhi",
-        "Musica binaurale in cuffia"
+        "Trattamento anti-ansia",
+        "Trattamento anti-stress"
     ] 
-    },
-    { 
-    id: 106, 
-    title: "Gomming viso rigenerante (1 Seduta)", 
-    description: "Trattamento viso rigenerante per stimolare la microcircolazione e donare luminosità naturale.", 
-    duration: "60 min", 
-    price: 20, 
-    isPromo: true, 
-    category: "promo",
-    image: "assets/img/promo/gomming-viso-1.jpeg", 
-    details: [
-        "Rilascio profondo delle contratture",
-        "Riduzione di dolore e infiammazione",
-        "Maggiore elasticità e mobilità",
-        "Recupero muscolare accelerato",
-        "Benessere e rilassamento profondo"
-    ] 
-    },
-    { 
-    id: 107, 
-    title: "Gomming viso rigenerante (3 Sedute)", 
-    description: "Percorso intensivo di 3 trattamenti per risultati più profondi e duraturi contro tensioni e infiammazioni.", 
+},
+{ 
+    id: 102, 
+    title: "Pacchetto Argento II", 
+    description: "3 massaggi da 60 minuti a scelta per migliorare circolazione e tonicità muscolare.", 
     duration: "3 x 60 min", 
-    price: 50, 
+    price: 80, 
     isPromo: true, 
     category: "promo",
-    image: "assets/img/promo/gomming-viso-2.jpeg", 
+    image: "assets/img/promo/argento-2.jpeg", 
     details: [
-        "Rilascio profondo delle contratture",
-        "Riduzione di dolore e infiammazione",
-        "Maggiore elasticità e mobilità",
-        "Recupero muscolare accelerato",
-        "Benessere e rilassamento profondo"
+        "Massaggio decontratturante",
+        "Massaggio linfodrenante",
+        "Massaggio modellante anticellulite",
+        "Gomming gambe"
     ] 
-    },
-    { 
-        id: 108, 
-        title: "Pacchetto Anti-Ansia (3 Sedute)", 
-        description: "Percorso completo di 3 trattamenti neuro-somatici per ritrovare equilibrio stabile.", 
-        duration: "3 x 60 min", 
-        price: 65, 
-        isPromo: true, 
-        category: "promo",
-        image: "assets/img/promo/promozioni-anti-ansia.jpeg", 
-        details: [
-            "Trattamento neuro-somatico mirato",
-            "Regolazione del sistema nervoso",
-            "Rilascio delle tensioni viscerali ed emotive",
-            "Alleggerimento mentale e centratura",
-            "Integrazione energetica profonda"
-        ] 
-    },
-    { 
-        id: 109, 
-        title: "Trattamento Anti-Ansia (Promo)", 
-        description: "Seduta singola in promozione per provare il metodo neuro-somatico.", 
-        duration: "60 min", 
-        price: 25, 
-        isPromo: true, 
-        category: "promo",
-        image: "assets/img/promo/promozioni-anti-ansia1.jpeg", 
-        details: [
-            "Trattamento neuro-somatico mirato",
-            "Regolazione del sistema nervoso",
-            "Rilascio delle tensioni viscerali ed emotive",
-            "Alleggerimento mentale e centratura",
-            "Integrazione energetica profonda"
-        ] 
-    },
-    { id: 110, title: "Pacchetto Argento (3x60')", 
-        description: "3 massaggi da 60' a scelta", 
-        duration: "", 
-        price: 70, 
-        isPromo: true, 
-        category: "promo",
-        image: "assets/img/promo/pacchetto-argento.jpg", details: [] 
-    },
-    { id: 111, title: "Pacchetto Titanio (5x60')", 
-        description: "5 massaggi da 60' a scelta", 
-        duration: "", 
-        price: 110, 
-        isPromo: true, 
-        category: "promo",
-        image: "assets/img/promo/pacchetto-titanio.jpg", details: [] 
-    },
-        { id: 112, title: "Pacchetto Rinascita (3x90')", 
-        description: "3 massaggi da 90' a scelta (4 in 1 o Kairós)", 
-        duration: "", 
-        price: 100, 
-        isPromo: true, 
-        category: "promo",
-        image: "assets/img/promo/pacchetto-rinascita.jpg", details: [] 
-    },
-    
-    { id: 113, title: "Pacchetto Oro (10x60')", 
-        description: "10 massaggi da 60' a scelta",
-        duration: "", 
-        price: 200, 
-        isPromo: true, 
-        category: "promo",
-        image: "assets/img/promo/pacchetto-oro.jpg", details: [] 
-    },
+},
+{ 
+    id: 103, 
+    title: "Pacchetto Titanio I", 
+    description: "5 massaggi da 60 minuti a scelta per rilassamento profondo e riequilibrio mente-corpo.", 
+    duration: "5 x 60 min", 
+    price: 110, 
+    isPromo: true, 
+    category: "promo",
+    image: "assets/img/promo/titanio-1.jpeg", 
+    details: [
+        "Massaggi rilassanti",
+        "Riflessologia plantare",
+        "Trattamento anti-ansia",
+        "Trattamento anti-stress"
+    ] 
+},
+{ 
+    id: 104, 
+    title: "Pacchetto Titanio II", 
+    description: "5 massaggi da 60 minuti a scelta per migliorare circolazione, tono muscolare e benessere delle gambe.", 
+    duration: "5 x 60 min", 
+    price: 130, 
+    isPromo: true, 
+    category: "promo",
+    image: "assets/img/promo/titanio-2.jpeg", 
+    details: [
+        "Massaggio decontratturante",
+        "Massaggio linfodrenante",
+        "Massaggio modellante anticellulite",
+        "Gomming gambe"
+    ] 
+},
+{ 
+    id: 105, 
+    title: "Pacchetto Oro I", 
+    description: "10 massaggi da 60 minuti a scelta per un percorso completo di rilassamento e riequilibrio.", 
+    duration: "10 x 60 min", 
+    price: 200, 
+    isPromo: true, 
+    category: "promo",
+    image: "assets/img/promo/oro-1.jpeg", 
+    details: [
+        "Massaggi rilassanti",
+        "Riflessologia plantare",
+        "Trattamento anti-ansia",
+        "Trattamento anti-stress"
+    ] 
+},
+{ 
+    id: 106, 
+    title: "Pacchetto Oro II", 
+    description: "10 massaggi da 60 minuti a scelta per un lavoro profondo su muscoli, circolazione e tonicità.", 
+    duration: "10 x 60 min", 
+    price: 250, 
+    isPromo: true, 
+    category: "promo",
+    image: "assets/img/promo/oro-2.jpeg", 
+    details: [
+        "Massaggio decontratturante",
+        "Massaggio linfodrenante",
+        "Massaggio modellante anticellulite",
+        "Gomming gambe"
+    ] 
+},
 
 ];
 
