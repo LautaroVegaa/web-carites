@@ -8,6 +8,42 @@ dotenv.config(); // Para que lea mongo URI
 const services = [
 
     {
+    id: 21,
+    title: "Gambe Leggere",
+    description: "Trattamento drenante per le gambe con scrub, guasha e dry brushing per stimolare la circolazione e donare leggerezza. Disponibile in locale o a domicilio.",
+    duration: "45 min",
+    price: 30,
+    isPromo: false,
+    isMethod: false,
+    category: "drenanti",
+    image: "assets/img/massaggio-gambe-leggere.jpg",
+    details: [
+        "Risveglio della circolazione - Lo scrub con manopola e movimenti ascendenti prepara la pelle e stimola la microcircolazione.",
+        "Attivazione e drenaggio - Il lavoro con guasha favorisce una piacevole sensazione di leggerezza e benessere.",
+        "Dry brushing tonificante - La spazzolatura a secco rivitalizza i tessuti e sostiene il naturale ritorno circolatorio.",
+        "Nutrimento e fluidità - Olio di mandorle e spazzola in silicone accompagnano il corpo verso distensione e comfort.",
+        "Massaggio ritmico finale - Manualità lente e ascendenti completano il rituale lasciando le gambe più leggere e vitali."
+    ]
+    },
+    {
+    id: 20,
+    title: "Spa di piedi",
+    description: "Rituale completo per i piedi con pediluvio ai sali, lavoro profondo e chiusura aromatica per rilassamento e benessere. Disponibile in locale o a domicilio.",
+    duration: "60 min",
+    price: 30,
+    isPromo: false,
+    isMethod: false,
+    category: "rilassanti",
+    image: "assets/img/massaggio-spa-piedi.jpg",
+    details: [
+        "Pediluvio rilassante con sali - Il trattamento inizia con un bagno caldo ai piedi per favorire rilassamento, benessere e preparazione al massaggio.",
+        "Lavoro profondo su tallone e pianta - Manualità dedicate a tendine d'Achille, tallone, arco plantare e pianta del piede aiutano a sciogliere tensioni e affaticamento.",
+        "Massaggio completo del piede - Il lavoro prosegue su dita, pianta, collo del piede e caviglia per una sensazione di leggerezza e comfort.",
+        "Distensione e rilassamento profondo - Il trattamento aiuta a ridurre stress e tensioni accumulate durante la giornata.",
+        "Chiusura aromatica e asciugamani calda - Oli essenziali, Olio 31 e il calore finale completano il rituale donando una piacevole sensazione di benessere."
+    ]
+    },
+    {
   id: 19,
   title: "Massaggio anticellulite glutei",
   description: "Trattamento mirato alla zona glutea per stimolare la microcircolazione, favorire il drenaggio e migliorare compattezza e tonicità della pelle.",
