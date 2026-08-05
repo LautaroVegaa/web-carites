@@ -1830,6 +1830,180 @@ body.scrolled-down .navbar {
 }
 
 /* =========================================
+   RECENSIONI / TRUSTPILOT
+   ========================================= */
+.reviews {
+    padding: 80px 0;
+    background: var(--light-gray);
+}
+
+.reviews-summary {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    margin-bottom: 45px;
+    flex-wrap: wrap;
+}
+
+.reviews-score {
+    font-size: 3.2rem;
+    font-weight: 700;
+    color: var(--primary-violet);
+    line-height: 1;
+}
+
+.reviews-summary-info {
+    text-align: left;
+}
+
+.reviews-stars {
+    display: inline-flex;
+    gap: 3px;
+    margin-bottom: 5px;
+}
+
+.reviews-summary-info p {
+    color: var(--gray);
+    font-size: 0.95rem;
+    margin: 0;
+}
+
+.reviews-summary-info a {
+    color: var(--primary-violet);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.reviews-summary-info a:hover {
+    text-decoration: underline;
+}
+
+.star {
+    width: 20px;
+    height: 20px;
+    fill: #00b67a;
+    flex-shrink: 0;
+}
+
+.reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 24px;
+    max-width: 1100px;
+    margin: 0 auto 40px;
+}
+
+.review-card {
+    background: var(--white);
+    border-radius: 15px;
+    padding: 28px 24px;
+    box-shadow: var(--shadow);
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    transition: var(--transition);
+}
+
+.review-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.review-stars {
+    display: inline-flex;
+    gap: 2px;
+    margin-bottom: 14px;
+}
+
+.review-stars .star {
+    width: 18px;
+    height: 18px;
+}
+
+.review-title {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--dark-gray);
+    margin: 0 0 10px;
+}
+
+.review-text {
+    font-size: 0.92rem;
+    color: var(--gray);
+    line-height: 1.6;
+    flex-grow: 1;
+    margin: 0 0 18px;
+}
+
+.review-author {
+    font-weight: 600;
+    color: var(--primary-violet);
+    font-size: 0.9rem;
+}
+
+.review-author::before {
+    content: "— ";
+}
+
+.reviews-cta {
+    text-align: center;
+}
+
+.review-btn {
+    display: inline-block;
+    background: var(--primary-violet);
+    color: var(--white);
+    padding: 14px 32px;
+    border-radius: 999px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.review-btn:hover {
+    background: #4c1d95;
+    transform: translateY(-2px);
+}
+
+/* Mini trust-bar en el hero */
+.hero-trust {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 4px;
+    padding: 8px 16px;
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    border-radius: 999px;
+    text-decoration: none;
+    backdrop-filter: blur(4px);
+    transition: var(--transition);
+}
+
+.hero-trust:hover {
+    background: rgba(255, 255, 255, 0.25);
+}
+
+.hero-trust-stars {
+    display: inline-flex;
+    gap: 2px;
+}
+
+.hero-trust-stars .star {
+    width: 15px;
+    height: 15px;
+    fill: #ffffff;
+}
+
+.hero-trust-text {
+    color: #ffffff;
+    font-size: 0.85rem;
+    font-weight: 500;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
+}
+
+/* =========================================
    FILTROS DE CATEGORÍAS (CARITES STYLE)
    ========================================= */
 .filter-container {
