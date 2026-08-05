@@ -41,9 +41,11 @@ const serviceSchema = new mongoose.Schema({
   duration: String,
   price: Number,
   isPromo: Boolean,
+  isMethod: Boolean,
+  domicilio: Boolean,
   category: String,
   image: String,
-  details: [String] 
+  details: [String]
 });
 
 // Evitar sobreescribir el modelo si ya existe

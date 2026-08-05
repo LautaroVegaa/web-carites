@@ -10,6 +10,7 @@ const services = [
     {
     id: 21,
     title: "Gambe Leggere",
+    domicilio: true,
     description: "Trattamento drenante per le gambe con scrub, guasha e dry brushing per stimolare la circolazione e donare leggerezza. Disponibile in locale o a domicilio.",
     duration: "45 min",
     price: 30,
@@ -28,6 +29,7 @@ const services = [
     {
     id: 20,
     title: "Spa di piedi",
+    domicilio: true,
     description: "Rituale completo per i piedi con pediluvio ai sali, lavoro profondo e chiusura aromatica per rilassamento e benessere. Disponibile in locale o a domicilio.",
     duration: "60 min",
     price: 30,
@@ -150,7 +152,8 @@ const services = [
     ]
 },
     { id: 13,  title: "Massaggio Gravidanza", 
-        description: "Massaggio dolce e sicuro per alleviare tensioni in gravidanza. Disponibile in locale o a domicilio.", 
+        domicilio: true,
+        description: "Massaggio dolce e sicuro per alleviare tensioni in gravidanza. Disponibile in locale o a domicilio.",
         duration: "60 min", 
         price: 30, 
         isPromo: false, 
@@ -182,7 +185,8 @@ const services = [
     ]
     },
     { id: 11, title: "Reiki Usui", 
-        description: "Tecnica energetica per rilassamento profondo ed equilibrio interiore. Disponibile in locale o a domicilio.", 
+        domicilio: true,
+        description: "Tecnica energetica per rilassamento profondo ed equilibrio interiore. Disponibile in locale o a domicilio.",
         duration: "60 min", 
         price: 25, 
         isPromo: false, 
@@ -198,7 +202,8 @@ const services = [
     ]
     },
     { id: 10, title: "Riflessologia Plantare", 
-        description: "Tecnica sui punti riflessi dei piedi per riequilibrare corpo e mente. Disponibile in locale o a domicilio.", 
+        domicilio: true,
+        description: "Tecnica sui punti riflessi dei piedi per riequilibrare corpo e mente. Disponibile in locale o a domicilio.",
         duration: "60 min", 
         price: 25, 
         isPromo: false, 
@@ -214,7 +219,8 @@ const services = [
     ]
     },
     { id: 9,  title: "Massaggio Anti-Stress", 
-        description: "Riflessologia plantare + massaggio testa per rilassare corpo e mente. Disponibile in locale o a domicilio.", 
+        domicilio: true,
+        description: "Riflessologia plantare + massaggio testa per rilassare corpo e mente. Disponibile in locale o a domicilio.",
         duration: "60 min", 
         price: 25, 
         isPromo: false, 
@@ -246,7 +252,8 @@ const services = [
     ]
     },
      { id: 7,  title: "Massaggio Sportivo", 
-        description: "Ideale per preparazione e recupero muscolare. Disponibile in locale o a domicilio.", 
+        domicilio: true,
+        description: "Ideale per preparazione e recupero muscolare. Disponibile in locale o a domicilio.",
         duration: "45 min",
         price: 30, 
         isPromo: false,
@@ -262,7 +269,8 @@ const services = [
     ]
     },
     { id: 6,  title: "Massaggio Linfodrenante", 
-        description: "Stimola il sistema linfatico e riduce gonfiori e ritenzione. Disponibile in locale o a domicilio.", 
+        domicilio: true,
+        description: "Stimola il sistema linfatico e riduce gonfiori e ritenzione. Disponibile in locale o a domicilio.",
         duration: "60 min", 
         price: 30, 
         isPromo: false, 
@@ -278,7 +286,8 @@ const services = [
     ]
     },
     { id: 5,  title: "Massaggio Rilassante Corpo Intero", 
-        description: "Massaggio total body per ridurre stress e tensioni. Disponibile in locale o a domicilio.", 
+        domicilio: true,
+        description: "Massaggio total body per ridurre stress e tensioni. Disponibile in locale o a domicilio.",
         duration: "60 min", 
         price: 25, 
         isPromo: false, 
@@ -347,7 +356,8 @@ const services = [
     
 
     { id: 1,  title: "Massaggio Decontratturante", 
-        description: "Trattamento mirato per sciogliere contratture muscolari. Disponibile in locale o a domicilio.", 
+        domicilio: true,
+        description: "Trattamento mirato per sciogliere contratture muscolari. Disponibile in locale o a domicilio.",
         duration: "45 min", 
         price: 30, 
         isPromo: false,
@@ -474,6 +484,7 @@ const serviceSchema = new mongoose.Schema({
   price: Number,
   isPromo: Boolean,
   isMethod: Boolean,
+  domicilio: Boolean,
   category: String,
   image: String,
   details: [String]

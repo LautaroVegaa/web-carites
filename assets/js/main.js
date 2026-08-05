@@ -369,8 +369,14 @@ function createServiceCard(service) {
         // Usamos la imagen del servicio, o el logo por defecto si no tiene
         const imageSrc = service.image ? service.image : 'assets/img/logo-carites.jpg';
 
+        // Badge "Anche a domicilio" solo para servicios disponibili a domicilio
+        const domicilioBadge = service.domicilio
+            ? '<span class="domicilio-badge">🏠 Anche a domicilio</span>'
+            : '';
+
         // Estructura limpia: Imagen, Título, Precio y Botón
         card.innerHTML = `
+            ${domicilioBadge}
             <img src="${imageSrc}" alt="${service.title}" class="service-card-img">
             <div class="service-card-content">
                 <h3 class="service-title">${service.title}</h3>
