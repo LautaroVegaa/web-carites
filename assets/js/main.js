@@ -367,7 +367,7 @@ function createServiceCard(service) {
         });
 
         // Usamos la imagen del servicio, o el logo por defecto si no tiene
-        const imageSrc = service.image ? service.image : 'assets/img/logo-carites.jpg';
+        const imageSrc = service.image ? service.image : 'assets/img/logo-carites-nuevo.jpeg';
 
         // Badge "Anche a domicilio" solo para servicios disponibili a domicilio
         const domicilioBadge = service.domicilio
