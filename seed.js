@@ -8,6 +8,25 @@ dotenv.config(); // Para que lea mongo URI
 const services = [
 
     {
+    id: 24,
+    title: "Massaggio bioattivo decontratturante + coppettazione",
+    domicilio: true,
+    description: "Massaggio decontratturante profondo combinato con coppettazione per sciogliere contratture, stimolare la microcircolazione e accelerare il recupero muscolare.",
+    duration: "60 min",
+    price: 35,
+    isPromo: false,
+    isMethod: true,
+    category: "muscolare",
+    image: "assets/img/massaggio-bioattivo-coppettazione.jpeg",
+    details: [
+        "Rilascio profondo delle contratture - La combinazione di manualità e coppettazione favorisce uno scioglimento intenso e mirato delle tensioni muscolari profonde.",
+        "Stimolazione della microcircolazione - L'effetto vacuum delle coppette migliora l'ossigenazione dei tessuti e sostiene il drenaggio naturale.",
+        "Riduzione di rigidità e dolore muscolare - Aiuta ad alleviare tensioni persistenti, soprattutto in schiena, cervicale e zona lombare.",
+        "Recupero muscolare accelerato - Ideale in caso di affaticamento fisico, posture scorrette o stress muscolare cronico.",
+        "Sensazione di leggerezza e decongestione profonda - Dona una percezione di scioglimento e benessere duraturo."
+    ]
+    },
+    {
     id: 23,
     title: "Massaggio rilassante viso e cuoio capelluto",
     description: "Massaggio rilassante di viso e cuoio capelluto per sciogliere tensioni, ridurre stress e mal di testa e donare profonda calma.",
