@@ -8,6 +8,42 @@ dotenv.config(); // Para que lea mongo URI
 const services = [
 
     {
+    id: 23,
+    title: "Massaggio rilassante viso e cuoio capelluto",
+    description: "Massaggio rilassante di viso e cuoio capelluto per sciogliere tensioni, ridurre stress e mal di testa e donare profonda calma.",
+    duration: "30 min",
+    price: 20,
+    isPromo: false,
+    isMethod: true,
+    category: "viso",
+    image: "assets/img/massaggio-viso-cuoio-capelluto.jpg",
+    details: [
+        "Rilassamento profondo del sistema nervoso - Aiuta a sciogliere stress, ansia e tensioni mentali.",
+        "Alleviamento di tensioni cervicali e facciali - Ideale per chi soffre di rigidità a collo, mascella e fronte.",
+        "Miglioramento della circolazione del cuoio capelluto - Favorisce l'ossigenazione e il benessere dei tessuti.",
+        "Riduzione di mal di testa e affaticamento mentale - Dona una sensazione di leggerezza e chiarezza mentale.",
+        "Sensazione di pace e armonia totale - Un trattamento avvolgente che rigenera corpo e mente."
+    ]
+    },
+    {
+    id: 22,
+    title: "Coppettazione viso",
+    description: "Trattamento viso con coppette in vetro e aspirazione pulsata per stimolare microcircolazione, drenaggio e tonicità della pelle.",
+    duration: "30 min",
+    price: 20,
+    isPromo: false,
+    isMethod: true,
+    category: "viso",
+    image: "assets/img/massaggio-coppettazione-viso.jpeg",
+    details: [
+        "Stimolazione della microcircolazione - Favorisce l'ossigenazione dei tessuti e dona alla pelle un aspetto più fresco e vitale.",
+        "Drenaggio e riduzione del gonfiore - La coppettazione favorisce il movimento dei liquidi e aiuta a distendere i tratti del viso.",
+        "Stimolazione e tonicità dei tessuti - L'azione delicata del vuoto lavora in profondità favorendo una pelle più tonica e compatta.",
+        "Rilascio delle tensioni facciali - Aiuta a rilassare le zone più contratte e a rendere i lineamenti più distesi.",
+        "Trattamento manuale ed elettrico pulsato - Combina coppette in vetro e aspirazione pulsata regolabile per un trattamento personalizzato e progressivo."
+    ]
+    },
+    {
     id: 21,
     title: "Gambe Leggere",
     domicilio: true,
@@ -374,101 +410,64 @@ const services = [
     },
 
     
-    { 
-    id: 101, 
-    title: "Pacchetto Argento I", 
-    description: "3 massaggi da 60 minuti a scelta tra trattamenti rilassanti e riequilibranti.", 
-    duration: "3 x 60 min", 
-    price: 65, 
-    isPromo: true, 
+    {
+    id: 101,
+    title: "Pacchetto Zaffiro",
+    description: "3 massaggi da 30' a scelta tra i massaggi da 30'. Nessuna scadenza.",
+    duration: "3 x 30 min",
+    price: 50,
+    isPromo: true,
     category: "promo",
-    image: "assets/img/promo/argento-1.jpeg", 
+    image: "assets/img/promo/pacchetto-zaffiro.jpeg",
     details: [
-        "Massaggi rilassanti",
-        "Riflessologia plantare",
-        "Trattamento anti-ansia",
-        "Trattamento anti-stress"
-    ] 
+        "Puoi scegliere tra i massaggi di 30'",
+        "Non ha scadenza"
+    ]
 },
-{ 
-    id: 102, 
-    title: "Pacchetto Argento II", 
-    description: "3 massaggi da 60 minuti a scelta per migliorare circolazione e tonicità muscolare.", 
-    duration: "3 x 60 min", 
-    price: 80, 
-    isPromo: true, 
+{
+    id: 102,
+    title: "Pacchetto Smeraldo",
+    description: "3 massaggi da 60' a scelta tra tutti i massaggi da 60'. Condivisibile con famiglia e compagno/a. Nessuna scadenza.",
+    duration: "3 x 60 min",
+    price: 80,
+    isPromo: true,
     category: "promo",
-    image: "assets/img/promo/argento-2.jpeg", 
+    image: "assets/img/promo/pacchetto-smeraldo.jpeg",
     details: [
-        "Massaggio decontratturante",
-        "Massaggio linfodrenante",
-        "Massaggio modellante anticellulite",
-        "Gomming gambe"
-    ] 
+        "Puoi scegliere tra tutti i massaggi di 60'",
+        "Puoi condividere questo pacchetto con famiglia e compagno/a",
+        "Non ha scadenza"
+    ]
 },
-{ 
-    id: 103, 
-    title: "Pacchetto Titanio I", 
-    description: "5 massaggi da 60 minuti a scelta per rilassamento profondo e riequilibrio mente-corpo.", 
-    duration: "5 x 60 min", 
-    price: 110, 
-    isPromo: true, 
+{
+    id: 103,
+    title: "Pacchetto Diamante",
+    description: "5 massaggi da 60' a scelta tra tutti i massaggi da 60'. Condivisibile con famiglia e compagno/a. Nessuna scadenza.",
+    duration: "5 x 60 min",
+    price: 130,
+    isPromo: true,
     category: "promo",
-    image: "assets/img/promo/titanio-1.jpeg", 
+    image: "assets/img/promo/pacchetto-diamante.jpeg",
     details: [
-        "Massaggi rilassanti",
-        "Riflessologia plantare",
-        "Trattamento anti-ansia",
-        "Trattamento anti-stress"
-    ] 
+        "Puoi scegliere tra tutti i massaggi di 60'",
+        "Puoi condividere questo pacchetto con famiglia e compagno/a",
+        "Non ha scadenza"
+    ]
 },
-{ 
-    id: 104, 
-    title: "Pacchetto Titanio II", 
-    description: "5 massaggi da 60 minuti a scelta per migliorare circolazione, tono muscolare e benessere delle gambe.", 
-    duration: "5 x 60 min", 
-    price: 130, 
-    isPromo: true, 
+{
+    id: 104,
+    title: "Pacchetto Rubino",
+    description: "10 massaggi da 60' a scelta tra tutti i massaggi da 60'. Condivisibile con famiglia e compagno/a. Nessuna scadenza.",
+    duration: "10 x 60 min",
+    price: 240,
+    isPromo: true,
     category: "promo",
-    image: "assets/img/promo/titanio-2.jpeg", 
+    image: "assets/img/promo/pacchetto-rubino.jpeg",
     details: [
-        "Massaggio decontratturante",
-        "Massaggio linfodrenante",
-        "Massaggio modellante anticellulite",
-        "Gomming gambe"
-    ] 
-},
-{ 
-    id: 105, 
-    title: "Pacchetto Oro I", 
-    description: "10 massaggi da 60 minuti a scelta per un percorso completo di rilassamento e riequilibrio.", 
-    duration: "10 x 60 min", 
-    price: 200, 
-    isPromo: true, 
-    category: "promo",
-    image: "assets/img/promo/oro-1.jpeg", 
-    details: [
-        "Massaggi rilassanti",
-        "Riflessologia plantare",
-        "Trattamento anti-ansia",
-        "Trattamento anti-stress"
-    ] 
-},
-{ 
-    id: 106, 
-    title: "Pacchetto Oro II", 
-    description: "10 massaggi da 60 minuti a scelta per un lavoro profondo su muscoli, circolazione e tonicità.", 
-    duration: "10 x 60 min", 
-    price: 250, 
-    isPromo: true, 
-    category: "promo",
-    image: "assets/img/promo/oro-2.jpeg", 
-    details: [
-        "Massaggio decontratturante",
-        "Massaggio linfodrenante",
-        "Massaggio modellante anticellulite",
-        "Gomming gambe"
-    ] 
+        "Puoi scegliere tra tutti i massaggi di 60'",
+        "Puoi condividere questo pacchetto con famiglia e compagno/a",
+        "Non ha scadenza"
+    ]
 },
 
 ];
