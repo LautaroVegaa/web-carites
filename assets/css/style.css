@@ -989,16 +989,16 @@ h6 {
 .promo-slide {
     flex: 0 0 100%;
     width: 100%;
+    aspect-ratio: 738 / 1600;
 }
 
 .promo-slide img {
     width: 100%;
-    height: auto;
+    height: 100%;
     display: block;
     object-fit: cover;
-    /* Asegura que la imagen cubra el slide */
+    /* Altura uniforme en todos los slides: evita el hueco blanco cuando las imágenes tienen anchos distintos */
     cursor: pointer;
-    /* <-- AÑADE ESTA LÍNEA */
 }
 
 /* Estilos de los botones de navegación */
