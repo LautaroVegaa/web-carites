@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Massaggio A Modo Mio | Carites Ravenna</title>
+    <meta name="description" content="Massaggio A Modo Mio: 90 minuti personalizzati. Scegli le zone, distribuisci il tempo e le tue preferenze sensoriali. Il massaggio che scegli tu.">
+
+    <meta name="robots" content="noindex, follow">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon/favicon-16x16.png">
+    <link rel="manifest" href="assets/favicon/site.webmanifest">
+    <link rel="shortcut icon" href="assets/favicon/favicon.ico">
+    <meta name="theme-color" content="#F4EEE4">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="assets/css/a-modo-mio.css">
+</head>
+<body>
+
+    <header class="amm-hero">
+        <div class="amm-hero-overlay"></div>
+        <div class="amm-hero-content">
+            <p class="amm-kicker">Carites Ravenna</p>
+            <h1 class="amm-title">Massaggio <em>A Modo Mio</em></h1>
+            <p class="amm-subtitle">Il massaggio che scegli tu.</p>
+            <p class="amm-lead">90 minuti di benessere, come piace a te.</p>
+        </div>
+    </header>
+
+    <!-- Indicatore passi -->
+    <nav class="amm-steps" aria-label="Passi del modulo">
+        <div class="amm-step is-active" data-step="1">
+            <span class="amm-step-num">1</span>
+            <span class="amm-step-txt"><strong>Le tue zone</strong><small>Distribuisci i 90 minuti</small></span>
+        </div>
+        <div class="amm-step-line"></div>
+        <div class="amm-step" data-step="2">
+            <span class="amm-step-num">2</span>
+            <span class="amm-step-txt"><strong>Le tue preferenze</strong><small>Intensità, aromi, musica</small></span>
+        </div>
+        <div class="amm-step-line"></div>
+        <div class="amm-step" data-step="3">
+            <span class="amm-step-num">3</span>
+            <span class="amm-step-txt"><strong>Riepilogo</strong><small>Controlla e invia</small></span>
+        </div>
+    </nav>
+
+    <main class="amm-main">
+
+        <!-- ====================== OPZIONE REGALO (solo in acquisto) ====================== -->
+        <div class="amm-gift-banner" id="amm-gift-banner" hidden>
+            <label class="amm-gift-check">
+                <input type="checkbox" id="amm-gift-check">
+                <span><strong>Non è per me, vorrei fare un regalo.</strong> Salta la personalizzazione e acquista direttamente. Chi riceverà il regalo potrà personalizzare il massaggio con il link.</span>
+            </label>
+        </div>
+
+        <!-- ====================== SEZIONE 1: ZONE ====================== -->
+        <section class="amm-card amm-zones-card" aria-labelledby="sec-zone-title">
+            <h2 class="amm-sec-title" id="sec-zone-title">1. Scegli le zone e distribuisci i 90 minuti</h2>
+            <p class="amm-sec-desc">Seleziona le zone del corpo che desideri trattare e assegna il tempo a ciascuna. Puoi modificare le combinazioni fino a raggiungere esattamente 90 minuti.</p>
+
+            <!-- Contatore -->
+            <div class="amm-counter" id="amm-counter">
+                <div class="amm-counter-big">
+                    <span id="amm-assigned">0</span><span class="amm-counter-slash">/ 90 minuti</span>
+                </div>
+                <div class="amm-progress-wrap">
+                    <div class="amm-progress"><div class="amm-progress-bar" id="amm-progress-bar"></div></div>
+                </div>
+                <div class="amm-remaining" id="amm-remaining">Ti mancano <strong>90 minuti</strong></div>
+            </div>
+
+            <!-- Messaggio di completamento / avviso di riadattamento -->
+            <div class="amm-complete" id="amm-complete" hidden>Perfetto! Hai completato i tuoi 90 minuti.</div>
+            <div class="amm-readjust" id="amm-readjust" hidden>Per raggiungere i 90 minuti riduci il tempo da una zona e ridistribuiscilo.</div>
+
+            <!-- Zone (popolate da JS) -->
+            <div class="amm-zone-list" id="amm-zone-list"></div>
+
+            <!-- Piedi (opzione unica) -->
+            <div class="amm-feet">
+                <p class="amm-feet-title">Scegli una sola opzione per i <strong>piedi</strong></p>
+                <div class="amm-feet-grid" id="amm-feet-grid"></div>
+            </div>
+
+            <!-- Info -->
+            <div class="amm-info">
+                <div class="amm-info-head"><span class="amm-info-icon">i</span> Importante da sapere</div>
+                <ul>
+                    <li>Il tempo totale deve essere <strong>esattamente 90 minuti</strong>.</li>
+                    <li>Ogni zona è opzionale e parte dal suo tempo minimo.</li>
+                    <li>Le due opzioni per i piedi sono alternative tra loro.</li>
+                    <li>Viso e glutei <strong>non</strong> sono inclusi in questo servizio.</li>
+                    <li>La pressione effettiva verrà sempre valutata dal professionista.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Colonna 2 (desktop): preferenze + invio -->
+        <div class="amm-col2">
+
+        <!-- ====================== SEZIONE 2: PREFERENZE ====================== -->
+        <section class="amm-card" id="amm-pref-card" aria-labelledby="sec-pref-title">
+            <h2 class="amm-sec-title" id="sec-pref-title">2. Le tue preferenze sensoriali</h2>
+            <p class="amm-sec-desc">Personalizza la tua esperienza con intensità, aromi, musica e, se lo desideri, il massaggiatore per occhi.</p>
+
+            <!-- Intensità -->
+            <div class="amm-field">
+                <h3 class="amm-field-title">Intensità del massaggio</h3>
+                <div class="amm-options" id="amm-intensity">
+                    <label class="amm-opt"><input type="radio" name="intensity" value="Delicata"><span class="amm-opt-mark"></span><span class="amm-opt-body"><strong>Delicata</strong><small>Pressioni leggere e rilassanti</small></span></label>
+                    <label class="amm-opt"><input type="radio" name="intensity" value="Media"><span class="amm-opt-mark"></span><span class="amm-opt-body"><strong>Media</strong><small>Pressioni moderate ed equilibrate</small></span></label>
+                    <label class="amm-opt" id="amm-forte-opt"><input type="radio" name="intensity" value="Forte"><span class="amm-opt-mark"></span><span class="amm-opt-body"><strong>Forte</strong><small>Pressioni più profonde e intense</small></span></label>
+                </div>
+                <!-- Avviso fibromialgia (solo lato client, non viene inviato) -->
+                <div class="amm-warn" id="amm-fibro-warn" hidden>
+                    <p>In presenza di fibromialgia, il massaggio con pressione forte non viene eseguito, poiché potrebbe provocare un peggioramento della sintomatologia dolorosa. Sarà possibile concordare un trattamento più delicato, adattato alla sensibilità individuale.</p>
+                    <label class="amm-check"><input type="checkbox" id="amm-fibro-check"> <span>Soffro di fibromialgia</span></label>
+                    <p class="amm-fibro-block" id="amm-fibro-block" hidden>Con fibromialgia non è possibile selezionare l'intensità <strong>Forte</strong>. Ti suggeriamo <strong>Media</strong> o <strong>Delicata</strong>.</p>
+                </div>
+            </div>
+
+            <!-- Aromaterapia -->
+            <div class="amm-field">
+                <h3 class="amm-field-title">Aromaterapia</h3>
+                <p class="amm-field-desc">Scegli un olio essenziale da miscelare con olio di mandorle. Puoi anche non utilizzare oli essenziali.</p>
+                <div class="amm-select-wrap">
+                    <select id="amm-aroma" class="amm-select">
+                        <option value="Lavanda">Lavanda</option>
+                        <option value="Menta">Menta</option>
+                        <option value="Incenso">Incenso</option>
+                        <option value="Arancia dolce">Arancia dolce</option>
+                        <option value="Olio 31">Olio 31</option>
+                        <option value="Vaniglia">Vaniglia</option>
+                        <option value="Eucalipto">Eucalipto</option>
+                    </select>
+                </div>
+                <label class="amm-check"><input type="checkbox" id="amm-nooil"> <span>Non utilizzare oli essenziali</span></label>
+                <p class="amm-note-info"><span class="amm-info-icon sm">i</span> Comunica eventuali allergie o sensibilità.</p>
+            </div>
+
+            <!-- Musica -->
+            <div class="amm-field">
+                <h3 class="amm-field-title">Musica</h3>
+                <div class="amm-options amm-options-inline" id="amm-music">
+                    <label class="amm-opt amm-opt-sm"><input type="radio" name="music" value="Musica con cuffie"><span class="amm-opt-mark"></span><span class="amm-opt-body"><strong>Musica con cuffie</strong></span></label>
+                    <label class="amm-opt amm-opt-sm"><input type="radio" name="music" value="Musica ambientale"><span class="amm-opt-mark"></span><span class="amm-opt-body"><strong>Musica ambientale</strong></span></label>
+                    <label class="amm-opt amm-opt-sm"><input type="radio" name="music" value="Senza musica"><span class="amm-opt-mark"></span><span class="amm-opt-body"><strong>Senza musica</strong></span></label>
+                </div>
+            </div>
+
+            <!-- Massaggiatore per occhi -->
+            <div class="amm-field">
+                <h3 class="amm-field-title">Massaggiatore per occhi</h3>
+                <p class="amm-field-desc">Dispositivo con calore e vibrazione, da utilizzare solo quando appropriato.</p>
+                <div class="amm-options amm-options-inline" id="amm-eye">
+                    <label class="amm-opt amm-opt-sm"><input type="radio" name="eye" value="Sì"><span class="amm-opt-mark"></span><span class="amm-opt-body"><strong>Sì, desidero utilizzarlo</strong></span></label>
+                    <label class="amm-opt amm-opt-sm"><input type="radio" name="eye" value="No"><span class="amm-opt-mark"></span><span class="amm-opt-body"><strong>No, grazie</strong></span></label>
+                </div>
+            </div>
+
+            <!-- Note -->
+            <div class="amm-field">
+                <h3 class="amm-field-title">3. Note aggiuntive <span class="amm-opt-tag">(opzionale)</span></h3>
+                <p class="amm-field-desc">Vuoi comunicarci qualcosa prima del tuo massaggio? (ad esempio zone da evitare, preferenze particolari, ecc.)</p>
+                <textarea id="amm-notes" class="amm-textarea" rows="3" placeholder="Scrivi qui..."></textarea>
+            </div>
+        </section>
+
+        <!-- ====================== IDENTIFICAZIONE + INVIO ====================== -->
+        <section class="amm-card amm-send-card" aria-labelledby="sec-send-title">
+            <h2 class="amm-sec-title" id="sec-send-title">Completa e invia</h2>
+            <div class="amm-field" id="amm-name-field">
+                <label class="amm-field-title" for="amm-name">Nome e riferimento prenotazione / regalo</label>
+                <p class="amm-field-desc">Serve per collegare le tue preferenze alla tua prenotazione.</p>
+                <input type="text" id="amm-name" class="amm-input" placeholder="Es. Maria Rossi — prenotazione del 20/10 / regalo di...">
+            </div>
+
+            <button type="button" class="amm-send-btn" id="amm-send-btn" disabled>
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893A11.821 11.821 0 0020.484 3.687"/></svg>
+                <span id="amm-send-label">Invia le mie preferenze su WhatsApp</span>
+            </button>
+            <button type="button" class="amm-send-btn amm-gift-buy-btn" id="amm-gift-buy-btn" hidden>Acquista come regalo (€50)</button>
+            <p class="amm-send-hint" id="amm-send-hint">Completa i 90 minuti e le preferenze per abilitare l'invio.</p>
+            <p class="amm-privacy"><span class="amm-info-icon sm">i</span> I tuoi dati vengono inviati in modo sicuro a Carites Ravenna. Non è richiesta la registrazione.</p>
+        </section>
+
+        </div><!-- /amm-col2 -->
+    </main>
+
+    <!-- ====================== RIEPILOGO (step 3) ====================== -->
+    <div class="amm-modal-overlay" id="amm-recap" hidden>
+        <div class="amm-modal" role="dialog" aria-modal="true" aria-labelledby="amm-recap-title">
+            <div class="amm-modal-head">
+                <h3 id="amm-recap-title">Riepilogo — Massaggio A Modo Mio</h3>
+                <button class="amm-modal-close" id="amm-recap-close" aria-label="Chiudi">&times;</button>
+            </div>
+            <div class="amm-modal-body" id="amm-recap-body"></div>
+            <div class="amm-modal-foot">
+                <button type="button" class="amm-btn-secondary" id="amm-recap-back">Modifica</button>
+                <button type="button" class="amm-btn-primary" id="amm-recap-send">Conferma e invia</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="assets/js/a-modo-mio.js"></script>
+</body>
+</html>

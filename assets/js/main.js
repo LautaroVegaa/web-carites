@@ -84,6 +84,11 @@
         // Cargar datos y UI inicial
         renderServices();
         updateCartUI();
+
+        // Si se llega desde el formulario "A Modo Mio" con #carrello, abrir el carrito
+        if (window.location.hash === '#carrello') {
+            openCart();
+        }
     }
 
     // =====================
@@ -276,6 +281,12 @@
         // ... (Listeners de botones de modales info y promo sin cambios) ...
         document.getElementById("modal-add-cart").addEventListener("click", () => {
             if (currentServiceId) {
+                const svc = services.find(s => s.id === currentServiceId);
+                if (svc && svc.formUrl) {
+                    // Servizi con formulario proprio (es. A Modo Mio): porta al modulo
+                    window.location.href = svc.formUrl;
+                    return;
+                }
                 addToCart(currentServiceId);
                 closeInfo();
             }
@@ -389,10 +400,19 @@ function createServiceCard(service) {
 
         // Evitamos que al hacer clic en el botón se abra el modal
         const button = card.querySelector('.btn-primary');
-        button.addEventListener('click', (e) => {
-            e.stopPropagation(); 
-            addToCart(service.id);
-        });
+        if (service.formUrl) {
+            // Servizi con modulo proprio (es. A Modo Mio): il pulsante porta alla personalizzazione
+            button.textContent = "Personalizza il massaggio";
+            button.addEventListener('click', (e) => {
+                e.stopPropagation();
+                window.location.href = service.formUrl;
+            });
+        } else {
+            button.addEventListener('click', (e) => {
+                e.stopPropagation();
+                addToCart(service.id);
+            });
+        }
 
         return card;
     }
@@ -590,6 +610,9 @@ function createServiceCard(service) {
             }
         modalImg.style.display = "none";
         }
+        // Etichetta del pulsante: i servizi con modulo proprio portano alla personalizzazione
+        const addBtn = document.getElementById("modal-add-cart");
+        addBtn.textContent = service.formUrl ? "Personalizza il tuo massaggio" : "Aggiungi al Carrello";
         infoModal.classList.add("active");
         document.body.style.overflow = "hidden";
     }

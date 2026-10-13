@@ -45,6 +45,7 @@ const serviceSchema = new mongoose.Schema({
   domicilio: Boolean,
   category: String,
   image: String,
+  formUrl: String,
   details: [String]
 });
 

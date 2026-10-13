@@ -8,6 +8,25 @@ dotenv.config(); // Para que lea mongo URI
 const services = [
 
     {
+    id: 25,
+    title: "Massaggio A Modo Mio",
+    description: "Il massaggio che scegli tu. 90 minuti personalizzati: scegli le zone, l'intensità, l'aroma e la musica. Tu scegli, noi ci prendiamo cura di te.",
+    duration: "90 min",
+    price: 50,
+    isPromo: false,
+    isMethod: false,
+    category: "profondi",
+    image: "assets/img/masaggio-a-modo-mio.jpeg",
+    formUrl: "a-modo-mio.html?buy=1",
+    details: [
+        "Quali parti del tuo corpo desiderano più attenzione? - Scegli le zone da massaggiare e dedica a ciascuna il tempo che preferisci, fino a comporre i tuoi 90 minuti di benessere.",
+        "Quale intensità ti fa stare meglio? - Delicata, media o forte? Esprimi la tua preferenza e lasciati accompagnare da mani esperte, nel rispetto delle esigenze del tuo corpo.",
+        "Quale profumo accompagnerà il tuo relax? - Scegli l'olio essenziale che preferisci, da miscelare con olio di mandorle, oppure goditi il massaggio senza aromi aggiunti.",
+        "Quale musica desideri ascoltare? - Con le cuffie, nell'ambiente oppure nel silenzio più completo. Sei tu a scegliere l'atmosfera del tuo benessere.",
+        "Vuoi regalare ancora più relax ai tuoi occhi? - Completa la tua esperienza con un massaggiatore oculare a calore e vibrazione, mentre il resto del corpo riceve il massaggio."
+    ]
+    },
+    {
     id: 24,
     title: "Massaggio bioattivo decontratturante + coppettazione",
     domicilio: true,
@@ -505,6 +524,7 @@ const serviceSchema = new mongoose.Schema({
   domicilio: Boolean,
   category: String,
   image: String,
+  formUrl: String,
   details: [String]
 });
 
