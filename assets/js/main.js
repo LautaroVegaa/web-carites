@@ -385,13 +385,20 @@ function createServiceCard(service) {
             ? '<span class="domicilio-badge">🏠 Anche a domicilio</span>'
             : '';
 
+        // Etichetta promo (es. "Promo fino a Natale") e prezzo con eventuale prezzo barrato
+        const promoTag = service.promo ? `<span class="promo-tag">${service.promo}</span>` : '';
+        const priceHtml = service.oldPrice
+            ? `<span class="service-price-old">€${service.oldPrice}</span> €${service.price}`
+            : `€${service.price}`;
+
         // Estructura limpia: Imagen, Título, Precio y Botón
         card.innerHTML = `
             ${domicilioBadge}
+            ${promoTag}
             <img src="${imageSrc}" alt="${service.title}" class="service-card-img">
             <div class="service-card-content">
                 <h3 class="service-title">${service.title}</h3>
-                <span class="service-price">€${service.price}</span>
+                <span class="service-price">${priceHtml}</span>
                 <div class="service-buttons">
                     <button class="btn btn-primary">Aggiungi al Carrello</button>
                 </div>
@@ -585,7 +592,13 @@ function createServiceCard(service) {
         if (!service) return;
         currentServiceId = service.id;
         document.getElementById("modal-title").textContent = service.title;
-        document.getElementById("modal-prezzo").textContent = "€" + service.price;
+        const prezzoEl = document.getElementById("modal-prezzo");
+        if (service.oldPrice) {
+            prezzoEl.innerHTML = `<span class="modal-price-old">€${service.oldPrice}</span> €${service.price}` +
+                (service.promo ? ` <span class="modal-promo">${service.promo}</span>` : '');
+        } else {
+            prezzoEl.textContent = "€" + service.price;
+        }
         document.getElementById("modal-desc").textContent = service.description.replace("Disponibile in locale o a domicilio.", "");
         const durataP = document.getElementById("modal-durata").parentNode;
         const detailsP = document.getElementById("modal-details");

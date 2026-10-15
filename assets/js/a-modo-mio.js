@@ -13,7 +13,7 @@
     var WHATSAPP_NUMBER = "393889399627"; // Carites Ravenna
 
     // Servizio nel catalogo (per l'acquisto dal sito, senza toccare la passerella di pagamento)
-    var AMM_SERVICE = { id: 25, title: "Massaggio A Modo Mio", price: 50 };
+    var AMM_SERVICE = { id: 25, title: "Massaggio A Modo Mio", price: 40 };
     // Modalità acquisto: attiva solo quando si arriva dal catalogo con ?buy=1
     var buyMode = false;
     try { buyMode = new URLSearchParams(window.location.search).get("buy") === "1"; } catch (e) {}
@@ -78,7 +78,7 @@
     function setupBuyMode() {
         document.getElementById("amm-gift-banner").hidden = false;
         var label = document.getElementById("amm-send-label");
-        if (label) label.textContent = "Invia le preferenze e acquista (€50)";
+        if (label) label.textContent = "Invia le preferenze e acquista (€40)";
         document.getElementById("amm-gift-check").addEventListener("change", onGiftToggle);
         document.getElementById("amm-gift-buy-btn").addEventListener("click", addToCartAndCheckout);
         var recapSendBtn = document.getElementById("amm-recap-send");
@@ -408,7 +408,7 @@
             '<div class="amm-recap-row"><span class="amm-recap-label">Massaggiatore occhi</span><span class="amm-recap-val">' + state.eye + '</span></div>' +
             (state.notes ? '<div class="amm-recap-row"><span class="amm-recap-label">Note</span><span class="amm-recap-val">' + escapeHtml(state.notes) + '</span></div>' : '') +
             '<div class="amm-recap-row"><span class="amm-recap-label">Nome / riferimento</span><span class="amm-recap-val">' + escapeHtml(state.name) + '</span></div>' +
-            (buyMode ? '<p class="amm-recap-pay-note">Dopo l\'invio, completa il pagamento di <strong>€50</strong> nel carrello per confermare la prenotazione.</p>' : '');
+            (buyMode ? '<p class="amm-recap-pay-note">Dopo l\'invio, completa il pagamento di <strong>€40</strong> nel carrello per confermare la prenotazione.</p>' : '');
         document.getElementById("amm-recap").hidden = false;
         document.body.style.overflow = "hidden";
     }

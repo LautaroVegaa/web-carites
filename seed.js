@@ -12,7 +12,9 @@ const services = [
     title: "Massaggio A Modo Mio",
     description: "Il massaggio che scegli tu. 90 minuti personalizzati: scegli le zone, l'intensità, l'aroma e la musica. Tu scegli, noi ci prendiamo cura di te.",
     duration: "90 min",
-    price: 50,
+    price: 40,
+    oldPrice: 50,
+    promo: "Promo fino a Natale",
     isPromo: false,
     isMethod: false,
     category: "profondi",
@@ -525,6 +527,8 @@ const serviceSchema = new mongoose.Schema({
   category: String,
   image: String,
   formUrl: String,
+  oldPrice: Number,
+  promo: String,
   details: [String]
 });
 

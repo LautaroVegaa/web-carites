@@ -46,6 +46,8 @@ const serviceSchema = new mongoose.Schema({
   category: String,
   image: String,
   formUrl: String,
+  oldPrice: Number,
+  promo: String,
   details: [String]
 });
 
